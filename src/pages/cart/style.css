@@ -1,0 +1,120 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
+
+.cartPage {
+    display: flex;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.cart-left{
+    width: 60%;
+}
+
+.cart-left h2 {
+    margin-right: 40px;
+    padding: 10px;
+}
+
+.counter {
+    display: flex;
+    margin: 0 auto;
+}
+
+.counter span {
+    padding: 0rem 3rem;
+}
+
+.btn-minus, .btn-plus {
+    width: 25px;
+    height: 25px;
+    border: none;
+    outline: none;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(201, 201, 201);
+}
+
+.cart-right {
+    display: flex;
+    width: 40vw;
+    height: 100%;
+    text-transform: uppercase;
+    display: flex;
+    flex-direction: column;
+    margin-right: 1rem;
+    padding: 0rem 2rem;
+    background-color: #f3f3f3;
+    border: 1px solid #dddddd;
+    border-radius: 3px;
+}
+
+.valor {
+    border-top: solid 1px #979797;
+    border-bottom: solid 1px #979797;
+    display: flex;
+    flex-direction: column;
+    padding: .8rem 0rem;
+}
+
+.valor span, strong {
+    margin-top: .6rem;
+}
+
+.btn-clean {
+    cursor: pointer;
+    text-align: center;
+    outline: none;
+    text-transform: uppercase;
+    color: #fff;
+    background: #d13a3a;
+    font-weight: 600;
+    letter-spacing: 2px;
+    padding: .5rem 0rem;
+    border: none;
+    margin-top: 1rem;
+    justify-content: center;
+}
+
+.btn-clean:hover {
+    background: #be3232;
+}
+
+.btn-pay {
+    cursor: pointer;
+    text-align: center;
+    outline: none;
+    text-transform: uppercase;
+    color: #fff;
+    background: #3c884a;
+    font-weight: 600;
+    letter-spacing: 2px;
+    padding: .5rem 0rem;
+    border: none;
+    margin-top: 1rem;
+    justify-content: center;
+}
+
+.btn-pay:hover {
+    background: #286634;
+}
+
+@media screen and (max-width: 768px) {
+    .cartPage{
+        flex-direction: column;
+        width: 100vw;
+    }
+
+    .cart-left{
+        width: 100vw;
+    }
+
+    .cart-right {
+        width: 90vw;
+        padding: 1rem;
+        align-items: center;
+        margin-bottom: 1rem;
+    }
+
+    .btn-pay {
+        width: 80%;
+    }
+}
