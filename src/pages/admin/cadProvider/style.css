@@ -1,4 +1,4 @@
-.Admin {
+.Provider {
 
     display: flex;
     flex-direction: column;
@@ -6,7 +6,7 @@
 
 }
 
-#mainProvider {
+#mainAdmin {
 
     width: 100vw;
     display: flex;
@@ -18,7 +18,7 @@
 
 }
 
-.titleAdmin {
+.titleProvider {
 
     width: 100%;
     text-align: center;
@@ -26,7 +26,7 @@
 
 }
 
-.adminOptions {
+.providerOptions {
 
     width: 60%;
     display: flex;
@@ -34,7 +34,7 @@
 
 }
 
-.adminOptions fieldset a { 
+.providerOptions fieldset a { 
 
     color: white;
     padding: 15px;
@@ -47,7 +47,7 @@
 
  }
 
-.adminOptions input {
+.providerOptions input {
 
     width: 60%;
     color: black;
@@ -60,7 +60,7 @@
 
 }
 
-.adminOptions fieldset select {
+.providerOptions fieldset select {
 
     width: 64%;
     border: none;
@@ -72,7 +72,7 @@
 
 }
 
-.adminOptions fieldset option {
+.providerOptions fieldset option {
 
     padding: 10px;
 

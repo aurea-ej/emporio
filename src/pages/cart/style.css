@@ -1,7 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
 
-.cartPage {
+.CartPage {
+    width: 100vw;
+    height: 100%;
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     font-family: 'Montserrat', sans-serif;
 }
 

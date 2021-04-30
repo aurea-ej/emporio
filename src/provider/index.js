@@ -4,20 +4,20 @@ export const AuthContext = React.createContext({});
 
 export const AuthProvider = (props) => {
 
-  const [products, setProducts] = useState([
-    {
-        id: 0,
-        amount: 5,
-    },
-    {
-        id: 1,
-        amount: 4,
-    },
-    {
-        id: 2,
-        amount: 2,
-    },
-]);
+  const [products, setProducts] = useState([])
+//     {
+//         id: 0,
+//         amount: 5,
+//     },
+//     {
+//         id: 1,
+//         amount: 4,
+//     },
+//     {
+//         id: 2,
+//         amount: 2,
+//     },
+// ]);
 
   useEffect(() => {
 
@@ -27,20 +27,21 @@ export const AuthProvider = (props) => {
         setProducts(JSON.parse(productsStorage));
 
     else {
-        setProducts([
-            {
-                id: 0,
-                amount: 5,
-            },
-            {
-                id: 1,
-                amount: 4,
-            },
-            {
-                id: 2,
-                amount: 2,
-            },
-        ]);
+      setProducts([])
+      // setProducts(JSON.parse(productsStorage));
+        //     {
+        //         id: 0,
+        //         amount: 5,
+        //     },
+        //     {
+        //         id: 1,
+        //         amount: 4,
+        //     },
+        //     {
+        //         id: 2,
+        //         amount: 2,
+        //     },
+        // ]);
     }
 
   }, []);

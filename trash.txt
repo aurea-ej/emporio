@@ -66,3 +66,278 @@ firebase.database().ref('items/' + 4).set({
         }
 
     ])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div className='search' >
+
+            <h1 onClick={()=>{ttt()}} >Empório Bom Jardim</h1>
+
+            <input type="text" placeholder="Procurar.." />
+
+        </div>
+
+        <div className='containerHome' >
+
+            <div className='productsHome'>
+
+                <section id='sectionHome'>
+
+                {
+                    data.map(item => (
+
+                        <div className='boxHome'>
+
+                            <img src={item.imageSrc} alt='teste' />
+                            <h3>{item.title}</h3>
+
+                            <div className='lineBoxProduct'>
+
+                                <h4>R$ {item.price}</h4>
+                                <img src={shoppingCart}/>
+
+                            </div>
+
+                            <p>{item.desc}</p>
+
+                            {/* <Button /> */}
+
+                        </div>
+
+                    ))
+                }
+
+                </section>
+
+            </div>
+
+            <div className="areaLateral">
+        
+                <div className='menuProductsHome' >
+
+                    <div className='filterProducts' >
+
+                        <h4>Preço</h4>
+
+                        <div className='filtersInputs'>
+                            <input placeholder='min' />
+                                -    
+                            <input placeholder='max' />
+                        </div>
+
+                    </div>
+
+                    <div className='filterProducts' >
+
+                        <h4>Tipo</h4>
+
+                        <ul>
+                            <li>Frutas</li>
+                            <li>Verduras</li>
+                            <li>Legume</li>
+                            <li>Grãos</li>
+                            <li>Kits</li>
+                        </ul>
+
+                    </div>
+
+                </div>
+
+                {/* <div className="BarraLateral">
+
+                    <nav>
+                        <ul class="SubProduto">
+                            <li><a href="#">SubProdutos</a>
+                                <ul>
+                                    <li><a href="#">Produto 1</a></li>
+                                    <li><a href="#">Produto 2</a></li>
+                                    <li><a href="#">Produto 3</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <ul class="SubProduto">
+                            <li><a href="#">SubProdutos</a>
+                                <ul>
+                                    <li><a href="#">Produto 1</a></li>
+                                    <li><a href="#">Produto 2</a></li>
+                                    <li><a href="#">Produto 3</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <ul class="SubProduto">
+                            <li><a href="#">SubProdutos</a>
+                                <ul>
+                                    <li><a href="#">Produto 1</a></li>
+                                    <li><a href="#">Produto 2</a></li>
+                                    <li><a href="#">Produto 3</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </nav>
+
+                </div> */}
+            </div>
+        </div>
+
+        <Footer />
+
+
+
+
+
+
+
+
+página de carrinho:
+
+
+        const data = [
+
+    //     {
+    //         imageSrc: imgTeste4,
+    //         title: 'Cesta de frutas',
+    //         desc: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.",
+    //         price: 43.35
+
+    //     },
+    //     {
+    //         imageSrc: imgTeste2,
+    //         title: 'Maçãs',
+    //         desc: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa.",
+    //         price: 32.50
+
+    //     },
+    //     {
+    //         imageSrc: imgTeste5,
+    //         title: 'Abacate',
+    //         desc: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem.",
+    //         price: 215.50
+
+    //     },
+    //     {
+    //         imageSrc: imgTeste5,
+    //         title: 'Abacate',
+    //         desc: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.",
+    //         price: 235.50
+
+    //     },
+    //     {
+    //         imageSrc: imgTeste2,
+    //         title: 'Maçãs',
+    //         desc: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.",
+    //         price: 10.00
+
+    //     },
+    //     {
+    //         imageSrc: imgTeste6,
+    //         title: 'Uva',
+    //         desc: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto.",
+    //         price: 5.42
+
+    //     }
+
+    // ]
+
+    // const [num, setNum] = useState(1);
+
+    // const incNum = () => {
+    //     setNum(num + 1);
+    // };
+
+    // const decNum = () => {
+    //     if (num > 0) {
+    //         setNum(num - 1);
+    //     }
+    //     else {
+    //         setNum(0);
+    //     }
+    // };
+
+    // const cleanCart = () => {
+    //     if (num > 0) {
+    //         setNum(0);
+    //     }
+    // };
+
+    // let sumValue = data.reduce(function (previousValue, currentValue) {
+    //     return {
+    //         price: previousValue.price + currentValue.price,
+    //         total: num * (previousValue.price + currentValue.price)
+    //     }
+    // });
+
+
+
+    {/* <div className="counter">
+                                        <div className="btn-qntd">
+
+                                            <button
+                                                type="button"
+                                                className="btn-minus"
+                                                onClick={decNum}>
+                                                -
+                                            </button>
+
+                                        </div>
+
+                                        <span>{num}</span>
+
+                                        <div className="btn-qntd">
+
+                                            <button
+                                                type="button"
+                                                className="btn-plus"
+                                                onClick={incNum}>
+                                                +
+                                            </button>
+
+                                        </div>
+                                    </div> */}
+
+
+
+
+{/* <section id="sectionPayment">
+                    {
+                        <div className="cart-right">
+                            <h2>Resumo do pedido</h2>
+
+                            <div className="valor">
+                                <span>Quantidade de produtos: {num} </span>
+                                <span>Preço: R$ {sumValue.total} </span>
+                                <span>Desconto: R$ 0.00</span>
+                                <span>Entrega: R$ 0.00</span>
+                                <strong><span>Total: R$ {sumValue.total}</span></strong>
+
+                                <button
+                                    type="button"
+                                    className="btn-clean"
+                                    onClick={cleanCart}>
+                                    Limpar carrinho
+                                </button>
+
+                            </div>
+                            <button
+                                type="button"
+                                className="btn-pay">
+                                Continuar pagamento
+                            </button>
+
+                        </div>
+
+                    }
+                </section> */}
+            {/* </div> */}

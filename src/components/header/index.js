@@ -1,7 +1,7 @@
 import React, {useState, createRef} from 'react'
 import './headerStyle.css'
 import { Link } from "react-router-dom";
-import logoAurea from '../../img/logoAurea2.png'
+import logoEmporio from '../../img/logoEmporio.png'
 
 export default function Header (props) {
 
@@ -26,15 +26,9 @@ export default function Header (props) {
 
                 <div className='logo' >
 
-                    <Link to='/'> <img src={logoAurea} alt="LogoAurea" /> </Link>
+                    <Link to='/'> <img src={logoEmporio} alt="logo Emporio Bom Jardim" /> </Link>
 
                 </div>
-
-                {/* <div className='search' >
-
-                    <input type="text" placeholder="Procurar.." />
-
-                </div> */}
 
                 <div className='menu' >
 

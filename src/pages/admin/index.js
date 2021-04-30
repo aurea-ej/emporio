@@ -89,17 +89,22 @@ function Admin() {
 
     function insertNewItem() {
 
+        const id = firebase.database().ref().child('posts').push().key
+
         if (newDataAdmin.imageSrc != '' && newDataAdmin.title != '') {
 
             if ( newDataAdmin.desc != '' && newDataAdmin.price != 0 ) {
 
-                firebase.database().ref('items/' + 8).set({
+                firebase.database().ref('items/' + id).set({
 
                     imageSrc: newDataAdmin.imageSrc,
                     title: newDataAdmin.title,
                     desc: newDataAdmin.desc,
-                    price: newDataAdmin.price
+                    price: newDataAdmin.price,
+                    id: id
                 })
+
+                alert("Item inserido com sucesso!.")
                 
             } 
             
@@ -177,7 +182,7 @@ function Admin() {
 
                             <option>Selecione o item</option>
 
-                                {dataAdmin.map((item, index) => {
+                                {/* {dataAdmin.map((item, index) => {
 
                                     return (
 
@@ -185,7 +190,7 @@ function Admin() {
 
                                     )
 
-                                })}
+                                })} */}
 
                         </select>
 
@@ -213,7 +218,7 @@ function Admin() {
 
                             <option>Selecione o item</option>
 
-                            {dataAdmin.map((item,index) => {
+                            {/* {dataAdmin.map((item,index) => {
 
                                 return (
 
@@ -221,7 +226,7 @@ function Admin() {
 
                                 )
 
-                            })}
+                            })} */}
 
                         </select>
 

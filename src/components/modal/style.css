@@ -1,0 +1,92 @@
+.modal{
+
+    width: 80%;
+    min-height: 75vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border-radius: 10px;
+    position: absolute;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    top: 20%;
+    z-index: 300;
+    color: black;
+    background-color: white;
+    box-shadow: 0px 0px 8px rgba(160, 160, 160, 0.35);
+
+}
+
+.modal main {
+
+    width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+}
+
+.productImageModal {
+
+    width: 200px;
+
+}
+
+.lineBoxProductModal {
+
+    width: 85%;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0;
+    padding: 0;
+
+}
+
+.lineBoxProductModal h3 { 
+
+    font-size: 18pt;
+
+}
+
+.lineBoxProductModal img {
+
+    width: 40px;
+
+}
+
+.modal main a { 
+
+    padding: 10px;
+    color: white;
+    margin-top: 20px;
+    cursor: pointer;
+    border-radius: 10px;
+    background-color: black;
+    box-shadow: -2px 5px 8px #92929255;
+
+}
+
+.quantityOfProduct  {
+
+    display: flex;
+    align-items: center;
+
+}
+
+.quantityOfProduct p {
+
+    font-size: 15pt;
+
+}
+
+.quantityOfProduct img {
+
+    width: 20px;
+    margin: 0px 5px;
+
+}

@@ -1,7 +1,8 @@
 import React from 'react'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import Header from '../../components/header'
 import Footer from '../../components/footer'
+import Modal from '../../components/modal'
 import './style.css'
 
 import firebase from 'firebase/app'
@@ -18,6 +19,10 @@ function Home() {
     const [data, setData] = useState([])
     const { products, setProducts } = useAuth();
 
+    const [ displayModal, setDisplayModal ] = useState("none");
+    const [ modalData, setModalData ] = useState({});
+
+
     useEffect(()=>{
 
         if(!firebase.apps.length)
@@ -26,8 +31,12 @@ function Home() {
             firebase.database().ref('items').get('/items')
             .then(function(snapshot) {
 
-                if (snapshot.exists()) 
-                    setData(snapshot.val());
+                if (snapshot.exists()){
+
+                    var data = snapshot.val()
+                    var temp = Object.keys(data).map((key) => data[key])
+                    setData(temp)
+                }
                 else {
                     console.log("No data available");
                 }
@@ -41,18 +50,25 @@ function Home() {
 
     }, []);
 
-    function ttt() {
+    useEffect(() => {
 
-        const teste = [...products]
+        const products = JSON.parse(localStorage.getItem('products'))
 
-        teste.push({id: 2, amount: 3})
+        if(products != null){
+            if(!(products.id))
+                localStorage.setItem('products','[{}]')
+        }
 
-        setProducts (teste)
+    }, []);
+        
+    function handleModalInfos(item) {
 
-        console.log(products)
+        setModalData(item)
+        console.log(modalData)
+
+        displayModal == "none" ? setDisplayModal("flex") : setDisplayModal("none")
         
     }
-        
 
   return (
 
@@ -60,9 +76,13 @@ function Home() {
 
         <Header />
 
+        <button onClick={handleModalInfos} >Abrir/fechar Modal - teste</button>
+
+        <Modal displayProperty={displayModal} modalData={modalData} />
+
         <div className='search' >
 
-            <h1 onClick={()=>{ttt()}} >Empório Bom Jardim</h1>
+            <h1>Empório Bom Jardim</h1>
 
             <input type="text" placeholder="Procurar.." />
 
@@ -77,7 +97,8 @@ function Home() {
                 {
                     data.map(item => (
 
-                        <div className='boxHome'>
+                        <div className='boxHome' 
+                            onClick={()=>{handleModalInfos(item)}}>
 
                             <img src={item.imageSrc} alt='teste' />
                             <h3>{item.title}</h3>
@@ -90,8 +111,6 @@ function Home() {
                             </div>
 
                             <p>{item.desc}</p>
-
-                            {/* <Button /> */}
 
                         </div>
 
