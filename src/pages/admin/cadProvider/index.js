@@ -75,9 +75,13 @@ import firebaseConfig from '../../../FIREBASECONFIG.js'
                 firebase.database().ref('providers').get('/providers')
                 .then(function(snapshot) {
 
-                    if (snapshot.exists()) 
-                        setDataAdmin(snapshot.val());
-                    else {
+                    if (snapshot.exists()){
+
+                        var data = snapshot.val()
+                        var temp = Object.keys(data).map((key) => data[key])
+                        setDataAdmin(temp)
+                        
+                    }else {
                         console.log("No data available");
                     }
                 })

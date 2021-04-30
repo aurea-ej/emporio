@@ -95,9 +95,10 @@ function Home() {
                 <section id='sectionHome'>
 
                 {
-                    data.map(item => (
+                    data.map((item,index) => (
 
                         <div className='boxHome' 
+
                             onClick={()=>{handleModalInfos(item)}}>
 
                             <img src={item.imageSrc} alt='teste' />
@@ -113,6 +114,7 @@ function Home() {
                             <p>{item.desc}</p>
 
                         </div>
+
 
                     ))
                 }
@@ -153,42 +155,8 @@ function Home() {
 
                 </div>
 
-                {/* <div className="BarraLateral">
-
-                    <nav>
-                        <ul class="SubProduto">
-                            <li><a href="#">SubProdutos</a>
-                                <ul>
-                                    <li><a href="#">Produto 1</a></li>
-                                    <li><a href="#">Produto 2</a></li>
-                                    <li><a href="#">Produto 3</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-
-                        <ul class="SubProduto">
-                            <li><a href="#">SubProdutos</a>
-                                <ul>
-                                    <li><a href="#">Produto 1</a></li>
-                                    <li><a href="#">Produto 2</a></li>
-                                    <li><a href="#">Produto 3</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-
-                        <ul class="SubProduto">
-                            <li><a href="#">SubProdutos</a>
-                                <ul>
-                                    <li><a href="#">Produto 1</a></li>
-                                    <li><a href="#">Produto 2</a></li>
-                                    <li><a href="#">Produto 3</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </nav>
-
-                </div> */}
             </div>
+
         </div>
 
         <Footer />
