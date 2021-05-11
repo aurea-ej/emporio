@@ -12,16 +12,18 @@ import firebaseConfig from '../../FIREBASECONFIG.js'
 
 import shoppingCart from '../../img/shoppingCart.png'
 
-import { useAuth } from '../../provider'
-
 function Home() {
 
     const [data, setData] = useState([])
-    const { products, setProducts } = useAuth();
+    const [dataBackup, setDataBackup] = useState([])
+    const [searchInput, setSearchInput] = useState([])
+    const [displaySearchResult, setDisplaySearchResult] = useState('none')
+    const [minProductPrice, setMinProductPrice] = useState(0)
+    const [maxProductPrice, setMaxProductPrice] = useState(0)
 
     const [ displayModal, setDisplayModal ] = useState("none");
     const [ modalData, setModalData ] = useState({});
-
+    const [ pageHeight, setPageHeight ] = useState(0);
 
     useEffect(()=>{
 
@@ -36,6 +38,7 @@ function Home() {
                     var data = snapshot.val()
                     var temp = Object.keys(data).map((key) => data[key])
                     setData(temp)
+                    setDataBackup(temp)
                 }
                 else {
                     console.log("No data available");
@@ -47,6 +50,7 @@ function Home() {
     useEffect(() => {
 
         window.scrollTo(0, 0);
+        setPageHeight(window.screen.height)
 
     }, []);
 
@@ -64,10 +68,85 @@ function Home() {
     function handleModalInfos(item) {
 
         setModalData(item)
-        console.log(modalData)
 
         displayModal == "none" ? setDisplayModal("flex") : setDisplayModal("none")
         
+    }
+
+    function closeModal () {
+
+        displayModal == "none" ? setDisplayModal("flex") : setDisplayModal("none")
+
+    
+    }
+
+    function handleSearchInput(event) {
+
+        if (event.key == 'Enter') {
+
+            clearSearchItem()
+            searchItem()
+            
+        }
+        setSearchInput(event.target.value)
+        
+    }
+
+    function handleMinProductPrice(event) {
+
+        if (event.key == 'Enter') 
+            filterItemByPrice()
+
+        setMinProductPrice(event.target.value)
+        
+    }
+
+    function handleMaxProductPrice(event) {
+
+        if (event.key == 'Enter')
+            filterItemByPrice()
+
+        setMaxProductPrice(Number(event.target.value))
+        
+    }
+
+    function searchItem() {
+
+        var itens = []
+
+        data.map((item)=>{
+
+            if( item.title.includes(searchInput) || item.desc.includes(searchInput))
+                itens.push(item)
+
+        })
+
+        setData(itens)
+        setDisplaySearchResult('flex')
+        
+    }
+
+    function filterItemByPrice() {
+
+        var itens = []
+
+        data.map((item)=>{
+
+            if( Number(item.price) >= minProductPrice && Number(item.price) <= maxProductPrice)
+                itens.push(item)
+
+        })
+
+        setData(itens)
+        setDisplaySearchResult('flex')
+        
+    }
+
+    function clearSearchItem () {
+
+        setDisplaySearchResult('none')
+        setData(dataBackup)
+
     }
 
   return (
@@ -76,19 +155,31 @@ function Home() {
 
         <Header />
 
-        <button onClick={handleModalInfos} >Abrir/fechar Modal - teste</button>
+        <div style={{display:displayModal }} tabindex="-1" role="dialog" className='divModal' >
 
-        <Modal displayProperty={displayModal} modalData={modalData} />
-
-        <div className='search' >
-
-            <h1>Empório Bom Jardim</h1>
-
-            <input type="text" placeholder="Procurar.." />
+            <span onClick={closeModal}>X</span>
+            <Modal displayProperty={displayModal} modalData={modalData} />
 
         </div>
 
-        <div className='containerHome' >
+        <div className='introHome' >
+
+            <h1>Empório Bom Jardim</h1>
+
+        </div>
+
+        <section style={{display: displaySearchResult}} className='sectionSearchResult' >
+
+            <div className='divSearchResult'>
+
+                <h3>Resultado da busca:</h3>
+                <a onClick={()=>{clearSearchItem()}}>Limpar pesquisa</a>
+
+            </div>
+
+        </section>
+
+        <div className='containerHome' style={{opacity: 1}} >
 
             <div className='productsHome'>
 
@@ -129,12 +220,25 @@ function Home() {
 
                     <div className='filterProducts' >
 
+                        <h4>Pesquisar produto</h4>
+
+                        <div className='search'>
+
+                            <input type="text" placeholder="Procurar.." onKeyDown={handleSearchInput} />
+                            {/* <a onClick={()=>{searchItem()}}>Pesquisar</a> */}
+
+                        </div>
+
+                    </div>
+
+                    <div className='filterProducts' >
+
                         <h4>Preço</h4>
 
                         <div className='filtersInputs'>
-                            <input placeholder='min' />
+                            <input placeholder='min' type='number' onKeyDown={handleMinProductPrice} />
                                 -    
-                            <input placeholder='max' />
+                            <input placeholder='max' type='number' onKeyDown={handleMaxProductPrice}/>
                         </div>
 
                     </div>

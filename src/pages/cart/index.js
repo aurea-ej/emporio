@@ -11,20 +11,42 @@ function Cart() {
     // const { products, setProducts } = useAuth();
     const [ data, setData ] = useState([]);
     const [ dataExists, setDataExists ] = useState(false);
+    const [ totalValue, setTotalValue ] = useState(0);
 
     useEffect(async () => {
 
         const verify = await JSON.parse(localStorage.getItem('products'))
     
         if (verify != null && verify.length > 1){
-            console.log(verify)
             setData(verify)
             setDataExists(true)
+
+            var total = 0
+
+            verify.map((item)=>{
+
+                if(item.data != undefined){
+
+                    var value = ( Number(item.data.price) * Number(item.amount) )
+                    total = value + total
+                        
+                }
+
+                setTotalValue(total)
+            })
+
         }
         else
             setDataExists(false)
 
     },[])
+
+    function sendOrder () {
+
+        // Ver como vamos fazer o envio. E-mail, whatsapp... ou só deixar numa dashboard de pedidos
+        return 0;
+
+    }
 
     if (dataExists) {
 
@@ -33,38 +55,51 @@ function Cart() {
 
                 <Header />
 
-                <h2>Seu carrinho de compras: </h2>
+                <div className='textIntroCart' >
+                    <h2>Seus itens no carrinho de compras: </h2>
+                    <p>Após revisar os itens, clique no botão para finalizar o pedido </p>
+                </div>
 
-                <section id='sectionHome'>
+                <section id='sectionCart flexDisplay'>
 
                     {
                         data.map((item,index) => {
-
-                            console.log(item)
 
                             if (index != 0) {
 
                                 return (
 
-                                <div className='boxHome'>
+                                    <div className='boxCart flexDisplay'>
 
-                                    <img src={item.data.imageSrc} alt='teste' />
-                                    <h3>{item.data.title}</h3>
+                                        <div className='lineBoxCardProduct' >
 
-                                    <div className='lineBoxProduct'>
+                                            <img src={item.data.imageSrc} alt='teste' />
+                                            <h3>{item.data.title}</h3>
 
-                                        <h4>R$ {((item.data.price) * item.amount).toFixed(2)}</h4>
-                                        <h5>qnt.:{item.amount}</h5>
+                                        </div>
+
+                                        <div className='lineBoxCardProduct flexDisplay'>
+
+                                            <h4>R$ {((item.data.price) * item.amount).toFixed(2)}</h4>
+                                            <h5>qnt.:{item.amount}</h5>
+
+                                        </div>
 
                                     </div>
-
-                                </div>
-                            )}
+                                )
+                            }
 
                         })
                     }
 
+                    <h3>Valor total: {totalValue.toFixed(2)}</h3>
+
+
                 </section>
+
+                <div className='checkOut' >
+                    <a>Finalizar pedido</a>
+                </div>
 
                 <Footer />
 
