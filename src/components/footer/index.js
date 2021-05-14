@@ -6,7 +6,8 @@ import './footerStyle.css'
 import instagramIcon from '../../img/instagramIcon.png'
 import facebookIcon from '../../img/facebookIcon.png'
 import linkedinIcon from '../../img/linkedinIcon.png'
-import logoAurea from '../../img/logoAurea2.png'
+import logoAurea from '../../img/logoAurea.png'
+import logoEmporio from '../../img/logoEmporio3.png'
 
 export default function Footer (props) {
 
@@ -26,6 +27,8 @@ export default function Footer (props) {
             </div>
 
             <div className='address' >
+
+                <img src={logoEmporio} alt='logoEmporio' />
 
                 <ul>
                     <li> <Link to='/' > Início </Link> </li>

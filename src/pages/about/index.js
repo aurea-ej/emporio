@@ -16,7 +16,7 @@ function About() {
             <div className="about-section">
                 <div className="about-container">
                     <video src='/videos/video-2.mp4' autoPlay loop muted />
-                    <h1>Uma frase daora aqui</h1>
+                    <h1>Uma frase aqui</h1>
                     <div className="bar" />
                 </div>
 

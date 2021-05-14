@@ -11,6 +11,7 @@ import 'firebase/database'
 import firebaseConfig from '../../FIREBASECONFIG.js'
 
 import shoppingCart from '../../img/shoppingCart.png'
+import heroImg from '../../img/heroImg3.jpg'
 
 function Home() {
 
@@ -21,31 +22,31 @@ function Home() {
     const [minProductPrice, setMinProductPrice] = useState(0)
     const [maxProductPrice, setMaxProductPrice] = useState(0)
 
-    const [ displayModal, setDisplayModal ] = useState("none");
-    const [ modalData, setModalData ] = useState({});
-    const [ pageHeight, setPageHeight ] = useState(0);
+    const [displayModal, setDisplayModal] = useState("none");
+    const [modalData, setModalData] = useState({});
+    const [pageHeight, setPageHeight] = useState(0);
 
-    useEffect(()=>{
+    useEffect(() => {
 
-        if(!firebase.apps.length)
+        if (!firebase.apps.length)
             firebase.initializeApp(firebaseConfig);
 
-            firebase.database().ref('items').get('/items')
-            .then(function(snapshot) {
+        firebase.database().ref('items').get('/items')
+        .then(function (snapshot) {
 
-                if (snapshot.exists()){
+            if (snapshot.exists()) {
 
-                    var data = snapshot.val()
-                    var temp = Object.keys(data).map((key) => data[key])
-                    setData(temp)
-                    setDataBackup(temp)
-                }
-                else {
-                    console.log("No data available");
-                }
-            })
+                var data = snapshot.val()
+                var temp = Object.keys(data).map((key) => data[key])
+                setData(temp)
+                setDataBackup(temp)
+            }
+            else {
+                console.log("No data available");
+            }
+        })
 
-    },[])
+    }, [])
 
     useEffect(() => {
 
@@ -58,26 +59,26 @@ function Home() {
 
         const products = JSON.parse(localStorage.getItem('products'))
 
-        if(products != null){
-            if(!(products.id))
-                localStorage.setItem('products','[{}]')
+        if (products != null) {
+            if (!(products.id))
+                localStorage.setItem('products', '[{}]')
         }
 
     }, []);
-        
+
     function handleModalInfos(item) {
 
         setModalData(item)
 
         displayModal == "none" ? setDisplayModal("flex") : setDisplayModal("none")
-        
+
     }
 
-    function closeModal () {
+    function closeModal() {
 
         displayModal == "none" ? setDisplayModal("flex") : setDisplayModal("none")
 
-    
+
     }
 
     function handleSearchInput(event) {
@@ -86,19 +87,17 @@ function Home() {
 
             clearSearchItem()
             searchItem()
-            
+
         }
         setSearchInput(event.target.value)
-        
+
     }
 
     function handleMinProductPrice(event) {
 
-        if (event.key == 'Enter') 
+        if (event.key == 'Enter')
             filterItemByPrice()
 
-        setMinProductPrice(event.target.value)
-        
     }
 
     function handleMaxProductPrice(event) {
@@ -106,154 +105,179 @@ function Home() {
         if (event.key == 'Enter')
             filterItemByPrice()
 
-        setMaxProductPrice(Number(event.target.value))
-        
     }
 
     function searchItem() {
 
         var itens = []
 
-        data.map((item)=>{
+        data.map((item) => {
 
-            if( item.title.includes(searchInput) || item.desc.includes(searchInput))
+            if (item.title.includes(searchInput) || item.desc.includes(searchInput))
                 itens.push(item)
 
         })
 
         setData(itens)
         setDisplaySearchResult('flex')
-        
+
     }
 
     function filterItemByPrice() {
 
         var itens = []
 
-        data.map((item)=>{
+        data.map((item) => {
 
-            if( Number(item.price) >= minProductPrice && Number(item.price) <= maxProductPrice)
+            if (Number(item.price) >= minProductPrice && Number(item.price) <= maxProductPrice)
                 itens.push(item)
 
         })
 
         setData(itens)
         setDisplaySearchResult('flex')
-        
+
     }
 
-    function clearSearchItem () {
+    function clearSearchItem() {
 
         setDisplaySearchResult('none')
         setData(dataBackup)
 
     }
 
-  return (
+    return (
 
-    <div className="App">
+        <div className="App">
 
-        <Header />
+            <Header />
 
-        <div style={{display:displayModal }} tabindex="-1" role="dialog" className='divModal' >
+            <div style={{ display: displayModal }} tabindex="-1" role="dialog" className='divModal' >
 
-            <span onClick={closeModal}>X</span>
-            <Modal displayProperty={displayModal} modalData={modalData} />
-
-        </div>
-
-        <div className='introHome' >
-
-            <h1>Empório Bom Jardim</h1>
-
-        </div>
-
-        <section style={{display: displaySearchResult}} className='sectionSearchResult' >
-
-            <div className='divSearchResult'>
-
-                <h3>Resultado da busca:</h3>
-                <a onClick={()=>{clearSearchItem()}}>Limpar pesquisa</a>
+                <span onClick={closeModal}>X</span>
+                <Modal displayProperty={displayModal} modalData={modalData} />
 
             </div>
 
-        </section>
+            <section id='heroSection'>
 
-        <div className='containerHome' style={{opacity: 1}} >
+                <div className='introHome' >
 
-            <div className='productsHome'>
+                    <img src={heroImg} alt="Imagem inicial" />
 
-                <section id='sectionHome'>
+                    <div className="heroText">
+                        {/* <h1 className='first-name'>Empório</h1>
+                            <h1 className='second-name'>Bom Jardim</h1> */}
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                        </p>
 
-                {
-                    data.map((item,index) => (
+                    </div>
+                    
+                </div>
 
-                        <div className='boxHome' 
+                <div className="borderImg" />
 
-                            onClick={()=>{handleModalInfos(item)}}>
+            </section>
+            
+            <h1>Confira nossos produtos</h1>
 
-                            <img src={item.imageSrc} alt='teste' />
-                            <h3>{item.title}</h3>
+            <section style={{ display: displaySearchResult }} className='sectionSearchResult' >
 
-                            <div className='lineBoxProduct'>
+                <div className='divSearchResult'>
 
-                                <h4>R$ {item.price}</h4>
-                                <img src={shoppingCart}/>
+                    <h3>Resultado da busca:</h3>
+                    <a onClick={() => { clearSearchItem() }}>Limpar pesquisa</a>
+
+                </div>
+
+            </section>
+
+            <div className='containerHome' style={{ opacity: 1 }} >
+
+                <div className='productsHome'>
+
+                    <section id='sectionHome'>
+
+                        {
+                            data.map((item, index) => (
+
+                                <div className='boxHome'
+
+                                    onClick={() => { handleModalInfos(item) }}>
+
+                                    <img src={item.imageSrc} alt='teste' />
+                                    <h3>{item.title}</h3>
+
+                                    <div className='lineBoxProduct'>
+
+                                        <h4>R$ {item.price}</h4>
+                                        <img src={shoppingCart} />
+
+                                    </div>
+
+                                    <p>{item.desc}</p>
+
+                                </div>
+
+
+                            ))
+                        }
+
+                    </section>
+
+                </div>
+
+                <div className="areaLateral">
+
+                    <div className='menuProductsHome' >
+
+                        <div className='filterProducts' >
+
+                            <h4>Pesquisar produto</h4>
+
+                            <div className='search'>
+
+                                <input type="text" placeholder="Procurar.." onKeyDown={handleSearchInput} />
+                                {/* <a onClick={()=>{searchItem()}}>Pesquisar</a> */}
 
                             </div>
 
-                            <p>{item.desc}</p>
+                        </div>
+
+                        <div className='filterProducts' >
+
+                            <h4>Preço</h4>
+
+                            <div className='filtersInputs'>
+                                <input
+                                    placeholder='min'
+                                    type='number'
+                                    onChange={(event) => setMinProductPrice(Number(event.target.value))}
+                                    onKeyDown={handleMinProductPrice} />
+                                -
+                            <input
+                                    placeholder='max'
+                                    type='number'
+                                    onChange={(event) => setMaxProductPrice(Number(event.target.value))}
+                                    onKeyDown={handleMaxProductPrice} />
+                            </div>
 
                         </div>
 
+                        <div className='filterProducts' >
 
-                    ))
-                }
+                            <h4>Tipo</h4>
 
-                </section>
-
-            </div>
-
-            <div className="areaLateral">
-        
-                <div className='menuProductsHome' >
-
-                    <div className='filterProducts' >
-
-                        <h4>Pesquisar produto</h4>
-
-                        <div className='search'>
-
-                            <input type="text" placeholder="Procurar.." onKeyDown={handleSearchInput} />
-                            {/* <a onClick={()=>{searchItem()}}>Pesquisar</a> */}
+                            <ul>
+                                <li>Frutas</li>
+                                <li>Verduras</li>
+                                <li>Legume</li>
+                                <li>Grãos</li>
+                                <li>Kits</li>
+                            </ul>
 
                         </div>
-
-                    </div>
-
-                    <div className='filterProducts' >
-
-                        <h4>Preço</h4>
-
-                        <div className='filtersInputs'>
-                            <input placeholder='min' type='number' onKeyDown={handleMinProductPrice} />
-                                -    
-                            <input placeholder='max' type='number' onKeyDown={handleMaxProductPrice}/>
-                        </div>
-
-                    </div>
-
-                    <div className='filterProducts' >
-
-                        <h4>Tipo</h4>
-
-                        <ul>
-                            <li>Frutas</li>
-                            <li>Verduras</li>
-                            <li>Legume</li>
-                            <li>Grãos</li>
-                            <li>Kits</li>
-                        </ul>
 
                     </div>
 
@@ -261,13 +285,11 @@ function Home() {
 
             </div>
 
+            <Footer />
+
         </div>
 
-        <Footer />
-
-    </div>
-
-  );
+    );
 }
 
 export default Home;

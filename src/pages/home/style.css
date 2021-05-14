@@ -18,6 +18,22 @@
 
 }
 
+@font-face {
+    font-family: 'Michael';
+    src: url('../../fonts/Michael.otf');
+  }
+
+@font-face {
+    font-family: 'Gilroy-Light';
+    src: url('../../fonts/Gilroy-Light.otf');
+  }
+
+@font-face {
+    font-family: 'Gilroy-ExtraBold';
+    src: url('../../fonts/Gilroy-ExtraBold.otf');
+  }
+
+
 .divModal {
 
     width: 100vw;
@@ -43,17 +59,58 @@
     cursor: pointer;
     border-radius: 50%;
     text-align: center;
-    background-color: black;
+    background-color: #662210;
 
 }
 
 .introHome {
 
-    width: 100vw;
-    text-align: center;
-    margin-top: 7vh;
-    margin-bottom: 5vh;
+  position: relative;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.heroText {
+
     color: #662210;
+    position: absolute;
+    top: 2rem;
+    font-family: 'Gilroy-Light', sans-serif;
+    padding: 0 2rem;
+
+}
+
+.first-name {
+    
+    font-family: 'Gilroy-Light', sans-serif;
+    font-size: 1.4rem;
+    text-transform: uppercase;
+
+}
+
+.second-name {
+
+    font-size: 2.5rem;
+    font-family: 'Michael', sans-serif;
+
+}
+
+.introHome img {
+
+    object-fit: cover;
+    width: 100%;
+    height: 50vh;
+    object-position: 0% 33%;
+
+}
+
+.borderImg {
+
+    width: 100vw;
+    border: 5px solid #ffc05c;
 
 }
 

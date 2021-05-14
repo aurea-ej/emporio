@@ -184,9 +184,15 @@
 }
 
 @media screen and (max-width: 768px) {
+
     .cartPage{
         flex-direction: column;
         width: 100vw;
+    }
+
+    .emptyCart {
+        width: 90%;
+        text-align: center;
     }
 
     .cart-left{

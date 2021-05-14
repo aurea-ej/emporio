@@ -4,7 +4,7 @@ import './style.css'
 import Header from '../../components/header'
 import Footer from '../../components/footer'
 import { useAuth } from '../../provider'
-import VendorRegister from '../vendorregister'
+import VendorRegister from '../admin/vendorregister'
 
 function Cart() {
 
@@ -114,7 +114,7 @@ function Cart() {
 
                 <Header />
 
-                <div style={{height: "60vh", display: "flex", alignItems: "center", justifyContent: "center"}} >
+                <div className="emptyCart" style={{height: "60vh", display: "flex", alignItems: "center", justifyContent: "center"}} >
                     <h2>Seu carrinho de compras está vazio :( </h2>
                 </div>
 

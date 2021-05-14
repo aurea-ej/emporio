@@ -1,0 +1,157 @@
+.clientProfile {
+
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+
+}
+
+.dataClient {
+
+    width: 60%;
+    margin: 5vh 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    
+}
+
+.dataClient ul{
+
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+}
+
+.dataClient h5{
+
+    font-size: 13pt;
+
+}
+
+.dataClient ul li {
+
+    display: flex;
+    justify-content: space-between;
+    
+    padding: 5px 20px;
+    color: white;
+    margin: 10px 0;
+    border-radius: 5px;
+    background-color: #662210;
+
+}
+
+.dataClient a {
+
+    color: white;
+    width: 50px;
+    padding: 15px;
+    margin-top: 3vh;
+    border-radius: 5px;
+    background-color: #727f26;
+
+}
+
+.dataClient a{
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+}
+
+.singnOutButton {
+
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.textAlterInfosProfile span{
+
+    color: #727f26;
+    cursor: pointer;
+
+}
+
+.divAlterInfos {
+
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+}
+
+.divAlterInfos .arrowToDownUserProfile {
+
+    font-size: 20pt;
+    margin-top: 0;
+    animation: JunpingtoDown 2s linear infinite;
+
+}
+
+@keyframes JunpingtoDown {
+
+    0%, 100% {
+
+        transform: translateY(0px);
+
+    }
+    50% {
+
+        transform: translateY(15px);
+
+    }
+    
+}
+
+.divAlterInfos fieldset {
+
+    width: 60%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+}
+
+.divAlterInfos fieldset input {
+
+    width: 80%;
+    background-color: #662210;
+    color: white;
+
+}
+
+.divAlterInfos ::placeholder {
+
+    color: white;
+
+}
+
+.divAlterInfos p {
+
+    color: rgba(65, 65, 65, 0.5);
+
+}
+
+.defaultButtonUserProfile {
+
+    color: white;
+    padding: 15px;
+    margin-top: 3vh;
+    border-radius: 5px;
+    background-color: #727f26;
+    text-align: center;
+    cursor: pointer;
+
+}

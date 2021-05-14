@@ -45,7 +45,7 @@ video {
     padding: none;
     width: 100%;
     display: block;
-    border-top: solid 10px #434f38;
+    border-top: solid 10px #727f26;
 }
 
 .about-text {
@@ -190,7 +190,7 @@ video {
      display: flex;
      flex-direction: column;
      text-align: center;
-     background-color: #434f38;
+     background-color: #727f26;
      height: 10rem;
      margin-bottom: 2rem;
      box-shadow: 14px 11px 16px 0px rgba(0,0,0,0.40);

@@ -1,6 +1,15 @@
-.Register {
+.SigIn {
 
-    width: 100vw;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+}
+
+#mainSignIn {
+
+    width: 100%;
+    margin-top: 8vh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -8,29 +17,38 @@
 
 }
 
-#mainRegister {
+.formsSignIn img {
 
-    height: 70vh;
-    display: flex;
+    display:flex;
+    margin: auto;
+    width: 170px;
     align-items: center;
     justify-content: center;
-    flex-direction: column;
-    padding: 5vh 0;
 
 }
 
-.formsRegister {
-    
-    padding: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;;
-    /* box-shadow: 0px 0px 5px rgba(160, 160, 160, 0.349); */
+.formsSignIn input {
+
+    color: black;
+    border-radius: 5px;
+    box-shadow: 0px 0px 8px rgba(160, 160, 160, 0.35);
+    background-color: rgba(0, 0, 0, 0);
 
 }
 
-.formsRegister input {
+.formsSignIn select {
+
+    width: 108%;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0px 0px 8px rgba(160, 160, 160, 0.35);
+    padding: 15px;
+    margin: 10px 0;
+    background-color: white;
+
+}
+
+.formsSignIn option {
 
     border: none;
     border-radius: 5px;
@@ -38,32 +56,101 @@
     padding: 15px;
     margin: 10px 0;
     background-color: white;
+
 }
 
-.buttonsFormRegister {
+.titleSignIn {
 
-    width: 80%;
-    margin-top: 30px;
+    width: 100%;
     display: flex;
     justify-content: center;
 
 }
 
-.buttonsFormRegister a {
+.haveAccount {
 
-    color: black;
-    padding: 15px;
-    text-decoration: none;
-    border-radius: 10px;
-    box-shadow: 0px 0px 8px rgba(160, 160, 160, 0.35);
+    display: 100%;
+    text-align: center;
+    color: rgb(175, 175, 175);
 
 }
 
-#enterButtonSignIn {
+.haveAccount a {
 
+    font-size: 12pt;
+    color: rgb(65, 65, 65);
+    text-decoration: none;
+    margin-left: 5px;
+
+}
+
+.buttonsFormSignIn {
+
+    width: 100%;
+    margin-bottom: 8vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.buttonsFormSignIn a {
+
+    padding: 15px;
     color: white;
-    background-color: black;
+    background-color: #662210;
     border-radius: 8px;
+    text-decoration: none;
     box-shadow: 0px 0px 8px rgba(160, 160, 160, 0.5);
 
+}
+
+
+@media only screen and (max-width: 940px) {
+
+    .formsSignIn select {
+
+        width: 110%;
+
+    }
+
+}
+
+@media screen and (max-width: 768px) {
+
+    #mainSignIn {
+
+        width: 90%;
+        margin-top: 6vh;
+
+    }
+
+    .formsSignIn h1 {
+
+        font-size: 16pt;
+        margin: 0 auto;
+        align-items: center;
+        padding: 0 2.5rem;
+
+    }
+
+    .formsSignIn input {
+
+        width: 80%;
+
+    }
+
+    .formsSignIn select {
+
+        width: 91%;
+
+    }
+
+    .formsSignIn fieldset h2 {
+
+        font-size: 12pt;
+        margin-left: 2rem;
+
+    }
+    
 }
