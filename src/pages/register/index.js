@@ -139,7 +139,7 @@ function Register() {
                         </div>
 
                         <div className='haveAccount' >
-                            <h5>Já tem uma conta? <Link to='/entrar' >entrar</Link></h5>
+                            <h5>Já tem uma conta? <Link to='/Entrar' >entrar</Link></h5>
                         </div>
 
                         <fieldset>

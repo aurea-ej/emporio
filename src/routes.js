@@ -11,6 +11,7 @@ import Admin from './pages/admin'
 import Items from './pages/admin/items'
 import Provider from './pages/admin/cadProvider'
 import VendorRegister from './pages/admin/vendorregister'
+import Request from './pages/admin/requests'
 import userProfile from './pages/userProfile'
 
 const Routes = () => {
@@ -21,8 +22,8 @@ const Routes = () => {
 
             <Route component={Home} path='/' exact />
             <Route component={Contact} path='/contato'/>
-            <Route component={Register} path='/entrar'/>
-            <Route component={SignIn} path='/Cadrastro'/>
+            <Route component={Register} path='/Cadastro'/>
+            <Route component={SignIn} path='/Entrar'/>
             <Route component={About} path='/Quem-somos-nos' />
             <Route component={Cart} path='/Carrinho' />
             <Route component={Admin} path='/Admin' />
@@ -30,6 +31,7 @@ const Routes = () => {
             <Route component={Provider} path='/AdminFornecedor' />
             <Route component={VendorRegister} path='/AdminVendor' />
             <Route component={userProfile} path='/Perfil' />
+            <Route component={Request} path='/Pedidos' />
         
         </BrowserRouter>
 

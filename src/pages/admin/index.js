@@ -28,7 +28,7 @@ function Admin() {
                         <li> <Link to="/AdminItems" >Cadastro/alteração de itens</Link> </li>
                         <li> <Link to="/AdminVendor" >Cadastro/alteração de vendedores</Link> </li>
                         <li> <Link to="/AdminFornecedor" >Cadastro/alteração de fornecedores </Link> </li>
-                        <li> <Link to="/" >Pedidos em andamento</Link> </li>
+                        <li> <Link to="/Pedidos" >Pedidos em andamento</Link> </li>
                         <li> <Link to="/" >Relatórios</Link> </li>
                     </ul>
 

@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from 'react'
-import './style.css'
 
 import Header from '../../components/header'
 import Footer from '../../components/footer'
-import { useAuth } from '../../provider'
-import VendorRegister from '../admin/vendorregister'
+import './style.css'
+
+import firebase from 'firebase/app'
+import 'firebase/auth'
+import 'firebase/database'
+import firebaseConfig from '../../FIREBASECONFIG.js'
 
 function Cart() {
 
-    // const { products, setProducts } = useAuth();
+    const [dataAccount, setDataAccount] = useState([]);
     const [ data, setData ] = useState([]);
     const [ dataExists, setDataExists ] = useState(false);
     const [ totalValue, setTotalValue ] = useState(0);
@@ -18,6 +21,7 @@ function Cart() {
         const verify = await JSON.parse(localStorage.getItem('products'))
     
         if (verify != null && verify.length > 1){
+            console.log(localStorage.getItem('userEmail'))
             setData(verify)
             setDataExists(true)
 
@@ -41,9 +45,62 @@ function Cart() {
 
     },[])
 
+    useEffect(()=>{
+
+        if(!firebase.apps.length)
+            firebase.initializeApp(firebaseConfig);
+
+    },[])
+
+    useEffect(() => {
+
+        const userEmail = localStorage.getItem('userEmail')        
+
+        firebase.database().ref('users/').get('/users')
+        .then(function (snapshot) {
+
+            if (snapshot.exists()){
+
+                var data = snapshot.val()
+                var temp = Object.keys(data).map((key) => data[key])
+
+                temp.map((item)=>{ 
+
+                    if(item.email == userEmail){
+                        setDataAccount(item)
+                    }
+
+                })
+
+            }else 
+                console.log("No data available");
+
+        })
+
+    }, []);
+
     function sendOrder () {
 
-        // Ver como vamos fazer o envio. E-mail, whatsapp... ou só deixar numa dashboard de pedidos
+        const id = firebase.database().ref().child('posts').push().key
+
+        firebase.database().ref('requests/' + id).set({
+
+            id: id,
+            listItem: data,
+            totalValue: totalValue.toFixed(2),
+            userName: dataAccount.name,
+            phoneNumber: dataAccount.phoneNumber,
+            street: dataAccount.street,
+            houseNumber: dataAccount.houseNumber,
+            district: dataAccount.district,
+            cepNumber: dataAccount.cepNumber,
+            complement: dataAccount.complement
+
+
+        })
+
+        alert("Pedido finalizado com sucesso!.")
+
         return 0;
 
     }
@@ -98,7 +155,7 @@ function Cart() {
                 </section>
 
                 <div className='checkOut' >
-                    <a>Finalizar pedido</a>
+                    <a onClick={()=>sendOrder()} >Finalizar pedido</a>
                 </div>
 
                 <Footer />
@@ -115,7 +172,7 @@ function Cart() {
                 <Header />
 
                 <div className="emptyCart" style={{height: "60vh", display: "flex", alignItems: "center", justifyContent: "center"}} >
-                    <h2>Seu carrinho de compras está vazio :( </h2>
+                    <h2>Seu carrinho de compras está vazio 😧 </h2>
                 </div>
 
                 <Footer />

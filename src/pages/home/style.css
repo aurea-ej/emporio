@@ -73,6 +73,18 @@
 
 }
 
+.filterProductsOptions {
+
+    display: none;
+
+}
+
+#heroSection {
+
+    max-width: 100vw;
+
+}
+
 .heroText {
 
     color: #662210;
@@ -109,8 +121,21 @@
 
 .borderImg {
 
-    width: 100vw;
+    /* width: 100vw; */
     border: 5px solid #ffc05c;
+
+}
+
+.textIntroHome {
+
+    color: #662210;
+
+}
+
+.tipHome {
+
+    font-size: 10pt;
+    color: rgb(65, 65, 65, .5);
 
 }
 
@@ -123,6 +148,7 @@
 .divSearchResult {
 
     width: 76%;
+    color: #662210;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -135,7 +161,7 @@
     color: white;
     cursor: pointer;
     border-radius: 30px;
-    background-color: #2B2B2B;
+    background-color: #434f38;
 
 }
 
@@ -194,6 +220,12 @@
 
 }
 
+.boxHome h3 {
+
+    color: #662210;
+
+}
+
 .boxHome p {
 
     color: rgba(0, 0, 0, 0.5);
@@ -210,7 +242,7 @@
     height: 30px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     margin: 0;
     padding: 0;
 
@@ -224,7 +256,8 @@
 
 .lineBoxProduct h4 {
 
-    font-size: 17pt;
+    color: #434f38;
+    font-size: 18pt;
     font-weight: normal;
     font-family: 'Roboto', sans-serif;
 
@@ -324,6 +357,7 @@
     color: white;
 
 }
+
 .filtersInputs input {
 
     width: 40%;
@@ -350,73 +384,6 @@
     align-items: center;
 }
 
-.BarraLateral {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    width: 100%;
-}
-
-/* .SubProduto {
-    list-style: none;
-    display: flex;
-    border-radius: 10px;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: rgb(206, 199, 199);
-    margin-right: 20px;
-} */
-
-/* .SubProduto li {
-    width: 100%;
-    position:relative;
-    justify-content: center;
-    align-items: center;
-    border-radius: 10px;
-    background-color: rgb(0, 0, 0);
-} */
-
-.SubProduto li a{
-    color:white;
-    text-decoration:none;
-    padding:5px 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-
-.SubProduto li a:hover {
-    background:rgb(32, 32, 32);
-    border-radius: 10px;
-}
-
-.SubProduto li  ul{
-    list-style: lower-roman;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    top:25px;
-    left:0;
-    display:none;
-    border-radius: 10px;
-}
-
-.SubProduto li:hover ul, .SubProduto li.over ul{
-    display:flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.SubProduto li ul li{
-    display:flex;
-    align-items: center;
-    justify-content: center;
-}
-
 
 @media screen and (max-width: 768px) {
 
@@ -432,6 +399,19 @@
         width: 100vw;
         padding: 0;
 
+    }
+
+    .filterProductsOptions {
+
+        width: 100vw;
+        /* height: 45px; */
+        display: flex;
+        color: white;
+        align-items: center;
+        justify-content: center;
+        background-color: #662210;
+        cursor: pointer;
+    
     }
 
     .search {
@@ -454,14 +434,90 @@
 
     }
 
+    .menuProductsHomeMobile {
+
+        width: 85vw;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        flex-direction: column;
+
+    }
+
+    .filterProductsMobile {
+
+        width: 90%;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        flex-direction: column;
+        /* background-color: blue; */
+
+    }
+
+    .filterProductsMobile input {
+
+        width: 50%;
+        height: 30px;
+        padding: 3px;
+        border: none;
+        margin: 5px 0;
+        color: white;
+        padding-left: 7px;
+        border-radius: 20px;
+        background-color: rgba(102, 34, 16, .8);
+    
+    }
+
+    .filterProductsMobile ::placeholder {
+
+        color: white;
+
+    }
+
+    .filtersInputsMobile {
+
+        width: 100%;
+        height: 25px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        /* background-color: red; */
+
+    }
+
+    .searchMobile {
+
+        width: 100%;
+        
+    }
+
+    .searchMobile input{
+
+        width: 97%;
+        
+    }
+
+    .divSearchResult {
+
+        width: 95%;
+        font-size: 11pt;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    
+    }
+
+
     #sectionHome {
 
-        column-count: 1;
-        max-width: 100vw;
         display: flex;
         align-items: center;
         justify-content: center;
         flex-direction: column;
+        padding-top: 2vh;
+        column-count: 1;
+        max-width: 100vw;
         
     }
 

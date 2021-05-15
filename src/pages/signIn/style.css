@@ -30,15 +30,26 @@
 
 }
 
-.formsRegister input {
+.titleSignIn h1{
 
     color: #662210;
+
+}
+
+.formsRegister input {
+
     border: none;
-    border-radius: 5px;
-    box-shadow: 0px 0px 8px rgba(160, 160, 160, 0.35);
     padding: 15px;
     margin: 10px 0;
-    background-color: white;
+    color: white;
+    background-color: #662210;
+    border-radius: 5px;
+}
+
+.formsRegister ::placeholder {
+    
+    color: white;
+
 }
 
 .buttonsFormRegister {
@@ -63,22 +74,29 @@
 #enterButtonSignIn {
 
     color: white;
-    background-color: #662210;
     border-radius: 8px;
-    /* box-shadow: 0px 0px 8px rgba(160, 160, 160, 0.5); */
+    background-color: #662210;
 
 }
 
-@media only screen and (max-width: 940px) {
+@media screen and (max-width: 768px) {
+    
+    .titleSignIn h1{
 
-    /* .titleSignIn {
-        padding: none;
-        font-size: 87.5%;
-    } */
+        font-size: 18pt;
+
+    }
+
+    .haveAccount{
+
+        font-size: 9pt;
+
+    }
+
+    .formsRegister fieldset {
+
+        margin-top: 30px;
+
+    }
 
 }
-
-  @media screen and (max-width: 768px) {
-     
-
-  }

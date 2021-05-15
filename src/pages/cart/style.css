@@ -172,14 +172,14 @@
 
 }
 
-.checkOut a{
+.checkOut a {
 
     text-decoration: none;
     cursor: pointer;
     color: white;
     padding: 15px;
     border-radius: 10px;
-    background-color: black;
+    background-color: #662210;
 
 }
 
@@ -191,6 +191,7 @@
     }
 
     .emptyCart {
+        color: #662210;
         width: 90%;
         text-align: center;
     }

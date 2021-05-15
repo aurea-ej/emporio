@@ -38,8 +38,6 @@ function UserProfile() {
         if(!firebase.apps.length)
             firebase.initializeApp(firebaseConfig)
 
-        
-
         firebase.database().ref('users/').get('/users')
         .then(function (snapshot) {
 

@@ -155,3 +155,25 @@
     cursor: pointer;
 
 }
+
+@media screen and (max-width: 768px) {
+
+    .dataClient {
+
+        width: 85%;
+
+    }
+
+    .dataClient ul li {
+
+        font-size: 10pt;
+
+    }
+
+    .divAlterInfos fieldset {
+
+        width: 85%;
+
+    }
+    
+}

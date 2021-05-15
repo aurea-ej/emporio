@@ -91,11 +91,11 @@ function Register() {
                     <div className='formsRegister'>
 
                         <div className='titleSignIn' >
-                            <h1>Faça login no Empório Bom Jardim</h1>
+                            <h1>Faça login</h1>
                         </div>
 
                         <div className='haveAccount' >
-                            <h5>Ainda não tem uma conta? <Link to='/Cadrastro' >cadrastar-se</Link></h5>
+                            <h5>Ainda não tem uma conta? <Link to='/Cadastro' >cadrastar-se</Link></h5>
                         </div>
 
                         <fieldset>
