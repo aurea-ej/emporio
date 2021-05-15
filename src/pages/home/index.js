@@ -193,8 +193,6 @@ function Home() {
                 <h3>Filtrar produtos</h3>
             </div>
 
-            <p className="tipHome" >Clique no item para selecionar a quantidade</p>
-
             <section style={{display: displayMobileSearch}} >
 
                 <div className='menuProductsHomeMobile' >
@@ -206,7 +204,6 @@ function Home() {
                         <div className='searchMobile'>
 
                             <input type="text" placeholder="Procurar.." onKeyDown={handleSearchInput} />
-                            {/* <a onClick={()=>{searchItem()}}>Pesquisar</a> */}
 
                         </div>
 
@@ -232,20 +229,6 @@ function Home() {
 
                     </div>
 
-                    {/* <div className='filterProducts' >
-
-                        <h4>Tipo</h4>
-
-                        <ul>
-                            <li>Frutas</li>
-                            <li>Verduras</li>
-                            <li>Legume</li>
-                            <li>Grãos</li>
-                            <li>Kits</li>
-                        </ul>
-
-                    </div> */}
-
                 </div>
 
             </section>
@@ -261,6 +244,8 @@ function Home() {
 
             </section>
 
+            <p className="tipHome" >Clique no item para selecionar a quantidade</p>
+            
             <div className='containerHome' >
 
                 <div className='productsHome'>

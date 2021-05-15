@@ -135,6 +135,7 @@
 .tipHome {
 
     font-size: 10pt;
+    margin-top: 3vh;
     color: rgb(65, 65, 65, .5);
 
 }
@@ -142,6 +143,7 @@
 .sectionSearchResult {
 
     width: 100vw;
+    margin-top: 2vh;
 
 }
 
