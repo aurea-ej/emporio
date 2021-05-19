@@ -386,6 +386,26 @@
     align-items: center;
 }
 
+.buttonFinishOrder {
+
+    position: fixed;
+    z-index: 9;
+    bottom: 20px;
+    left: 25px;
+
+}
+
+.buttonFinishOrder a {
+
+    padding: 10px;
+    color: white;
+    cursor: pointer;
+    border-radius: 30px;
+    box-shadow: 0px 0px 5px #662210;
+    text-decoration: none;
+    background-color: #662210;
+
+}
 
 @media screen and (max-width: 768px) {
 
@@ -536,6 +556,12 @@
     .menuProductsHome {
 
         display: none;
+
+    }
+
+    .buttonFinishOrder {
+
+        left: auto;
 
     }
 

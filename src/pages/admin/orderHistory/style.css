@@ -1,0 +1,57 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
+
+#sectionHistory {
+    
+    width: 100vw;
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.textHistory {
+
+    width: 100vw;
+    justify-content: center;
+    text-align: center;
+    margin-top: 2rem;
+
+}
+
+.textHistory p{
+
+    color: rgba(0, 0, 0, 0.7)
+
+}
+
+.boxHistory {
+
+    width: 40vw;
+    flex-direction: column;
+    border-radius: 10px;
+    box-shadow: 8px 5px 4px #92929255;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+    border: 1px solid #000;
+
+}
+
+.lineBoxCardHistory {
+
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: .5rem 0;
+
+}
+
+.lineBoxCardHistory b {
+
+    margin-left: .4rem;
+
+}

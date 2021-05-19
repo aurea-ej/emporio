@@ -41,7 +41,7 @@ footer {
     justify-content: space-between;
     flex-direction: column;
     width: 40%;
-    max-height: 35vh;
+    max-height: 40vh;
     margin-bottom: 15px;
     text-align: center;
 
@@ -62,7 +62,7 @@ footer {
 
 .address li {
 
-    padding: 5px;
+    padding-left: 5px;
 
 }
 

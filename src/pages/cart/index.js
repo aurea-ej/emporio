@@ -11,10 +11,20 @@ import firebaseConfig from '../../FIREBASECONFIG.js'
 
 function Cart() {
 
-    const [dataAccount, setDataAccount] = useState([]);
     const [ data, setData ] = useState([]);
-    const [ dataExists, setDataExists ] = useState(false);
+    const [dataAccount, setDataAccount] = useState([]);
     const [ totalValue, setTotalValue ] = useState(0);
+    const [ dataExists, setDataExists ] = useState(false);
+    const [userIsLogged, setUserIsLogged] = useState(false);
+
+    function onAuthStateChanged(user) {
+
+        firebase.auth().onAuthStateChanged((user) => {
+            if (user) 
+              setUserIsLogged(true)
+          });
+        
+    }
 
     useEffect(async () => {
 
@@ -47,8 +57,11 @@ function Cart() {
 
     useEffect(()=>{
 
+        window.scrollTo(0, 0);
+        
         if(!firebase.apps.length)
             firebase.initializeApp(firebaseConfig);
+        onAuthStateChanged()
 
     },[])
 
@@ -81,25 +94,28 @@ function Cart() {
 
     function sendOrder () {
 
-        const id = firebase.database().ref().child('posts').push().key
+        if(userIsLogged){
 
-        firebase.database().ref('requests/' + id).set({
+            const id = firebase.database().ref().child('posts').push().key
 
-            id: id,
-            listItem: data,
-            totalValue: totalValue.toFixed(2),
-            userName: dataAccount.name,
-            phoneNumber: dataAccount.phoneNumber,
-            street: dataAccount.street,
-            houseNumber: dataAccount.houseNumber,
-            district: dataAccount.district,
-            cepNumber: dataAccount.cepNumber,
-            complement: dataAccount.complement
+            firebase.database().ref('requests/' + id).set({
+
+                id: id,
+                listItem: data,
+                totalValue: totalValue.toFixed(2),
+                userName: dataAccount.name,
+                phoneNumber: dataAccount.phoneNumber,
+                street: dataAccount.street,
+                houseNumber: dataAccount.houseNumber,
+                district: dataAccount.district,
+                cepNumber: dataAccount.cepNumber,
+                complement: dataAccount.complement
 
 
-        })
+            }).then(()=>alert("Pedido finalizado com sucesso!."))
 
-        alert("Pedido finalizado com sucesso!.")
+        }else
+            alert("Você precisa ter uma conta para finalizar um pedido!.")
 
         return 0;
 
@@ -117,7 +133,7 @@ function Cart() {
                     <p>Após revisar os itens, clique no botão para finalizar o pedido </p>
                 </div>
 
-                <section id='sectionCart flexDisplay'>
+                <section className='sectionCart flexDisplay'>
 
                     {
                         data.map((item,index) => {

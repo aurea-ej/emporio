@@ -1,13 +1,29 @@
 import React, {useState, createRef} from 'react'
-import './headerStyle.css'
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import logoEmporio from '../../img/logoEmporio.png'
+import './headerStyle.css'
+
+import firebase from 'firebase/app'
+import 'firebase/auth'
+import firebaseConfig from '../../FIREBASECONFIG.js'
 
 export default function Header (props) {
 
     const [isChecked,setIsChecked] = useState(false)
+    const [userIsLogged, setUserIsLogged] = useState(false);
 
     const menuMobile = createRef()
+
+    function onAuthStateChanged(user) {
+
+        firebase.auth().onAuthStateChanged((user) => {
+            if (user) 
+              setUserIsLogged(true)
+          });
+
+        
+    }
 
     function showMenuMobile() {
 
@@ -17,6 +33,14 @@ export default function Header (props) {
             menuMobile.current.style.display = 'flex'
         
     }
+
+    useEffect(() => {
+        
+        if(!firebase.apps.length)
+            firebase.initializeApp(firebaseConfig)
+        onAuthStateChanged();
+
+    }, []);
 
     return (
 
@@ -36,8 +60,8 @@ export default function Header (props) {
 
                         <li> <Link to='/' > Início </Link> </li>
                         <li> <Link to='/Quem-somos-nos'> Quem Somos </Link> </li>
-                        <li> <Link to='/Carrinho'> Carrinho <span>0</span> </Link> </li>
-                        <li> <Link to='/Cadastro'> Login </Link> </li>
+                        <li> <Link to='/Carrinho'> Carrinho </Link> </li>
+                        <li> {userIsLogged ? <Link to='/Entrar'> Login </Link> : <Link to='/Perfil'> Perfil </Link>}   </li>
 
                     </ul>
                     
@@ -71,7 +95,7 @@ export default function Header (props) {
                     <li> <Link to='/' > Início </Link> </li>
                     <li> <Link to='/Quem-somos-nos'> Quem Somos </Link> </li>
                     <li> <Link to='/Carrinho'> Carrinho </Link> </li>
-                    <li> <Link to='/Cadastro'> Login </Link> </li>
+                    <li> <Link to='/Entrar'> Login </Link> </li>
 
                 </ul>
 

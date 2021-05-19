@@ -1,5 +1,4 @@
 import React, { useState} from "react";
-import { useAuth } from '../../provider'
 import "./style.css";
 
 import addIcon from '../../img/addIcon.png'
@@ -8,7 +7,6 @@ import removeIcon from '../../img/removeIcon.png'
 function Modal (props) {
 
     const { displayProperty, modalData } = props;
-    const { products, setProducts } = useAuth();
     const [amount, setAmount] = useState(1);
 
     function add() {
@@ -29,7 +27,7 @@ function Modal (props) {
 
         if (listOfItems != null) {
         
-            if(listOfItems == [{}]){
+            if(listOfItems === [{}]){
                 
                 localStorage.removeItem('products')
                 const newItem = []
@@ -81,11 +79,11 @@ function Modal (props) {
 
                     <div className="quantityOfProduct" >
 
-                        <img src={removeIcon} onClick={()=>{remove()}} />
+                        <img src={removeIcon} onClick={()=>{remove()}} alt="Item de remover" />
 
                         <p>Quantidade</p>
 
-                        <img src={addIcon} onClick={()=>{add()}} />
+                        <img src={addIcon} onClick={()=>{add()}} alt="Item de adicionar" />
 
                     </div>
 

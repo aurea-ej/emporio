@@ -31,14 +31,13 @@ function Register() {
     })
     const [selectedOption, setSelectedOption] = useState('')
     const [userIsLogged, setUserIsLogged] = useState(false);
+    const [registerDone, setRegisterDone] = useState(false);
 
     function makeRegister () {
 
         firebase.auth()
         .createUserWithEmailAndPassword(registerData.email, registerData.password)
         .then((user) => {
-            
-            alert('Cadastro realizado com sucesso!')
 
             const id = firebase.database().ref().child('posts').push().key
 
@@ -61,11 +60,16 @@ function Register() {
 
             localStorage.setItem('id',id)
 
+            
+            alert('Cadastro realizado com sucesso!')
+
+            setRegisterDone(true)
+
         })
         .catch((error) => {
             var errorCode = error.code;
             var errorMessage = error.message;
-            console.log(errorMessage)
+            alert(errorMessage)
         }); 
         
     }
@@ -122,97 +126,109 @@ function Register() {
         
     }else {
 
-        return (
+        if (registerDone) {
 
-            <div className="SigIn">
+            return (
 
-                <Header />
+                <Redirect to='/Entrar' />
+                
+            )
+            
+        }else {
 
-                <main id='mainSignIn'> 
+            return (
 
-                    <div className='formsSignIn'>
+                <div className="SigIn">
 
-                        <img src={logoEmporio2} alt="Logo Emporio" />
+                    <Header />
 
-                        <div className='titleSignIn' >
-                            <h1>Cadastrar-se</h1>
+                    <main id='mainSignIn'> 
+
+                        <div className='formsSignIn'>
+
+                            <img src={logoEmporio2} alt="Logo Emporio" />
+
+                            <div className='titleSignIn' >
+                                <h1>Cadastrar-se</h1>
+                            </div>
+
+                            <div className='haveAccount' >
+                                <h5>Já tem uma conta? <Link to='/Entrar' >entrar</Link></h5>
+                            </div>
+
+                            <fieldset>
+
+                                <legend>
+                                    <h2>Informações pessoais</h2>
+                                </legend>
+
+                                <input name='name' onChange={handleInputRegisterChange} placeholder='Nome completo' />
+
+                                <input name='phoneNumber' type='tel' onChange={handleInputRegisterChange} placeholder='Telefone com DDD' />
+
+                                <input name='birthDate' type='date' onChange={handleInputRegisterChange} placeholder='Data de nascimento (n obgt)' />
+
+                                <select onChange={handleSelect} >
+                                    <option value='0' >Como ficou sabendo de nós?</option>
+                                    <option value='1' >indicação (digite o nome abaixo)</option>
+                                    <option value='2' >recebi contato da empresa: abrir campo lista com nome dos vendedores</option>
+                                    <option value='3' >Facebook</option>
+                                    <option value='4' >Instagram</option>
+                                    <option value='5' >Pesquisa no Google</option>
+                                </select>
+
+                                {/* fazer depois esse campo só aparecer se a pessoa selecionar o item 2 do select */}
+                                <input name='personWhoIndicated' onChange={handleInputRegisterChange} placeholder='Quem indicou?' />
+
+                            </fieldset>
+
+                            <fieldset>
+
+                                <legend>
+                                    <h2>Endereço</h2>
+                                </legend>
+
+                                <input name='street' onChange={handleInputRegisterChange} placeholder='Nome da rua' />
+
+                                <input name='houseNumber' type='number' onChange={handleInputRegisterChange} placeholder='N° da casa/apto' />
+
+                                <input name='complement' onChange={handleInputRegisterChange} placeholder='Complemento' />
+
+                                <input name='district' onChange={handleInputRegisterChange} placeholder='Bairro' />
+
+                                <input name='cepNumber' onChange={handleInputRegisterChange} placeholder='CEP' />
+
+                            </fieldset>
+
+                            <fieldset>
+
+                                <legend>
+                                    <h2>E-mail e senha</h2>
+                                </legend>
+
+                                <input name='email' onChange={handleInputRegisterChange} placeholder='E-mail' />
+
+                                <input name='password' type="password" onChange={handleInputRegisterChange} placeholder='Senha' />
+
+                            </fieldset>
+
+                            <div className='buttonsFormSignIn' >
+
+                                <Link onClick={()=> {makeRegister()}}>Cadastrar</Link>
+
+                            </div>
+
                         </div>
 
-                        <div className='haveAccount' >
-                            <h5>Já tem uma conta? <Link to='/Entrar' >entrar</Link></h5>
-                        </div>
+                    </main>
 
-                        <fieldset>
+                    <Footer />
 
-                            <legend>
-                                <h2>Informações pessoais</h2>
-                            </legend>
+                </div>
 
-                            <input name='name' onChange={handleInputRegisterChange} placeholder='Nome completo' />
+            );
 
-                            <input name='phoneNumber' type='tel' onChange={handleInputRegisterChange} placeholder='Telefone com DDD' />
-
-                            <input name='birthDate' type='date' onChange={handleInputRegisterChange} placeholder='Data de nascimento (n obgt)' />
-
-                            <select onChange={handleSelect} >
-                                <option value='0' >Como ficou sabendo de nós?</option>
-                                <option value='1' >indicação (digite o nome abaixo)</option>
-                                <option value='2' >recebi contato da empresa: abrir campo lista com nome dos vendedores</option>
-                                <option value='3' >Facebook</option>
-                                <option value='4' >Instagram</option>
-                                <option value='5' >Pesquisa no Google</option>
-                            </select>
-
-                            {/* fazer depois esse campo só aparecer se a pessoa selecionar o item 2 do select */}
-                            <input name='personWhoIndicated' onChange={handleInputRegisterChange} placeholder='Quem indicou?' />
-
-                        </fieldset>
-
-                        <fieldset>
-
-                            <legend>
-                                <h2>Endereço</h2>
-                            </legend>
-
-                            <input name='street' onChange={handleInputRegisterChange} placeholder='Nome da rua' />
-
-                            <input name='houseNumber' type='number' onChange={handleInputRegisterChange} placeholder='N° da casa/apto' />
-
-                            <input name='complement' onChange={handleInputRegisterChange} placeholder='Complemento' />
-
-                            <input name='district' onChange={handleInputRegisterChange} placeholder='Bairro' />
-
-                            <input name='cepNumber' onChange={handleInputRegisterChange} placeholder='CEP' />
-
-                        </fieldset>
-
-                        <fieldset>
-
-                            <legend>
-                                <h2>E-mail e senha</h2>
-                            </legend>
-
-                            <input name='email' onChange={handleInputRegisterChange} placeholder='E-mail' />
-
-                            <input name='password' type="password" onChange={handleInputRegisterChange} placeholder='Senha' />
-
-                        </fieldset>
-
-                        <div className='buttonsFormSignIn' >
-
-                            <Link onClick={()=> {makeRegister()}}>Cadastrar</Link>
-
-                        </div>
-
-                    </div>
-
-                </main>
-
-                <Footer />
-
-            </div>
-
-        );
+        }
 
     }
 }

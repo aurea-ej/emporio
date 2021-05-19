@@ -1,4 +1,4 @@
-.history{
+.historyModal{
 
     width: 80%;
     min-height: 75vh;
@@ -19,12 +19,35 @@
 
 }
 
-.history main {
+.historyModal main {
 
     width: 80%;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
+
+}
+
+.providerInfo {
+
+    color: #000;
+    margin: 2rem;
+  
+}
+
+.providerTitle {
+
+    text-align: center;
+    text-transform: uppercase;
+
+}
+
+.providerCard {
+
+    width: 60vw;
+    background-color: #727f26;
+    border-radius: 25px;
+    padding: 2rem;
 
 }

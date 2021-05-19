@@ -13,6 +13,7 @@ import Provider from './pages/admin/cadProvider'
 import VendorRegister from './pages/admin/vendorregister'
 import Request from './pages/admin/requests'
 import userProfile from './pages/userProfile'
+import OrderHistory from './pages/admin/orderHistory'
 
 const Routes = () => {
 
@@ -32,6 +33,7 @@ const Routes = () => {
             <Route component={VendorRegister} path='/AdminVendor' />
             <Route component={userProfile} path='/Perfil' />
             <Route component={Request} path='/Pedidos' />
+            <Route component={OrderHistory} path='/AdminHistorico' />
         
         </BrowserRouter>
 

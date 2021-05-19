@@ -1,5 +1,6 @@
 import React from 'react'
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import Header from '../../components/header'
 import Footer from '../../components/footer'
 import Modal from '../../components/modal'
@@ -10,7 +11,6 @@ import 'firebase/auth'
 import 'firebase/database'
 import firebaseConfig from '../../FIREBASECONFIG.js'
 
-import shoppingCart from '../../img/shoppingCart.png'
 import heroImg from '../../img/heroImg3.jpg'
 
 function Home() {
@@ -22,6 +22,7 @@ function Home() {
     const [displayMobileSearch, setDisplayMobileSearch] = useState('none')
     const [minProductPrice, setMinProductPrice] = useState(0)
     const [maxProductPrice, setMaxProductPrice] = useState(999)
+    const [displayButtonFinishOrder, setDisplayButtonFinishOrder] = useState('none')
 
     const [displayModal, setDisplayModal] = useState("none");
     const [modalData, setModalData] = useState({});
@@ -78,6 +79,13 @@ function Home() {
     function closeModal() {
 
         displayModal == "none" ? setDisplayModal("flex") : setDisplayModal("none")
+
+        const products = JSON.parse(localStorage.getItem('products'))
+
+        if (products != null) {
+            if (!(products.id))
+                setDisplayButtonFinishOrder('block')
+        }
 
     }
 
@@ -336,6 +344,10 @@ function Home() {
 
                 </div>
 
+            </div>
+
+            <div className="buttonFinishOrder" style={{display: displayButtonFinishOrder }}>
+                <Link to='Carrinho'>FINALIZAR PEDIDO</Link>
             </div>
 
             <Footer />

@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
+
 import Header from '../../../components/header'
 import Footer from '../../../components/footer'
 import History from '../../../components/history'
@@ -12,13 +14,14 @@ import firebaseConfig from '../../../FIREBASECONFIG.js'
     function Provider() {
 
         const [wasChanged, setWasChanged] = useState(false)
+        const [ data, setData ] = useState([]);
         const [dataAlterProvider, setDataAlterProvider] = useState({
             
             company: '',
             name: '',
             email: '',
             phone: 0,
-            products: {}
+            products: data
             
         })
 
@@ -39,6 +42,7 @@ import firebaseConfig from '../../../FIREBASECONFIG.js'
         const [selectProduct, setSelectProduct] = useState('')
         const [selectProductToDelete, setSelectProductToDelete] = useState('')
 
+        const [dataKeysAdm, setDataKeysAdm] = useState([])
         const [dataProvider, setDataProvider] = useState([])
         const [newDataProvider, setNewDataProvider] = useState({
 
@@ -46,7 +50,7 @@ import firebaseConfig from '../../../FIREBASECONFIG.js'
             name: '',
             email: '',
             phone: 0,
-            products: {}
+            products: data
 
         })
 
@@ -57,8 +61,8 @@ import firebaseConfig from '../../../FIREBASECONFIG.js'
             qntd: 0,
             unity: '',
             imageSrc: '',
-            buyPrice: 0,
-            sellPrice: 0
+            sellPrice: 0,
+            buyPrice: 0
 
         })
 
@@ -68,7 +72,7 @@ import firebaseConfig from '../../../FIREBASECONFIG.js'
 
             setNewDataProvider ({
 
-                ...newDataProvider, [name]: value
+                ...newDataProvider, [name]: value,
 
             })
             
@@ -119,19 +123,36 @@ import firebaseConfig from '../../../FIREBASECONFIG.js'
 
         },[])
 
+        useEffect(() => {
+
+            if(!firebase.apps.length)
+                firebase.initializeApp(firebaseConfig);
+    
+            var ref = firebase.database().ref("providers");
+    
+            var keys = []
+    
+            ref.orderByKey().on("child_added", function(snapshot) {
+                keys.push(snapshot.key);
+            });
+    
+            setDataKeysAdm(keys)
+    
+        }, []);
+
         useEffect(()=>{
 
             if(!firebase.apps.length)
                 firebase.initializeApp(firebaseConfig);
 
-                firebase.database().ref('providers').get('/providers/products')
+                firebase.database().ref('providers/').child('products/').get('/products')
                 .then(function(snapshot) {
 
                     if (snapshot.exists()){
 
                         var data = snapshot.val()
                         var temp = Object.keys(data).map((key) => data[key])
-                        setDataProvider(temp)
+                        setDataProduct(temp)
                         
                     }else {
                         console.log("No data available");
@@ -167,7 +188,7 @@ import firebaseConfig from '../../../FIREBASECONFIG.js'
                         email: newDataProvider.email,
                         phone: newDataProvider.phone,
                         id: id,
-                        products: {}
+                        products: [{}]
                         
                     })
 
@@ -181,54 +202,48 @@ import firebaseConfig from '../../../FIREBASECONFIG.js'
 
         function insertNewProduct() {
 
-            if (newDataProduct.product != '' && newDataProvider.qntd != '') {
-                
-                if ( newDataProvider.unity != '' && newDataProvider.imageSrc != '' ) {
-                    
-                    const id = firebase.database().ref().child('posts').push().key
-                    
-                    firebase.database().ref('providers/products' + id).set({
-
-                        product: newDataProvider.product,
-                        qntd: newDataProvider.qntd,
-                        unity: newDataProvider.unity,
-                        imageSrc: newDataProvider.imageSrc,
-                        buyPrice: newDataProvider.buyPrice,
-                        sellPrice: newDataProvider.sellPrice,
-                        id: id,
-                        
-                    })
-
-                    alert("Produto cadastrado com sucesso!");
-                    
-                } 
-                
-            } 
+                const id = firebase.database().ref().child('posts').push().key
+        
+                firebase.database().ref('providers/' + dataKeysAdm[selectProvider]).child('products/' + id).set({
+        
+                    id: id,
+                    product: newDataProduct.product,
+                    imageSrc: newDataProduct.imageSrc,
+                    qntd: newDataProduct.qntd,
+                    unity: newDataProduct.unity,
+                    sellPrice: newDataProduct.sellPrice,
+                    buyPrice: newDataProduct.buyPrice
+        
+                })
+        
+                alert("Produto cadastrado com sucesso!")
+        
+            }
             
-        }
 
         function updateProvider() {
 
             if (wasChanged) {
-
-                console.log(selectProvider)
                 
-                firebase.database().ref('providers/' + selectProvider).update({
+                firebase.database().ref('providers/' + dataKeysAdm[selectProvider]).update({
                     
-                    company: dataAlterProvider.company != '' ? dataAlterProvider.company : null,
-                    name: dataAlterProvider.name != '' ? dataAlterProvider.name : null,
-                    email: dataAlterProvider.email != '' ? dataAlterProvider.name : null,
-                    phone: dataAlterProvider.phone != '' ? dataAlterProvider.phone : null,
+                    company: dataAlterProvider.company != '' ? dataAlterProvider.company : dataProvider[selectProvider].company,
+                    name: dataAlterProvider.name != '' ? dataAlterProvider.name : dataProvider[selectProvider].name,
+                    email: dataAlterProvider.email != '' ? dataAlterProvider.name : dataProvider[selectProvider].email,
+                    phone: dataAlterProvider.phone != '' ? dataAlterProvider.phone : dataProvider[selectProvider].phone,
         
                 })
-
+                .then(()=>alert("Item atualizado com sucesso!"))
             }
             
         }
 
         function deleteProvider() {
 
-            firebase.database().ref('providers/' + selectProviderToDelete).remove()
+            firebase.database()
+            .ref('providers/' + dataKeysAdm[selectProviderToDelete])
+            .remove()
+            .then(()=>alert("Item removido com sucesso!"))
             
         }
 
@@ -285,8 +300,16 @@ import firebaseConfig from '../../../FIREBASECONFIG.js'
                 </div>
 
                 <div className='titleProvider' >
+
                     <h3>O que deseja fazer?</h3>
-                    <a onClick={()=>{handleHistoryInfos()}}>Histórico de pedidos</a>
+                
+                    <div className="btn-style">
+
+                        <span onClick={()=>{handleHistoryInfos()}}>Informação dos fornecedores</span>
+                        <Link to='/AdminHistorico' >Histórico de pedidos</Link>
+
+                    </div>
+                    
                 </div>
 
                 <div className='providerOptions' >
@@ -384,20 +407,6 @@ import firebaseConfig from '../../../FIREBASECONFIG.js'
                         <input name='email' onChange={handleInputProviderChangeAlter} placeholder='E-mail' />
                         
                         <input name='phone' onChange={handleInputProviderChangeAlter} placeholder='Telefone' />
-
-                        <input name='product' onChange={handleInputProviderChangeAlter} placeholder='Produto' />
-
-                        <input name='qntd' onChange={handleInputProviderChangeAlter} placeholder='Quantidade' />
-
-                        <select onChange={handleInputProviderChangeAlter} > {/* n funcionou */}
-                            <option value='0' >Unidade de medida</option>
-                            <option value='1' >Quilograma</option>
-                            <option value='2' >Unidade</option>
-                        </select>
-
-                        <input name='buyPrice' onChange={handleInputProviderChangeAlter} placeholder='Preço de compra' />
-
-                        <input name='sellPrice' onChange={handleInputProviderChangeAlter} placeholder='Preço de venda' />
 
                         <a onClick={()=>{setWasChanged(true);updateProvider();}} >Alterar</a>
 
