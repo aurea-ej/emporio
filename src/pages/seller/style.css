@@ -1,0 +1,31 @@
+.flexDisplay {
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+}
+
+.sellerScreen {
+
+    width: 100vw;
+
+}
+
+.addProductButton {
+
+    margin: 3vh 0;
+
+}
+
+.addProductButton a {
+
+    padding: 10px;
+    color: white;
+    cursor: pointer;
+    border-radius: 30px;
+    text-decoration: none;
+    background-color: #662210;
+
+}

@@ -61,7 +61,7 @@ export default function Header (props) {
                         <li> <Link to='/' > Início </Link> </li>
                         <li> <Link to='/Quem-somos-nos'> Quem Somos </Link> </li>
                         <li> <Link to='/Carrinho'> Carrinho </Link> </li>
-                        <li> {userIsLogged ? <Link to='/Entrar'> Login </Link> : <Link to='/Perfil'> Perfil </Link>}   </li>
+                        <li> <Link to='/Entrar'> Login/Perfil </Link> </li>
 
                     </ul>
                     
