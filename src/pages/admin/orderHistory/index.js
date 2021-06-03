@@ -67,10 +67,10 @@ function OrderHistory() {
 
                                                 <p>
                                                     
-                                                    Produto: 
+                                                    {/* Produto:
                                                     {providers.products.map((products)=>(
                                                     <b>{products.product}</b>
-                                                    ))}
+                                                    ))} */}
                                                     
                                                 </p>
 

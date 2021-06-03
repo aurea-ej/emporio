@@ -3,284 +3,316 @@ import { Link } from 'react-router-dom'
 
 import Header from '../../../components/header'
 import Footer from '../../../components/footer'
-import History from '../../../components/history'
+import ProviderInfo from '../../../components/providerInfo'
 import './style.css'
 
 import firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/database'
 import firebaseConfig from '../../../FIREBASECONFIG.js'
+import { isCompositeComponent } from 'react-dom/test-utils'
 
-    function Provider() {
+function Provider() {
 
-        const [wasChanged, setWasChanged] = useState(false)
-        const [ data, setData ] = useState([]);
-        const [dataAlterProvider, setDataAlterProvider] = useState({
-            
-            company: '',
-            name: '',
-            email: '',
-            phone: 0,
-            products: data
-            
-        })
-
-        const [selectProvider, setSelectProvider] = useState('')
-        const [selectProviderToDelete, setSelectProviderToDelete] = useState('')
+    const [wasChanged, setWasChanged] = useState(false)
+    const [ data, setData ] = useState([]);
+    const [dataAlterProvider, setDataAlterProvider] = useState({
         
-        const [dataAlterProduct, setDataAlterProduct] = useState({
+        company: '',
+        name: '',
+        email: '',
+        phone: 0,
+        products: data
+        
+    })
+
+    const [selectProvider, setSelectProvider] = useState('')
+    const [selectProviderToDelete, setSelectProviderToDelete] = useState('')
+    
+    const [dataAlterProduct, setDataAlterProduct] = useState({
+
+    product: '',
+    qntd: 0,
+    unity: '',
+    imageSrc: '',
+    buyPrice: 0,
+    sellPrice: 0,
+
+    })
+
+    const [selectProduct, setSelectProduct] = useState('')
+    const [selectProductToDelete, setSelectProductToDelete] = useState('')
+
+    const [dataKeysAdm, setDataKeysAdm] = useState([])
+    const [dataProvider, setDataProvider] = useState([])
+    const [newDataProvider, setNewDataProvider] = useState({
+
+        company: '',
+        name: '',
+        email: '',
+        phone: 0,
+        products: data
+
+    })
+
+    const [dataProduct, setDataProduct] = useState([])
+    const [newDataProduct, setNewDataProduct] = useState({
 
         product: '',
         qntd: 0,
         unity: '',
         imageSrc: '',
-        buyPrice: 0,
         sellPrice: 0,
+        buyPrice: 0
+
+    })
+
+    function handleInputProviderChange(event) {
+
+        const {name, value} = event.target
+
+        setNewDataProvider ({
+
+            ...newDataProvider, [name]: value,
 
         })
+        
+    }
 
-        const [selectProduct, setSelectProduct] = useState('')
-        const [selectProductToDelete, setSelectProductToDelete] = useState('')
+    function handleInputProductChange(event) {
 
-        const [dataKeysAdm, setDataKeysAdm] = useState([])
-        const [dataProvider, setDataProvider] = useState([])
-        const [newDataProvider, setNewDataProvider] = useState({
+        const {name, value} = event.target
 
-            company: '',
-            name: '',
-            email: '',
-            phone: 0,
-            products: data
+        setNewDataProduct ({
+
+            ...newDataProduct, [name]: value
 
         })
+        
+    }
 
-        const [dataProduct, setDataProduct] = useState([])
-        const [newDataProduct, setNewDataProduct] = useState({
+    function handleInputProviderChangeAlter(event) {
 
-            product: '',
-            qntd: 0,
-            unity: '',
-            imageSrc: '',
-            sellPrice: 0,
-            buyPrice: 0
+        const {name, value} = event.target
+
+        setDataAlterProvider({
+
+            ...dataAlterProvider, [name]: value
 
         })
+        
+    }
 
-        function handleInputProviderChange(event) {
+    useEffect(()=>{
 
-            const {name, value} = event.target
+        if(!firebase.apps.length)
+            firebase.initializeApp(firebaseConfig);
 
-            setNewDataProvider ({
+            firebase.database().ref('providers').get('/providers')
+            .then(function(snapshot) {
 
-                ...newDataProvider, [name]: value,
+                if (snapshot.exists()){
 
+                    var data = snapshot.val()
+                    var temp = Object.keys(data).map((key) => data[key])
+                    setDataProvider(temp)
+                    
+                }else {
+                    console.log("No data available");
+                }
             })
-            
-        }
 
-        function handleInputProductChange(event) {
+    },[])
 
-            const {name, value} = event.target
+    useEffect(() => {
 
-            setNewDataProduct ({
+        if(!firebase.apps.length)
+            firebase.initializeApp(firebaseConfig);
 
-                ...newDataProduct, [name]: value
+        var ref = firebase.database().ref("providers");
 
+        var keys = []
+
+        ref.orderByKey().on("child_added", function(snapshot) {
+            keys.push(snapshot.key);
+        });
+
+        setDataKeysAdm(keys)
+
+    }, []);
+
+    useEffect(()=>{
+
+        if(!firebase.apps.length)
+            firebase.initializeApp(firebaseConfig);
+
+            firebase.database().ref('providers/').child('products/').get('/products')
+            .then(function(snapshot) {
+
+                if (snapshot.exists()){
+
+                    var data = snapshot.val()
+                    var temp = Object.keys(data).map((key) => data[key])
+                    setDataProduct(temp)
+                    
+                }else {
+                    console.log("No data available");
+                }
             })
+
+    },[])
+
+    function handleSelectProvider (event) {
+
+        setSelectProvider(event.target.value)
+
+    }
+
+    function handleSelectProviderToDelete (event) {
+
+        setSelectProviderToDelete(event.target.value)
+
+    }
+
+    function insertNewProvider() {
+
+        if (newDataProvider.company != '' && newDataProvider.name != '') {
             
-        }
-
-        function handleInputProviderChangeAlter(event) {
-
-            const {name, value} = event.target
-
-            setDataAlterProvider({
-
-                ...dataAlterProvider, [name]: value
-
-            })
-            
-        }
-
-        useEffect(()=>{
-
-            if(!firebase.apps.length)
-                firebase.initializeApp(firebaseConfig);
-
-                firebase.database().ref('providers').get('/providers')
-                .then(function(snapshot) {
-
-                    if (snapshot.exists()){
-
-                        var data = snapshot.val()
-                        var temp = Object.keys(data).map((key) => data[key])
-                        setDataProvider(temp)
-                        
-                    }else {
-                        console.log("No data available");
-                    }
-                })
-
-        },[])
-
-        useEffect(() => {
-
-            if(!firebase.apps.length)
-                firebase.initializeApp(firebaseConfig);
-    
-            var ref = firebase.database().ref("providers");
-    
-            var keys = []
-    
-            ref.orderByKey().on("child_added", function(snapshot) {
-                keys.push(snapshot.key);
-            });
-    
-            setDataKeysAdm(keys)
-    
-        }, []);
-
-        useEffect(()=>{
-
-            if(!firebase.apps.length)
-                firebase.initializeApp(firebaseConfig);
-
-                firebase.database().ref('providers/').child('products/').get('/products')
-                .then(function(snapshot) {
-
-                    if (snapshot.exists()){
-
-                        var data = snapshot.val()
-                        var temp = Object.keys(data).map((key) => data[key])
-                        setDataProduct(temp)
-                        
-                    }else {
-                        console.log("No data available");
-                    }
-                })
-
-        },[])
-
-        function handleSelectProvider (event) {
-
-            setSelectProvider(event.target.value)
-
-        }
-
-        function handleSelectProviderToDelete (event) {
-
-            setSelectProviderToDelete(event.target.value)
-
-        }
-
-        function insertNewProvider() {
-
-            if (newDataProvider.company != '' && newDataProvider.name != '') {
+            if ( newDataProvider.email != '' && newDataProvider.phone != '' ) {
                 
-                if ( newDataProvider.email != '' && newDataProvider.phone != '' ) {
-                    
-                    const id = firebase.database().ref().child('posts').push().key
-                    
-                    firebase.database().ref('providers/' + id).set({
+                const id = firebase.database().ref().child('posts').push().key
+                
+                firebase.database().ref('providers/' + id).set({
 
-                        company: newDataProvider.company,
-                        name: newDataProvider.name,
-                        email: newDataProvider.email,
-                        phone: newDataProvider.phone,
-                        id: id,
-                        products: [{}]
-                        
-                    })
-
-                    alert("Fornecedor cadastrado com sucesso!");
+                    company: newDataProvider.company,
+                    name: newDataProvider.name,
+                    email: newDataProvider.email,
+                    phone: newDataProvider.phone,
+                    id: id,
+                    products: [{}]
                     
-                } 
+                })
+
+                alert("Fornecedor cadastrado com sucesso!");
                 
             } 
             
-        }
+        } 
+        
+    }
 
-        function insertNewProduct() {
+    function insertNewProduct() {
 
-                const id = firebase.database().ref().child('posts').push().key
+        const id = firebase.database().ref().child('posts').push().key
+
+        firebase.database().ref('providers/' + dataKeysAdm[selectProvider]).child('products/' + id).set({
+
+            id: id,
+            product: newDataProduct.product,
+            imageSrc: newDataProduct.imageSrc,
+            qntd: newDataProduct.qntd,
+            unity: newDataProduct.unity,
+            sellPrice: newDataProduct.sellPrice,
+            buyPrice: newDataProduct.buyPrice
+
+        })
+
+        alert("Produto cadastrado com sucesso!")
+    
+    }
         
-                firebase.database().ref('providers/' + dataKeysAdm[selectProvider]).child('products/' + id).set({
-        
-                    id: id,
-                    product: newDataProduct.product,
-                    imageSrc: newDataProduct.imageSrc,
-                    qntd: newDataProduct.qntd,
-                    unity: newDataProduct.unity,
-                    sellPrice: newDataProduct.sellPrice,
-                    buyPrice: newDataProduct.buyPrice
-        
-                })
-        
-                alert("Produto cadastrado com sucesso!")
-        
-            }
+    function updateProvider() {
+
+        if (wasChanged) {
             
-
-        function updateProvider() {
-
-            if (wasChanged) {
+            firebase.database().ref('providers/' + dataKeysAdm[selectProvider]).update({
                 
-                firebase.database().ref('providers/' + dataKeysAdm[selectProvider]).update({
-                    
-                    company: dataAlterProvider.company != '' ? dataAlterProvider.company : dataProvider[selectProvider].company,
-                    name: dataAlterProvider.name != '' ? dataAlterProvider.name : dataProvider[selectProvider].name,
-                    email: dataAlterProvider.email != '' ? dataAlterProvider.name : dataProvider[selectProvider].email,
-                    phone: dataAlterProvider.phone != '' ? dataAlterProvider.phone : dataProvider[selectProvider].phone,
+                company: dataAlterProvider.company != '' ? dataAlterProvider.company : dataProvider[selectProvider].company,
+                name: dataAlterProvider.name != '' ? dataAlterProvider.name : dataProvider[selectProvider].name,
+                email: dataAlterProvider.email != '' ? dataAlterProvider.name : dataProvider[selectProvider].email,
+                phone: dataAlterProvider.phone != '' ? dataAlterProvider.phone : dataProvider[selectProvider].phone,
+    
+            })
+            .then(()=>alert("Item atualizado com sucesso!"))
+        }
         
-                })
-                .then(()=>alert("Item atualizado com sucesso!"))
-            }
-            
-        }
+    }
 
-        function deleteProvider() {
+    function deleteProvider() {
 
-            firebase.database()
-            .ref('providers/' + dataKeysAdm[selectProviderToDelete])
-            .remove()
-            .then(()=>alert("Item removido com sucesso!"))
-            
-        }
+        firebase.database()
+        .ref('providers/' + dataKeysAdm[selectProviderToDelete])
+        .remove()
+        .then(()=>alert("Item removido com sucesso!"))
+        
+    }
 
-        const [selectedOption, setSelectedOption] = useState('')
+    const [selectedOption, setSelectedOption] = useState('')
 
-        function handleSelect(event) {
+    function handleSelect(event) {
 
-            const {name, value} = event.target
+        const {name, value} = event.target
+
+        setSelectedOption(value)
+        
+    }
+
+    const [ displayHistory, setDisplayHistory ] = useState("none");
+    const [ HistoryData, setHistoryData ] = useState({});
+    const [ pageHeight, setPageHeight ] = useState(0);
+
+    useEffect(() => {
+
+        window.scrollTo(0, 0);
+        setPageHeight(window.screen.height)
+
+    }, []);
+
+    function handleHistoryInfos() {
+
+        setHistoryData();
+
+        displayHistory == "none" ? setDisplayHistory("flex") : setDisplayHistory("none")
+        
+    }
+
+    function closeHistory() {
+
+        displayHistory == "none" ? setDisplayHistory("flex") : setDisplayHistory("none")
+
+    }
     
-            setSelectedOption(value)
-            
-        }
 
-        const [ displayHistory, setDisplayHistory ] = useState("none");
-        const [ HistoryData, setHistoryData ] = useState({});
-        const [ pageHeight, setPageHeight ] = useState(0);
+    const [itemsOfProvider, setItemsOfProvider] = useState([])
 
-        useEffect(() => {
+    function handleSelectProviderProducts (event) {
 
-            window.scrollTo(0, 0);
-            setPageHeight(window.screen.height)
-    
-        }, []);
+        var position = event.target.value
 
-        function handleHistoryInfos() {
+        setSelectProvider(position)
 
-            setHistoryData();
-    
-            displayHistory == "none" ? setDisplayHistory("flex") : setDisplayHistory("none")
-            
-        }
-    
-        function closeHistory() {
-    
-            displayHistory == "none" ? setDisplayHistory("flex") : setDisplayHistory("none")
-    
-        }
+        var data = dataProvider[position].products
+
+        if (data != undefined && data != null){
+
+            var items = Object.keys(data).map((key) => data[key])
+            var temp = []
+
+            items.map((products) => {
+
+                console.log(products)
+                temp.push(products)
+
+            })
+
+            setItemsOfProvider(temp)
+
+        }else
+            setItemsOfProvider([])
+
+    }
+
+
 
     return (
 
@@ -290,18 +322,14 @@ import firebaseConfig from '../../../FIREBASECONFIG.js'
 
             <div style={{display:displayHistory }} tabindex="-1" role="dialog" className='divHistory' >
                 <span onClick={closeHistory}>X</span>
-                <History displayProperty={displayHistory} HistoryData={HistoryData} />
+                <ProviderInfo displayProperty={displayHistory} HistoryData={HistoryData} />
             </div>
 
             <main id='mainProvider' >
 
                 <div className='titleProvider' >
-                    <h1>Bem-vindo ao cadastro de fornecedores da Empório Bom Jardim 💛</h1>
-                </div>
 
-                <div className='titleProvider' >
-
-                    <h3>O que deseja fazer?</h3>
+                    <h1>O que deseja fazer?</h1>
                 
                     <div className="btn-style">
 
@@ -314,9 +342,9 @@ import firebaseConfig from '../../../FIREBASECONFIG.js'
 
                 <div className='providerOptions' >
 
-                    <fieldset>
+                    <fieldset className='brownBackGround' >
 
-                        <legend>
+                        <legend className='brownBackGround'>
                             <h2>Inserir novo fornecedor</h2>
                             <h5>Preencha os dados do fornecedor e do produto abaixo</h5>
                         </legend>
@@ -331,12 +359,16 @@ import firebaseConfig from '../../../FIREBASECONFIG.js'
                         
                         <a onClick={()=>{insertNewProvider()}} >Cadastrar</a>
 
+                        </fieldset>
+
+                        <fieldset className='greenBackGround' >
+
                         <legend>
                             <h2>Inserir novo pedido</h2>
                             <h5>Selecione o fornecedor e preencha os dados do produto abaixo</h5>
                         </legend>
 
-                        <select onChange={handleSelectProvider} >
+                        <select onChange={handleSelectProviderProducts} >
 
                             <option>Selecione o fornecedor</option>
         
@@ -349,6 +381,18 @@ import firebaseConfig from '../../../FIREBASECONFIG.js'
                                     )
 
                                 })}
+
+                        </select>
+
+                        <select onChange={handleSelectProviderProducts} >
+
+                            <option>Selecione o produto</option>
+
+                            {itemsOfProvider.map((products, index)=>(
+
+                                <option value={index} key={index}>{products.product}, R${products.buyPrice}</option>
+                                    
+                            ))}
 
                         </select>
 

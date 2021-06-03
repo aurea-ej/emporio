@@ -60,7 +60,7 @@ function About() {
                             </p>
                         </div>
                     </div>
-                </div>
+                </div> 
 
                 <div className="process-section">
                     <div className="process-text">

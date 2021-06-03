@@ -55,3 +55,26 @@
     margin-left: .4rem;
 
 }
+
+@media screen and (max-width: 768px) {
+
+    .textHistory {
+
+        width: 85vw;
+
+    }
+
+    .textHistory h2 {
+
+        font-size: 22px;
+
+    }
+
+    .boxHistory {
+
+        width: 80%;
+
+    }
+
+
+}

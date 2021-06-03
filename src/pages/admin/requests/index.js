@@ -8,6 +8,8 @@ import 'firebase/auth'
 import 'firebase/database'
 import firebaseConfig from '../../../FIREBASECONFIG.js'
 
+import closeIcon from '../../../img/removeIconWhite.png'
+
 
 function Request() {
 
@@ -49,6 +51,12 @@ function Request() {
         
     }
 
+    function removeItemOfClient(params) {
+
+        alert('ainda nao implementado')
+        
+    }
+
     return (
 
         <div className='Request'>
@@ -85,16 +93,36 @@ function Request() {
 
                         <div className="rightSizeBoxOrder" >
 
+                            {item.seller != undefined ? <p>Vendedor: {item.seller}</p> : '' }
+
                             <p>Itens:</p>
 
                             <ul>
 
-                                {/* {item.listItem.map((item)=>(console.log(item.)))} */}
-                                {item.listItem.map((item)=>(
-                                    <li><b>{item.data.title}</b> ({item.amount})</li>
+                                {item.listItem.map((item, index)=>(
+                                    <div className='flexDisplayRequestPage' >
+                                        <li><b>{item.data.title}</b> ({item.amount})</li>
+                                        <img src={closeIcon}
+                                            className="imgRemoveIconCart"
+                                            alt='opção de remover item'
+                                            onClick={()=>{
+                                                removeItemOfClient(index)
+                                            }}
+                                        />
+                                    </div>
                                 ))}
 
                             </ul>
+
+                            <p>Tipo de pagamento: <b>{item.paymentType}</b></p>
+
+                            {
+
+                                item.clientNote != undefined ?
+                                    <p>Observações: <b>{item.clientNote}</b></p>
+                                : ''
+
+                            }
 
                             <p>ID do pedido: <b>{item.id}</b></p>
                             <p>Valor Total do pedido: <b>{item.totalValue}</b></p>

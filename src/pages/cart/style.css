@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
 
-.flexDisplay {
+.flexDisplayCart {
 
     display: flex;
     align-items: center;
@@ -36,13 +36,33 @@
 
 .lineBoxCardProduct h4, h5, h3{
 
-    padding: 0px 30px;
+    padding: 0px 0px;
+    text-align: left;
 
 }
 
-.boxCart img {
+.nameProductInCart {
+
+    width: 23vw;
+
+}
+
+.infoProductInCart {
+
+    width: 10vw;
+
+}
+
+.imgProductCart {
 
     width: 50px;
+
+}
+
+.imgRemoveIconCart {
+
+    width: 20px;
+    cursor: pointer;
 
 }
 
@@ -69,6 +89,30 @@
 
     color: rgb(175, 175, 175);
     font-size: 8pt;
+
+}
+
+.paymentSelect {
+
+    width: 52vw;
+    border: none;
+    padding: 25px;
+    margin: 15px 0px;
+    border-radius: 10px;
+    box-shadow: -2px 5px 8px #92929255;
+    justify-content: space-between;
+
+}
+
+.clientNoteInput {
+
+    width: 50vw;
+    border: none;
+    padding: 25px 15px;
+    margin: 15px 0px;
+    border-radius: 10px;
+    box-shadow: -2px 5px 8px #92929255;
+    justify-content: space-between;
 
 }
 
@@ -100,10 +144,23 @@
 
     }
 
-    .boxCart img {
+    .textIntroCart {
 
-        width: 40px;
-    
+        margin-top: 3vh;
+        margin-bottom: 2vh;
+
+    }
+
+    .textIntroCart p{
+
+        font-size: 11pt;
+
+    }
+
+    .infoProductInCart {
+
+        width: auto;
+
     }
 
     .lineBoxCardProduct h4, h5, h3{
@@ -121,7 +178,7 @@
     .lineBoxCardProduct h4{
 
         font-size: 10pt;
-        padding-right: 15px;
+        padding: 0px 15px 0px 0px;
     
     }
 
@@ -131,6 +188,23 @@
     
     }
 
+    .lineBoxCardProduct {
+        display: flex;
+        flex-wrap: nowrap;
+    }
+
+    .imgProductCart {
+
+        width: 40px;
+
+    }
+
+    .imgRemoveIconCart {
+
+        width: 25px;
+
+    }
+
     .emptyCart {
 
         width: 80%;
@@ -138,4 +212,29 @@
         font-size: 12pt;
 
     }
+
+    .paymentSelect {
+
+        width: 88vw;
+
+    }
+
+    .clientNoteInput {
+
+        width: 80%;
+        border: none;
+        padding: 25px 15px;
+        margin: 15px 0px;
+        border-radius: 10px;
+        box-shadow: -2px 5px 8px #92929255;
+        justify-content: space-between;
+    
+    }
+
+    .checkOut {
+
+        margin-top: 12vw;
+
+    }
+
 }

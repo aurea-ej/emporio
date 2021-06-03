@@ -122,4 +122,17 @@
 
     }
 
+    .optionAdminPage ul {
+
+        width: 80vw;
+
+    }
+
+    
+    .optionAdminPage li{
+
+        font-size: 90%;
+
+    }
+
 }

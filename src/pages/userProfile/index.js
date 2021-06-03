@@ -123,7 +123,7 @@ function UserProfile() {
             <div className='dataClient'>
 
                 <ul>
-                    <h5>Dados da conta</h5>
+                    <h2>Dados da conta</h2>
                     <li>
                         <p>Nome</p>
                         <p>{dataAccount.name}</p>

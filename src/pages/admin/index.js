@@ -5,7 +5,6 @@ import './style.css'
 
 function Admin() {
 
-
     return (
 
         <div className='Admin'>
@@ -29,6 +28,7 @@ function Admin() {
                         <li> <Link to="/AdminVendor" >Cadastro/alteração de vendedores</Link> </li>
                         <li> <Link to="/AdminFornecedor" >Cadastro/alteração de fornecedores </Link> </li>
                         <li> <Link to="/Pedidos" >Pedidos em andamento</Link> </li>
+                        <li> <Link to="/ListaDeClientes" >Listagem de clientes</Link> </li>
                         <li> <Link to="/" >Relatórios</Link> </li>
                     </ul>
 

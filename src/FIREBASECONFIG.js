@@ -1,12 +1,12 @@
 const firebaseConfig = {
 
-    apiKey: "AIzaSyDndpKuG_J25dLWYXi8GktQJTZaGPMQchY",
-    authDomain: "ecommerce-ee14e.firebaseapp.com",
-    databaseURL: "https://ecommerce-ee14e-default-rtdb.firebaseio.com",
-    projectId: "ecommerce-ee14e",
-    storageBucket: "ecommerce-ee14e.appspot.com",
-    messagingSenderId: "1019510786576",
-    appId: "1:1019510786576:web:649b70c04ced733f10d895"
+    apiKey: "AIzaSyDbayAhIVL7FnirvMDc1YfJ7xXXswjkt_w",
+    authDomain: "emporio-f3ee3.firebaseapp.com",
+    databaseURL: "https://emporio-f3ee3-default-rtdb.firebaseio.com",
+    projectId: "emporio-f3ee3",
+    storageBucket: "emporio-f3ee3.appspot.com",
+    messagingSenderId: "14436239634",
+    appId: "1:14436239634:web:581bce5c8f29e1a1218bcb"
 
 };
 

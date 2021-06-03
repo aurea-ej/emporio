@@ -27,7 +27,6 @@ function VendorRegister() {
         password: '',
 
     })
-
     const [selectedOption, setSelectedOption] = useState('')
 
     function makeRegister () {
@@ -46,18 +45,11 @@ function VendorRegister() {
 
         const id = firebase.database().ref().child('posts').push().key
 
-        firebase.database().ref('users/' + id).set({
+        firebase.database().ref('sellers/' + id).set({
 
             name: registerData.name,
             phoneNumber: registerData.phoneNumber,
             birthDate: registerData.birthDate,
-            personWhoIndicated: registerData.personWhoIndicated,
-            whoIndicated: selectedOption,
-            street: registerData.street,
-            houseNumber: registerData.houseNumber,
-            complement: registerData.complement,
-            district: registerData.district,
-            cepNumber: registerData.cepNumber,
             email: registerData.email,
             id: id
 
@@ -76,6 +68,7 @@ function VendorRegister() {
         })
         
     }
+
     function handleSelect(event) {
 
         const {name, value} = event.target
@@ -129,9 +122,9 @@ function VendorRegister() {
                             <h2>Nome de usuário e senha</h2>
                         </legend>
 
-                        <input name='nome de usuario' onChange={handleInputRegisterChange} placeholder='Nome de Usuário' />
+                        <input name='email' onChange={handleInputRegisterChange} placeholder='Nome de Usuário' />
 
-                        <input name='password' onChange={handleInputRegisterChange} placeholder='Senha' />
+                        <input name='password' type='password' onChange={handleInputRegisterChange} placeholder='Senha' />
 
                     </fieldset>
 

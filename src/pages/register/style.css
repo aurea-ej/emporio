@@ -105,17 +105,6 @@
 
 }
 
-
-/* @media only screen and (max-width: 940px) {
-
-    .formsSignIn select {
-
-        width: 110%;
-
-    }
-
-} */
-
 @media screen and (max-width: 768px) {
 
     #mainSignIn {

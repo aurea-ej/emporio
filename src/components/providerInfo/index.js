@@ -7,7 +7,7 @@ import 'firebase/database'
 import firebaseConfig from '../../FIREBASECONFIG.js'
 
 
-function History() {
+function ProviderInfo() {
 
     const [dataAdmin, setDataAdmin] = useState([])
   
@@ -56,9 +56,6 @@ function History() {
                             <p>Telefone:</p>
                             <b>{provider.phone}</b>
 
-                            <p>ID do fornecedor:</p>
-                            <b>{provider.id}</b>
-
                         </div>
                         
                     </div>
@@ -73,4 +70,4 @@ function History() {
     
 }
 
-export default History
+export default ProviderInfo

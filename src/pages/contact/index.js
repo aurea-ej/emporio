@@ -5,6 +5,8 @@ import Footer from '../../components/footer'
 
 import './style.css'
 
+import logoEmporio2 from '../../img/logoEmporio2.png'
+
 const Contact = () => {
 
     const [ufs, setUfs] = useState([])
@@ -119,6 +121,10 @@ const Contact = () => {
                     <fieldset>
 
                         <div className="page-title">
+                            
+                            <div className="logo-2">
+                                <img src={logoEmporio2} alt="logo 2 Emporio Bom Jardim" />
+                            </div>
 
                             <h2> Entre em contato conosco! </h2>
 

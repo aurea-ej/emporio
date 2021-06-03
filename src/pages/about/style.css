@@ -193,16 +193,26 @@ video {
      background-color: #727f26;
      height: 10rem;
      margin-bottom: 2rem;
-     box-shadow: 14px 11px 16px 0px rgba(0,0,0,0.40);
+     box-shadow: 7px 5px 8px 0px rgba(0,0,0,0.40);
      color: #fff;
+     border-radius: 25px;
+     padding: 10px;
  }
 
   @media only screen and (max-width: 940px) {
+
     .cards {
         display: flex;
         flex-direction: column;
         width: 80%;
-        padding: 0 2rem;
+        padding: 0;
+    }
+
+    .card-item {
+
+        width: 80%;
+        padding: 100px 30px 60px
+
     }
 
     .about-container h1 {
@@ -229,11 +239,13 @@ video {
     }
 
     .process-text {
-        width: 90%;
+        width: 90vw;
+        margin-left: 1rem;
     }
 
     .process-text p{
-        max-width: 90%;
+        max-width: 90vw;
+        margin-bottom: 4rem;
     }
 
     .process-section {
@@ -257,6 +269,12 @@ video {
 
       .about-container h1 {
         font-size: 4rem;
+    }
+
+    .process-text h1 {
+
+        text-align: center;
+
     }
   }
 

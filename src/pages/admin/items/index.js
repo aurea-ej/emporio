@@ -17,7 +17,8 @@ function Admin() {
         imageSrc: '',
         title: '',
         desc: '',
-        price: 0
+        price: 0,
+        itemAvailability: 0
         
     })
     
@@ -123,7 +124,9 @@ function Admin() {
                     title: newDataAdmin.title,
                     desc: newDataAdmin.desc,
                     price: newDataAdmin.price,
-                    id: id
+                    id: id,
+                    itemAvailability: newDataAdmin.itemAvailability
+
                 })
 
                 alert("Item inserido com sucesso!.")
@@ -143,7 +146,8 @@ function Admin() {
                 imageSrc: dataAlterItem.imageSrc != '' ? dataAlterItem.imageSrc : dataAdmin[selectItem].imageSrc,
                 title: dataAlterItem.title != '' ? dataAlterItem.title : dataAdmin[selectItem].title,
                 desc:  dataAlterItem.desc != '' ? dataAlterItem.desc : dataAdmin[selectItem].desc,
-                price: dataAlterItem.price != 0 ? dataAlterItem.price : dataAdmin[selectItem].price
+                price: dataAlterItem.price != 0 ? dataAlterItem.price : dataAdmin[selectItem].price,
+                itemAvailability: dataAlterItem.itemAvailability != 0 ? dataAlterItem.itemAvailability : dataAdmin[selectItem].itemAvailability
             })
             .then(()=>alert("Item atualizado com sucesso!"))
 
@@ -184,6 +188,14 @@ function Admin() {
                         
                         <input name='imageSrc' onChange={handleInputAdminChange} placeholder='URL da imagem' />
 
+                        <select onChange={handleInputAdminChange} name='itemAvailability' >
+
+                            <option value={0} >Disponibilidade</option>
+                            <option value={true} >Disponível</option>
+                            <option value={false} >Indisponível</option>
+
+                        </select>
+
                         <a onClick={()=>{insertNewItem()}} >Inserir</a>
 
                     </fieldset>
@@ -219,6 +231,14 @@ function Admin() {
                         <input name='price' onChange={handleInputAdminChangeAlter} placeholder='Preço' type='number' />
                         
                         <input name='imageSrc' onChange={handleInputAdminChangeAlter} placeholder='URL da imagem' />
+
+                        <select onChange={handleInputAdminChangeAlter} name='itemAvailability' >
+
+                            <option value={0} >Disponibilidade</option>
+                            <option value={true} >Disponível</option>
+                            <option value={false} >Indisponível</option>
+
+                        </select>
 
                         <a onClick={()=>{setWasChanged(true);updateItem();}} >Alterar</a>
 

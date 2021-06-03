@@ -68,10 +68,12 @@ function Modal (props) {
 
             <main>
 
-                <p>Selecione a quantidade e depois adicione o item ao carrinho</p>
+                <div className='imageAndTitleModal' >
 
-                <img src={modalData.imageSrc} alt='imagem do produto' className='productImageModal' />
-                <h1>{modalData.title}</h1>
+                    <img src={modalData.imageSrc} alt='imagem do produto' />
+                    <h1>{modalData.title}</h1>
+
+                </div>
 
                 <div className='lineBoxProductModal'>
 
@@ -89,13 +91,13 @@ function Modal (props) {
 
                 </div>
 
-                    <div>
+                    <div className='amountItensModal' >
                         Quantidade selecionada: {amount}
                     </div>
 
                     <a onClick={()=>{addToCart()}} >ADICIONAR AO CARRINHO</a>
 
-                <p>{modalData.desc}</p>
+                <p className='itemDescModal' >{modalData.desc}</p>
 
             </main>
 

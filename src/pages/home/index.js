@@ -18,15 +18,15 @@ function Home() {
     const [data, setData] = useState([])
     const [dataBackup, setDataBackup] = useState([])
     const [searchInput, setSearchInput] = useState([])
-    const [displaySearchResult, setDisplaySearchResult] = useState('none')
-    const [displayMobileSearch, setDisplayMobileSearch] = useState('none')
     const [minProductPrice, setMinProductPrice] = useState(0)
     const [maxProductPrice, setMaxProductPrice] = useState(999)
+    const [displaySearchResult, setDisplaySearchResult] = useState('none')
+    const [displayMobileSearch, setDisplayMobileSearch] = useState('none')
+    const [heightPageWhenOpenModal, setHeightPageWhenOpenModal] = useState(0)
     const [displayButtonFinishOrder, setDisplayButtonFinishOrder] = useState('none')
 
     const [displayModal, setDisplayModal] = useState("none");
     const [modalData, setModalData] = useState({});
-    const [pageHeight, setPageHeight] = useState(0);
 
     useEffect(() => {
 
@@ -53,7 +53,6 @@ function Home() {
     useEffect(() => {
 
         window.scrollTo(0, 0);
-        setPageHeight(window.screen.height)
 
     }, []);
 
@@ -61,24 +60,25 @@ function Home() {
 
         const products = JSON.parse(localStorage.getItem('products'))
 
-        if (products != null) {
-            if (!(products.id))
-                localStorage.setItem('products', '[{}]')
-        }
-
     }, []);
 
     function handleModalInfos(item) {
 
         setModalData(item)
-
+        setHeightPageWhenOpenModal(document.body.getBoundingClientRect().top)
+        window.scrollTo(0, 0);
         displayModal == "none" ? setDisplayModal("flex") : setDisplayModal("none")
 
     }
 
     function closeModal() {
 
-        displayModal == "none" ? setDisplayModal("flex") : setDisplayModal("none")
+        if (displayModal == "none")
+            setDisplayModal("flex")
+        else {
+            window.scrollTo( -heightPageWhenOpenModal, - heightPageWhenOpenModal)
+            setDisplayModal("none");
+        }
 
         const products = JSON.parse(localStorage.getItem('products'))
 
@@ -118,7 +118,7 @@ function Home() {
     function handleDisplaySearchMobile() {
 
         if( displayMobileSearch == 'none')
-            setDisplayMobileSearch('block')
+            setDisplayMobileSearch('flex')
         else
             setDisplayMobileSearch('none')
         
@@ -165,11 +165,11 @@ function Home() {
 
     return (
 
-        <div className="App">
+        <div className="App" >
 
             <Header />
 
-            <div style={{ display: displayModal }} tabindex="-1" role="dialog" className='divModal' >
+            <div style={{ display: displayModal }} role="dialog" className='divModal' >
 
                 <span onClick={closeModal}>X</span>
                 <Modal displayProperty={displayModal} modalData={modalData} />
@@ -183,8 +183,7 @@ function Home() {
                     <img src={heroImg} alt="Imagem inicial" />
 
                     <div className="heroText">
-                        {/* <h1 className='first-name'>Empório</h1>
-                            <h1 className='second-name'>Bom Jardim</h1> */}
+
                         <p>
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                         </p>
@@ -201,7 +200,7 @@ function Home() {
                 <h3>Filtrar produtos</h3>
             </div>
 
-            <section style={{display: displayMobileSearch}} >
+            <section className='sectionMobileSearch' style={{display: displayMobileSearch}} >
 
                 <div className='menuProductsHomeMobile' >
 
@@ -261,35 +260,47 @@ function Home() {
                     <section id='sectionHome'>
 
                         {
-                            data.map((item, index) => (
+                            data.map((item, index) => {
 
-                                <div className='boxHome'
+                                if (item.itemAvailability == 'true') {
 
-                                    onClick={() => { handleModalInfos(item) }}>
+                                    return (
 
-                                    <img src={item.imageSrc} alt='teste' />
-                                    <h3>{item.title}</h3>
-
-                                    <div className='lineBoxProduct'>
-
-                                        <h4>R$ {item.price}</h4>
-                                        {/* <img src={shoppingCart} /> */}
-
-                                    </div>
-
-                                    <p>{item.desc}</p>
-
-                                </div>
-
-
-                            ))
+                                        <div className='boxHome'
+        
+                                            onClick={() => { handleModalInfos(item) }}>
+        
+                                            <img src={item.imageSrc} alt='teste' />
+        
+                                            <div className="itemInfo">
+        
+                                            <h3>{item.title}</h3>
+        
+                                            <div className='lineBoxProduct'>
+        
+                                                <h4>R$ {item.price}</h4>
+        
+                                            </div>
+        
+                                            <p>{item.desc}</p>
+        
+                                            </div>
+        
+                                        </div>
+        
+        
+                                    )
+                                    
+                                }
+                            
+                            })
                         }
 
                     </section>
 
                 </div>
 
-                <div className="areaLateral">
+                <div className="areaLateral" >
 
                     <div className='menuProductsHome' >
 
@@ -300,13 +311,12 @@ function Home() {
                             <div className='search'>
 
                                 <input type="text" placeholder="Procurar.." onKeyDown={handleSearchInput} />
-                                {/* <a onClick={()=>{searchItem()}}>Pesquisar</a> */}
 
                             </div>
 
                         </div>
 
-                        <div className='filterProducts' >
+                        <div className='filterProducts' style={{borderBottom: '10px solid #ffc05c', paddingBottom: '15px'}}>
 
                             <h4>Preço</h4>
 
@@ -326,19 +336,22 @@ function Home() {
 
                         </div>
 
-                        <div className='filterProducts' >
+                        <div className='balloonHome' >
 
-                            <h4>Tipo</h4>
+                            <div className='insideOfBalloonHome'>
 
-                            <ul>
-                                <li>Frutas</li>
-                                <li>Verduras</li>
-                                <li>Legume</li>
-                                <li>Grãos</li>
-                                <li>Kits</li>
-                            </ul>
+                                <p>Para comprar, clique em um produto e escolha a quantidade que deseja. Assim que selecionar todos os produtos, vá ao carrinho</p>
+
+                            </div>
 
                         </div>
+
+                        <div className='balloonHome' >
+
+                            <p>colocar num esquema de "balões"</p>
+
+                        </div>
+
 
                     </div>
 

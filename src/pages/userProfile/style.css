@@ -170,6 +170,13 @@
 
     }
 
+    .textAlterInfosProfile {
+
+        width: 80%;
+        text-align: center;
+
+    }
+
     .divAlterInfos fieldset {
 
         width: 85%;

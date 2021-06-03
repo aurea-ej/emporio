@@ -1,0 +1,38 @@
+.ClientListPage {
+
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+}
+
+.ClientListPage main {
+
+    padding-top: 3vh;
+
+}
+
+.boxClientList {
+
+    width: 80%;
+    color: white;
+    margin: 15px 0;
+    padding: 10px 15px;
+    border-radius: 20px;
+    background-color: #434f38;
+
+}
+
+.boxClientList h3 {
+
+    
+
+}
+
+.boxClientList p {
+
+    text-align: left;
+
+}

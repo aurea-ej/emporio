@@ -8,6 +8,13 @@
 
 }
 
+.flexDisplayRequestPage {
+
+    display: flex;
+    align-items: center;
+
+}
+
 #mainRequest {
 
     width: 100%;
@@ -64,6 +71,12 @@
 .rightSizeBoxOrder li::before {
 
     content: "↠";
+
+}
+
+.rightSizeBoxOrder li {
+
+    margin-right: 10px;
 
 }
 

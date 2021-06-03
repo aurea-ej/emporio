@@ -1,7 +1,7 @@
 .modal{
 
-    width: 80%;
-    min-height: 75vh;
+    width: 100vw;
+    min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -29,9 +29,33 @@
 
 }
 
-.productImageModal {
+.imageAndTitleModal {
 
-    width: 200px;
+    width: 270px;
+    height: 270px;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-bottom: 6vh;
+    background-color: #662210;
+
+}
+
+.imageAndTitleModal img {
+
+    width: 140px;
+
+}
+
+.imageAndTitleModal h1 {
+
+    font-size: 17pt;
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center;
 
 }
 
@@ -88,5 +112,79 @@
 
     width: 20px;
     margin: 0px 5px;
+
+}
+
+@media screen and (max-width: 768px) {
+
+    .modal main {
+
+        width: 90%;
+        box-shadow: none;
+
+    }
+
+    .imageAndTitleModal {
+
+        width: 230px;
+        height: 230px;
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        background-color: #662210;
+
+    }
+
+    .imageAndTitleModal img {
+
+        width: 140px;
+
+    }
+
+    .imageAndTitleModal h1 {
+
+        font-size: 17pt;
+        display: flex;
+        flex-wrap: wrap;
+        text-align: center;
+
+    }
+    
+    .modal main p {
+    
+        text-align: justify;
+    
+    }
+
+    .lineBoxProductModal h3{
+
+        color: #434f38;
+        margin: 10px 0;
+
+    }
+
+    .lineBoxProductModal {
+
+        flex-direction: column;
+        height: auto;
+        width: auto;
+
+    }
+
+    .amountItensModal {
+
+        font-size: 9pt;
+
+    }
+
+    .itemDescModal {
+
+        margin-top: 50px;
+
+    }
+
 
 }

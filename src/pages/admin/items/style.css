@@ -77,3 +77,25 @@
     padding: 10px;
 
 }
+
+@media screen and (max-width: 768px) {
+
+    .adminOptions {
+
+        width: 90%;
+
+    }
+
+    .adminOptions input {
+
+        width: 80%;
+
+    }
+
+    .adminOptions fieldset select {
+
+        width: 88%;
+    
+    }
+
+}
