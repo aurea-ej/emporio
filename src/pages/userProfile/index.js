@@ -14,6 +14,8 @@ function UserProfile() {
 
     const [dataAccount, setDataAccount] = useState([]);
     const [displayDivAlterInfos, setDisplayDivAlterInfos] = useState("none");
+    const [displayDivPedidos, setDisplayDivPedidos] = useState("none");
+    const [requestData, setRequestData] = useState([{}]);
     const [registerData,setRegisterData] = useState({
 
         name: '',
@@ -76,6 +78,15 @@ function UserProfile() {
         
     }
 
+    function handleDisplayDivPedidos() {
+
+        if(displayDivPedidos == "none")
+            setDisplayDivPedidos("flex")
+        else
+            setDisplayDivPedidos("none")
+        
+    }
+
     function handleInputRegisterChange(event) {
 
         const {name, value} = event.target
@@ -114,6 +125,35 @@ function UserProfile() {
         
     }
 
+    useEffect(() => {
+        
+        firebase.database().ref('requests').get('/requests')
+        .then(function (snapshot) {
+
+            if (snapshot.exists()) {
+
+                // var phoneNumber = localStorage.getItem('userPhoneNumber')
+
+                var data = snapshot.val()
+                var temp = Object.keys(data).map((key) => data[key])
+
+                var requestDataTemp = []
+
+                temp.map((item) => {
+
+                    if(item.phoneNumber == '12345678')
+                        requestDataTemp.push(item)
+
+                })
+                setRequestData(requestDataTemp)
+            }
+            else {
+                console.log("No data available");
+            }
+        })
+
+    }, []);
+
     return (
 
         <div className="clientProfile">
@@ -148,46 +188,82 @@ function UserProfile() {
                 
             </div>
 
-            <h4 className="textAlterInfosProfile" onClick={()=>handleDisplayDivAlterInfos()} >Deseja alterar alguma informação? <span>clique aqui</span></h4>
+            <div>
+                <h4 className="textAlterInfosProfile" onClick={()=>handleDisplayDivAlterInfos()} >Deseja alterar alguma informação? <span>clique aqui</span></h4>
 
+                <div style={{display: displayDivAlterInfos}} className="divAlterInfos" >
+                    
+                    <h2 className="arrowToDownUserProfile"> ⇣ </h2>
 
-            <div style={{display: displayDivAlterInfos}} className="divAlterInfos" >
-                
-                <h2 className="arrowToDownUserProfile"> ⇣ </h2>
+                    <p>Preencha apenas o que deseja atualizar</p>
 
-                <p>Preencha apenas o que deseja atualizar</p>
+                    <fieldset>
 
-                <fieldset>
+                        <legend>
+                            <h2>Informações pessoais</h2>
+                        </legend>
 
-                    <legend>
-                        <h2>Informações pessoais</h2>
-                    </legend>
+                        <input name='name' onChange={handleInputRegisterChange} placeholder='Nome completo' />
 
-                    <input name='name' onChange={handleInputRegisterChange} placeholder='Nome completo' />
+                        <input name='phoneNumber' type='tel' onChange={handleInputRegisterChange} placeholder='Telefone com DDD' />
 
-                    <input name='phoneNumber' type='tel' onChange={handleInputRegisterChange} placeholder='Telefone com DDD' />
+                    </fieldset>
 
-                </fieldset>
+                    <fieldset>
 
-                <fieldset>
+                        <legend>
+                            <h2>Endereço</h2>
+                        </legend>
 
-                    <legend>
-                        <h2>Endereço</h2>
-                    </legend>
+                        <input name='street' onChange={handleInputRegisterChange} placeholder='Nome da rua' />
 
-                    <input name='street' onChange={handleInputRegisterChange} placeholder='Nome da rua' />
+                        <input name='houseNumber' type='number' onChange={handleInputRegisterChange} placeholder='N° da casa/apto' />
 
-                    <input name='houseNumber' type='number' onChange={handleInputRegisterChange} placeholder='N° da casa/apto' />
+                        <input name='complement' onChange={handleInputRegisterChange} placeholder='Complemento' />
 
-                    <input name='complement' onChange={handleInputRegisterChange} placeholder='Complemento' />
+                        <input name='district' onChange={handleInputRegisterChange} placeholder='Bairro' />
 
-                    <input name='district' onChange={handleInputRegisterChange} placeholder='Bairro' />
+                        <input name='cepNumber' onChange={handleInputRegisterChange} placeholder='CEP' />
 
-                    <input name='cepNumber' onChange={handleInputRegisterChange} placeholder='CEP' />
+                    </fieldset>
 
-                </fieldset>
+                    <a className="defaultButtonUserProfile" style={{marginBottom: "5vh"}} onClick={()=>updateRegister()}>Atualizar Informações</a>
 
-                <a className="defaultButtonUserProfile" style={{marginBottom: "5vh"}} onClick={()=>updateRegister()}>Atualizar Informações</a>
+                </div>
+
+            </div>
+
+            <div>
+                <h4 className="textAlterInfosProfile" onClick={()=>handleDisplayDivPedidos()} >Quer acompanhar seus pedidos? <span>clique aqui</span></h4>
+
+                <div style={{display: displayDivPedidos}} className="divPedidos" >
+                    
+
+                        <div className='dataPedidos'>
+                            <ul>
+                                <h2>Pedidos</h2>
+                                <div className='backgroundPedidos'>
+                                    <li>
+                                        <p>Produto:</p>
+                                        <p>TESTE</p>
+                                    </li>
+                                    <li>
+                                        <p>Tipo de pagamento:</p>
+                                        <p>TESTE</p>
+                                    </li>
+                                    <li>
+                                        <p>Preço:</p>
+                                        <p>TESTE</p>
+                                    </li>
+                                    <li>
+                                        <p>Endereço:</p>
+                                        <p>TESTE</p>
+                                    </li>
+                                </div>
+                            </ul>
+                        </div>
+
+                </div>
 
             </div>
 

@@ -34,6 +34,12 @@
 
 }
 
+.adminOptions ::placeholder {
+
+    color: white;
+
+}
+
 .adminOptions fieldset a { 
 
     color: white;
@@ -45,7 +51,7 @@
     border-radius: 10px;
     box-shadow: 0px 0px 8px rgba(160, 160, 160, 0.35);
 
- }
+}
 
 .adminOptions input {
 
@@ -56,7 +62,7 @@
     box-shadow: 0px 0px 8px rgba(160, 160, 160, 0.35);
     padding: 15px;
     margin: 10px 0;
-    background-color: white;
+    background-color: #ffc05c;
 
 }
 

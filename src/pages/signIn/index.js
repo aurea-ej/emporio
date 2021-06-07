@@ -20,6 +20,7 @@ function Register() {
     })
 
     const [userIsLogged, setUserIsLogged] = useState(false);
+    const [requestData, setRequestData] = useState([{}]);
 
     function makeLogin () {
 
@@ -66,6 +67,35 @@ function Register() {
         if(!firebase.apps.length)
             firebase.initializeApp(firebaseConfig)
         onAuthStateChanged();
+
+    }, []);
+    
+    useEffect(() => {
+        
+        firebase.database().ref('requests').get('/requests')
+        .then(function (snapshot) {
+
+            if (snapshot.exists()) {
+
+                // var phoneNumber = localStorage.getItem('userPhoneNumber')
+
+                var data = snapshot.val()
+                var temp = Object.keys(data).map((key) => data[key])
+
+                var requestDataTemp = []
+
+                temp.map((item) => {
+
+                    if(item.phoneNumber == '12345678')
+                        requestDataTemp.push(item)
+
+                })
+                setRequestData(requestDataTemp)
+            }
+            else {
+                console.log("No data available");
+            }
+        })
 
     }, []);
 

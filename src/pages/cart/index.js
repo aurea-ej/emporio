@@ -285,9 +285,11 @@ function Cart() {
                     <select className="paymentSelect" onChange={handleSelectPayment} >
 
                         <option>Selecione o tipo de pagamento</option>
-                        <option value="Cartão" >Cartão de crédito ou débito</option>
+                        <option value="Cartão" >Cartão de débito</option>
                         <option value="Dinheiro" >Dinheiro</option>
-                        <option value="Pix" >Pix</option>
+                        <option value="Pix" >PicPay</option>
+                        <option value="Pix" >PIX</option>
+                        <option value="Pix" >TED</option>
 
                     </select>
 

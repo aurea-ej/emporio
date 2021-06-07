@@ -6,12 +6,14 @@ import './style.css'
 import firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/database'
+import 'firebase/storage'
 import firebaseConfig from '../../../FIREBASECONFIG.js'
 
 
 function Admin() {
 
     const [wasChanged, setWasChanged] = useState(false)
+    const [imageUrl, setImageUrl] = useState('')
     const [dataAlterItem, setDataAlterItem] = useState({
         
         imageSrc: '',
@@ -120,7 +122,7 @@ function Admin() {
 
                 firebase.database().ref('items/' + id).set({
 
-                    imageSrc: newDataAdmin.imageSrc,
+                    imageSrc: imageUrl,
                     title: newDataAdmin.title,
                     desc: newDataAdmin.desc,
                     price: newDataAdmin.price,
@@ -164,6 +166,41 @@ function Admin() {
         
     }
 
+    function uploadImage(event) {
+
+        const file = event.target.files[0]
+
+        var storageRef = firebase.storage().ref();
+        var imagesRef = storageRef.child('images');
+
+        var uploadTask = storageRef.child('images/rivers.jpg').put(file);
+
+        uploadTask.on('state_changed', function(snapshot){
+
+          var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+
+          console.log('Upload is ' + progress + '% done');
+          
+          switch (snapshot.state) {
+            case firebase.storage.TaskState.PAUSED:
+              console.log('Upload is paused');
+              break;
+            case firebase.storage.TaskState.RUNNING:
+              console.log('Upload is running');
+              break;
+          }
+        }, function(error) {
+          
+        }, function() {
+          
+          uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+            setImageUrl(downloadURL);
+          });
+        });
+
+
+    }
+
     return (
 
         <div className='Admin'>
@@ -186,7 +223,7 @@ function Admin() {
 
                         <input name='price' onChange={handleInputAdminChange} placeholder='Preço' type='number' />
                         
-                        <input name='imageSrc' onChange={handleInputAdminChange} placeholder='URL da imagem' />
+                        <input type='file' onChange={uploadImage} accept="image/png, image/jpeg" placeholder='Imagem'/>
 
                         <select onChange={handleInputAdminChange} name='itemAvailability' >
 

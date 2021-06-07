@@ -15,17 +15,6 @@ export default function Footer (props) {
 
         <footer>
 
-            <div className='copyright' >
-
-                <p>Copyright Aurea Soluções e Projetos</p>
-                
-                <p>Desenvolvido por :</p>
-
-                <img src={logoAurea} alt='logoAurea' />
-               
-
-            </div>
-
             <div className='address' >
 
                 <img src={logoEmporio} alt='logoEmporio' />
@@ -33,24 +22,31 @@ export default function Footer (props) {
                 <ul>
                     <li> <Link to='/' > Início </Link> </li>
                     <li> <Link to='/Quem-somos-nos'> Quem Somos </Link> </li>
-                    <li> <a href='/#services'> Serviços </a> </li>
-                    <li> <Link to='/Contato'> Contato </Link> </li>
-                    <li> <Link to='/Blog'> Blog </Link> </li>
+                    <li> <Link to='/Carrinho'> Carrinho </Link> </li>
+                    <li> <Link to='/Entrar'> Login/Perfil </Link> </li>
                 </ul>
 
-                <p>R. Dr. Siqueira, 273 - Parque Dom Bosco, Campos dos Goytacazes - RJ, 28030-130IFF Sala G-02</p>
+                <p> Rua Antonio Costa, 160, casa 2, Vista Alegre, Curitiba- PR</p>
 
-                <p>Whatsapp: (21) 99015-7124</p>
+                <p>Whatsapp: (41) 99841-6657</p>
                 
             </div>
 
-            <div className='socialMedias' >
+            <div className='copyright' >
+                
+                <p>Desenvolvido por :</p>
+
+                <a href='https://aureaej.com/' ><img src={logoAurea} alt='logoAurea' /></a>
+
+            </div>
+
+            {/* <div className='socialMedias' >
 
                 <a href='https://www.instagram.com/aureaej/'  > <img src={instagramIcon} alt='logoInstagram' /> </a>
                 <a href='https://www.facebook.com/aureaej'  > <img src={facebookIcon} alt='logoFacebook' /> </a>
                 <a href='https://www.linkedin.com/company/aureaej/'  > <img src={linkedinIcon} alt='logoLinkedin' /> </a>
 
-            </div>
+            </div> */}
 
 
         </footer>
