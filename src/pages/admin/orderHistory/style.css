@@ -34,6 +34,7 @@
     justify-content: space-between;
     margin-bottom: 2rem;
     border: 1px solid #000;
+    cursor: pointer;
 
 }
 
@@ -53,6 +54,31 @@
 .lineBoxCardHistory b {
 
     margin-left: .4rem;
+
+}
+
+
+.divBuyInfo {
+
+    width: 100vw;
+    position: relative;
+
+}
+
+.divBuyInfo span{
+
+    width: 20px;
+    height: 20px;
+    padding: 8px;
+    color: white;
+    position: absolute;
+    top: 25px;
+    right: 27%;
+    z-index: 400;
+    cursor: pointer;
+    border-radius: 50%;
+    text-align: center;
+    background-color: #662210;
 
 }
 

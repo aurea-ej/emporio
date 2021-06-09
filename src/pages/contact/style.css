@@ -98,7 +98,7 @@ fieldset .field {
 
 fieldset input {
     width: 100%;
-    background-color: #662210;
+    background-color: #ffc05c;
     border: none;
     margin: 3px 0px 50px 0px;
     padding: 16px 24px;
@@ -115,7 +115,7 @@ fieldset .selects {
 fieldset .selects select {
 
     width: 110%;
-    background-color: #662210;
+    background-color: #ffc05c;
     border: none;
     margin: 3px 0px 50px 0px;
     padding: 16px 24px;
@@ -136,8 +136,8 @@ fieldset .messageInput {
 fieldset #message {
     height: 150px;
     width: 103%;
-    background-color: #662210;
-    color: #DBB826;
+    background-color: #ffc05c;
+    color: #ffffff;
     padding: 15px;
 }
 
@@ -160,11 +160,16 @@ fieldset #message {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #727f26;
     margin-top: 50px;
     margin-bottom: 50px;
-    width: 130px;
-    height: 40px;
+    width: 60px;
+    height: 20px;
+    text-decoration: none;
+    cursor: pointer;
+    color: white;
+    padding: 15px;
+    border-radius: 10px;
+    background-color: #662210;
 }
 
 .sendButton a {

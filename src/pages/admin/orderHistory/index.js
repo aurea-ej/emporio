@@ -7,18 +7,19 @@ import firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/database'
 import firebaseConfig from '../../../FIREBASECONFIG.js'
+import BuyInfo from '../../../components/buyInfo'
 
 function OrderHistory() {
 
     const [dataAdmin, setDataAdmin] = useState([])
     const [dataExists, setDataExists] = useState(false);
 
-    useEffect( () => {
+    useEffect(() => {
 
         if (!firebase.apps.length)
             firebase.initializeApp(firebaseConfig);
 
-        firebase.database().ref('providers').get('/providers')
+        firebase.database().ref('providers-requests').get('/providers-requests')
             .then(function (snapshot) {
 
                 if (snapshot.exists()) {
@@ -29,12 +30,37 @@ function OrderHistory() {
                     setDataExists(true)
 
                 }
-                
-             else setDataExists(false)
+
+                else setDataExists(false)
 
             })
 
     }, [])
+
+    const [displayHistory, setDisplayHistory] = useState("none");
+    const [HistoryData, setHistoryData] = useState({});
+    const [pageHeight, setPageHeight] = useState(0);
+
+    useEffect(() => {
+
+        window.scrollTo(0, 0);
+        setPageHeight(window.screen.height)
+
+    }, []);
+
+    function handleHistoryInfos() {
+
+        setHistoryData();
+
+        displayHistory == "none" ? setDisplayHistory("flex") : setDisplayHistory("none")
+
+    }
+
+    function closeHistory() {
+
+        displayHistory == "none" ? setDisplayHistory("flex") : setDisplayHistory("none")
+
+    }
 
     if (dataExists) {
 
@@ -44,45 +70,45 @@ function OrderHistory() {
 
                 <Header />
 
-                    <section id='sectionHistory'>
+                <div style={{ display: displayHistory }} tabindex="-1" role="dialog" className='divBuyInfo' >
+                    <span onClick={closeHistory}>X</span>
+                    <BuyInfo displayProperty={displayHistory} HistoryData={HistoryData} />
+                </div>
 
-                        <div className='textHistory' >
-                            <h2>Seu histórico de compras com fornecedores: </h2>
-                            <p>Selecione um pedido para ver seus detalhes</p>
-                        </div>
+                <section id='sectionHistory'>
+
+                    <div className='textHistory' >
+                        <h2>Seu histórico de compras com fornecedores: </h2>
+                        <p>Selecione um pedido para ver seus detalhes</p>
+                    </div>
+
+                    {
+                        dataAdmin.map((requests) => {
+
+                            return (
+
+                                <div className='boxHistory' onClick={() => { handleHistoryInfos() }}>
+
+                                    <div className='lineBoxCardHistory' >
+
+                                        <h3>{requests.id}</h3>
+
+                                        <p>Data do pedido: </p>
+
+                                        <p>
 
 
-                        {
-                            dataAdmin.map((providers) => {
+                                        </p>
 
-                                    return (
+                                    </div>
 
-                                        <div className='boxHistory'>
+                                </div>
+                            )
 
-                                            <div className='lineBoxCardHistory' >
+                        })
+                    }
 
-                                                <h3>{providers.company}</h3>
-
-                                                <p>Nome de contato: {providers.name}</p>
-
-                                                <p>
-                                                    
-                                                    {/* Produto:
-                                                    {providers.products.map((products)=>(
-                                                    <b>{products.product}</b>
-                                                    ))} */}
-                                                    
-                                                </p>
-
-                                            </div>
-
-                                        </div>
-                                    )   
-
-                            })
-                        }
-
-                    </section>
+                </section>
 
                 <Footer />
 

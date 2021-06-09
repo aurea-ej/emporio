@@ -1,0 +1,75 @@
+.buyModal{
+
+    width: 50%;
+    min-height: 75vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border-radius: 10px;
+    position: absolute;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    top: 20%;
+    z-index: 300;
+    color: black;
+    background-color: white;
+    box-shadow: 0px 0px 8px rgba(160, 160, 160, 0.35);
+
+}
+
+.buyModal main {
+
+    width: 86%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+}
+
+.buyInfoTitle {
+
+    text-align: center;
+    text-transform: uppercase;
+
+}
+
+.buyInfoTitle h5 {
+
+    text-align: center;
+    opacity: 0.6;
+
+}
+
+.buyInfoTitle h2 {
+
+    margin-top: 4rem;
+
+}
+
+
+.buyInfo {
+    
+    background-color: #ffc05c;
+    padding: 1rem 3rem;
+    margin-bottom: 2rem;
+
+}
+
+@media screen and (max-width: 768px) {
+
+    .buyModal main {
+
+        width: 20%;
+    
+    }
+
+    .buyInfo {
+
+        width: 50vw;
+        margin-top: 2rem;
+
+    }
+
+}

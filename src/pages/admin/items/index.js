@@ -5,7 +5,7 @@ import './style.css'
 
 import firebase from 'firebase/app'
 import 'firebase/auth'
-import 'firebase/database'
+// import 'firebase/database'
 import 'firebase/storage'
 import firebaseConfig from '../../../FIREBASECONFIG.js'
 
@@ -114,28 +114,23 @@ function Admin() {
 
     function insertNewItem() {
 
-        const id = firebase.database().ref().child('posts').push().key
+        const id = firebase.database().ref().child('items').push().key
 
-        if (newDataAdmin.imageSrc != '' && newDataAdmin.title != '') {
+        const data = {
 
-            if ( newDataAdmin.desc != '' && newDataAdmin.price != 0 ) {
+            imageSrc: imageUrl,
+            title: newDataAdmin.title,
+            desc: newDataAdmin.desc,
+            price: newDataAdmin.price,
+            id: id,
+            itemAvailability: newDataAdmin.itemAvailability
 
-                firebase.database().ref('items/' + id).set({
+        }
 
-                    imageSrc: imageUrl,
-                    title: newDataAdmin.title,
-                    desc: newDataAdmin.desc,
-                    price: newDataAdmin.price,
-                    id: id,
-                    itemAvailability: newDataAdmin.itemAvailability
-
-                })
-
-                alert("Item inserido com sucesso!.")
-                
-            } 
-            
-        } 
+        firebase.database().ref('items/' + id)
+        .set(data)
+        .then(err => console.log(err))
+        alert("Item inserido com sucesso!.")
         
     }
 
@@ -171,33 +166,13 @@ function Admin() {
         const file = event.target.files[0]
 
         var storageRef = firebase.storage().ref();
-        var imagesRef = storageRef.child('images');
 
-        var uploadTask = storageRef.child('images/rivers.jpg').put(file);
-
-        uploadTask.on('state_changed', function(snapshot){
-
-          var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-
-          console.log('Upload is ' + progress + '% done');
-          
-          switch (snapshot.state) {
-            case firebase.storage.TaskState.PAUSED:
-              console.log('Upload is paused');
-              break;
-            case firebase.storage.TaskState.RUNNING:
-              console.log('Upload is running');
-              break;
-          }
-        }, function(error) {
-          
-        }, function() {
-          
-          uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
-            setImageUrl(downloadURL);
-          });
+        storageRef.child('images/' + file.name.trim())
+        .put(file)
+        .then(snapshot => {
+            snapshot.ref.getDownloadURL()
+            .then(url => setImageUrl(url))
         });
-
 
     }
 

@@ -40,6 +40,8 @@
 
 .optionAdminPage ul{
 
+    display: flex;
+    flex-direction: column;
     margin: 0;
     padding: 0;
     list-style: none;
@@ -48,55 +50,19 @@
 
 }
 
-.optionAdminPage li{
+.optionAdminPage a{
 
-    text-align: center;
-    background: none;
-    border: 2px solid #662210;
-    text-transform: uppercase;
-    padding: 12px 20px;
-    min-width: 200px;
-    margin: 10px;
+    color: white;
+    padding: 15px;
+    margin-top: 15px;
     cursor: pointer;
-    transition: color 0.4s linear;
-    position: relative;
-
-}
-
-.optionAdminPage li:hover{
-
-    color: #fff;
-
-}
-
-.optionAdminPage li::before{
-
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #ffc05c;
-    z-index: -1;
-    transition: transform 0.5s;
-    transform-origin: 0 0;
-    transition-timing-function: cubic-bezier(0.5,1.6,0.4,0.7 );
-    transform: scaleY(0);
-
-}
-
-.optionAdminPage li:hover::before{
-
-    transform: scaleY(1);
-
-}
-
-.optionAdminPage li a{
-
-    font-weight: 700;
-    color: #662210;
+    background-color: #662210;
     text-decoration: none;
+    border-radius: 10px;
+    box-shadow: 0px 0px 8px rgba(160, 160, 160, 0.35);
+    font-weight: 700;
+    text-decoration: none;
+    text-align: center;
 
 }
 

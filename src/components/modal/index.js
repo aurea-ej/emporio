@@ -2,7 +2,7 @@ import React, { useState} from "react";
 import "./style.css";
 
 import addIcon from '../../img/addIcon.png'
-import removeIcon from '../../img/removeIcon.png'
+import removeIcon from '../../img/removeIcon2.png'
 
 function Modal (props) {
 
@@ -25,40 +25,27 @@ function Modal (props) {
 
         const listOfItems = JSON.parse(localStorage.getItem('products'))
 
-        if (listOfItems != null) {
-        
-            if(listOfItems === [{}]){
-                
-                localStorage.removeItem('products')
-                const newItem = []
-                newItem.push({data: modalData, amount: amount})
-                localStorage.setItem('products', JSON.stringify(newItem))
-                alert("Adicionado com sucesso!")
-
-            }else {
-
-                const newItem = JSON.parse(localStorage.getItem('products'))
-                newItem.push({data: modalData, amount: amount})
-                localStorage.setItem('products', JSON.stringify(newItem))
-                alert("Adicionado com sucesso!")
-
-            }
-
-            setAmount(1)
-
-        }else {
-
+        if(listOfItems === null){
+            
+            // localStorage.removeItem('products')
             const newItem = [{data: modalData, amount: amount}]
             localStorage.setItem('products', JSON.stringify(newItem))
             alert("Adicionado com sucesso!")
             setAmount(1)
 
+        }else {
+
+            const newItem = JSON.parse(localStorage.getItem('products'))
+            newItem.push({data: modalData, amount: amount})
+            localStorage.setItem('products', JSON.stringify(newItem))
+            alert("Adicionado com sucesso!")
+                
+            setAmount(1)
+
         }
-        
-        // const newItem = [...products]
-        // newItem.push({id: modalData.id, amount: amount})
-        // setProducts(newItem)
-        // Tentativa de fazer com providers
+
+        console.log(listOfItems)
+
         
     }
 

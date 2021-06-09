@@ -48,13 +48,10 @@ video {
     border-top: solid 10px #727f26;
 }
 
-.about-text {
-    text-align: center;
-}
-
 .about-text h2 {
     text-transform: uppercase;
     font-size: 3rem;
+    text-align: center;
 }
 
 .about-text p {
@@ -95,13 +92,13 @@ video {
  .card-item {
      position: relative;
      width: 290px;
-     background: rgb(194, 194, 194);
+     background: rgb(175, 175, 175);
      padding: 100px 40px 60px;
      box-shadow: 0 15px 45px rgba(0, 0, 0, 0.1);
      margin-bottom: 2rem;
  }
  
- .card-item:before{
+ .card-item:before {
      content: '';
      position: absolute;
      top: 0;
@@ -193,9 +190,9 @@ video {
      background-color: #727f26;
      height: 10rem;
      margin-bottom: 2rem;
-     box-shadow: 7px 5px 8px 0px rgba(0,0,0,0.40);
+     box-shadow: 3px 2px 4px 0px rgba(0,0,0,0.40);
      color: #fff;
-     border-radius: 25px;
+     border-radius: 0px;
      padding: 10px;
  }
 

@@ -32,9 +32,18 @@
     color: white;
     border-radius: 25px;
     background-color: #662210;
-    /* box-shadow: 0px 0px 8px rgba(160, 160, 160, 0.35); */
 
 }
+
+.formsSignIn input[type="date"] {
+    text-align: right;
+}
+  
+.formsSignIn input[type="date"]:before {
+    color: white;
+    content: attr(placeholder) !important;
+    margin-right: 0.5em;
+  }
 
 .formsSignIn select {
 
@@ -69,8 +78,10 @@
 
 .haveAccount {
 
-    display: 100%;
+    width: 100%;
+    display: flex;
     text-align: center;
+    justify-content: center;
     color: rgb(175, 175, 175);
 
 }

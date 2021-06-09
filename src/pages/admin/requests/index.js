@@ -135,7 +135,7 @@ function Request() {
 
                 <h3 className="texTripRequest" >Finalizar pedido</h3>
 
-                <select onChange={handleIdSelected} className="selectOrder" >
+                <select onChange={handleIdSelected} className="selectFinishOrder" >
 
                     <option className="optionSelectOrder" >Selecionar</option>
 

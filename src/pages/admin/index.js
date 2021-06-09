@@ -24,12 +24,14 @@ function Admin() {
                 <div className='optionAdminPage' >
 
                     <ul>
-                        <li> <Link to="/AdminItems" >Cadastro/alteração de itens</Link> </li>
-                        <li> <Link to="/AdminVendedor" >Cadastro/alteração de vendedores</Link> </li>
-                        <li> <Link to="/AdminFornecedor" >Cadastro/alteração de fornecedores </Link> </li>
-                        <li> <Link to="/Pedidos" >Pedidos em andamento</Link> </li>
-                        <li> <Link to="/ListaDeClientes" >Listagem de clientes</Link> </li>
-                        <li> <Link to="/" >Relatórios</Link> </li>
+
+                        <Link to="/AdminItems" >Cadastro/alteração de itens</Link>
+                        <Link to="/AdminVendedor" >Cadastro/alteração de vendedores</Link>
+                        <Link to="/AdminFornecedor" >Cadastro/alteração de fornecedores </Link>
+                        <Link to="/Pedidos" >Pedidos em andamento</Link>
+                        <Link to="/ListaDeClientes" >Listagem de clientes</Link>
+                        <Link to="/" >Relatórios</Link>
+                        
                     </ul>
 
                 </div>

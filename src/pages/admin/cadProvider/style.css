@@ -143,19 +143,18 @@
 .providerOptions input {
 
     width: 60%;
-    color: black;
     border: none;
     border-radius: 5px;
     box-shadow: 0px 0px 8px rgba(160, 160, 160, 0.35);
     padding: 15px;
     margin: 10px 0;
-    background-color: white;
+    background-color: #ffc05c;
 
 }
 
 .providerOptions fieldset select {
 
-    width: 64%;
+    width: 63%;
     border: none;
     border-radius: 5px;
     box-shadow: 0px 0px 8px rgba(160, 160, 160, 0.35);
@@ -168,6 +167,12 @@
 .providerOptions fieldset option {
 
     padding: 10px;
+
+}
+
+.providerOptions ::placeholder {
+
+    color: white;
 
 }
 

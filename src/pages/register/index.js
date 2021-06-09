@@ -166,12 +166,12 @@ function Register() {
 
                                 <input name='phoneNumber' type='tel' onChange={handleInputRegisterChange} placeholder='Telefone com DDD' />
 
-                                <input name='birthDate' type='date' onChange={handleInputRegisterChange} placeholder='Data de nascimento (n obgt)' />
+                                <input name='birthDate' type='date' onChange={handleInputRegisterChange} placeholder='Data de nascimento' />
 
                                 <select onChange={handleSelect} >
                                     <option value='0' >Como ficou sabendo de nós?</option>
-                                    <option value='1' >indicação (digite o nome abaixo)</option>
-                                    <option value='2' >recebi contato da empresa: abrir campo lista com nome dos vendedores</option>
+                                    <option value='1' >Indicação (digite o nome abaixo)</option>
+                                    <option value='2' >Recebi contato da empresa: abrir campo lista com nome dos vendedores</option>
                                     <option value='3' >Facebook</option>
                                     <option value='4' >Instagram</option>
                                     <option value='5' >Pesquisa no Google</option>
@@ -190,7 +190,7 @@ function Register() {
 
                                 <input name='street' onChange={handleInputRegisterChange} placeholder='Nome da rua' />
 
-                                <input name='houseNumber' type='number' onChange={handleInputRegisterChange} placeholder='N° da casa/apto' />
+                                <input name='houseNumber' type='number' onChange={handleInputRegisterChange} placeholder='Número' />
 
                                 <input name='complement' onChange={handleInputRegisterChange} placeholder='Complemento' />
 
@@ -208,7 +208,7 @@ function Register() {
 
                                 <input name='email' onChange={handleInputRegisterChange} placeholder='E-mail' />
 
-                                <input name='password' type="password" onChange={handleInputRegisterChange} placeholder='Senha' />
+                                <input name='password' type="password" onChange={handleInputRegisterChange} placeholder='Senha para o site' />
 
                             </fieldset>
 

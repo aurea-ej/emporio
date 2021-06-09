@@ -53,7 +53,7 @@ function VendorRegister() {
             email: registerData.email,
             id: id
 
-        })
+        }).then(()=>alert('Cadastro realizado com sucesso'))
         
     }
 
@@ -112,7 +112,7 @@ function VendorRegister() {
 
                         <input name='phoneNumber' type='number' onChange={handleInputRegisterChange} placeholder='Telefone com DDD' />
 
-                        <input name='birthDate' type='date' onChange={handleInputRegisterChange} placeholder='Data de nascimento (n obgt)' />
+                        <input name='birthDate' type='date' onChange={handleInputRegisterChange} placeholder='Data' />
 
                     </fieldset>
 
