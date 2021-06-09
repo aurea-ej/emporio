@@ -8,7 +8,7 @@ import firebase from 'firebase/app'
 import 'firebase/auth'
 import firebaseConfig from '../../FIREBASECONFIG.js'
 
-import ReactCircleModal from 'react-circle-modal'
+// import ReactCircleModal from 'react-circle-modal'
 
 import { Link, useHistory } from "react-router-dom";
 
@@ -300,7 +300,7 @@ function UserProfile() {
             </div>
 
 
-            <ReactCircleModal
+            {/* <ReactCircleModal
                 backgroundColor="#434f38"
                 toogleComponent={onClick => (<button className="finishButton" onClick={onClick}> Gostou do seu pedido? Responda esta pesquisa de satisfação! </button>
                 )}
@@ -336,7 +336,7 @@ function UserProfile() {
                         </button>
                     </div>
                 )}
-            </ReactCircleModal>
+            </ReactCircleModal> */}
 
             <Footer />
         </div>
