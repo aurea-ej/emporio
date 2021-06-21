@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Header from '../../components/header'
 import Footer from '../../components/footer'
-import Modal from '../../components/modal'
+// import Modal from '../../components/modal'
 // import Modall from '../../components/modal2'
 import './style.css'
 
@@ -15,8 +15,6 @@ import firebaseConfig from '../../FIREBASECONFIG.js'
 import heroImg from '../../img/heroImg3.jpg'
 import addIcon from '../../img/addIcon.png'
 import removeIcon from '../../img/removeIcon2.png'
-
-import ReactCircleModal from 'react-circle-modal'
 
 function Home() {
 
