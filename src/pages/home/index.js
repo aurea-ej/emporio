@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import Header from '../../components/header'
 import Footer from '../../components/footer'
 import Modal from '../../components/modal'
+// import Modall from '../../components/modal2'
 import './style.css'
 
 import firebase from 'firebase/app'
@@ -12,6 +13,10 @@ import 'firebase/database'
 import firebaseConfig from '../../FIREBASECONFIG.js'
 
 import heroImg from '../../img/heroImg3.jpg'
+import addIcon from '../../img/addIcon.png'
+import removeIcon from '../../img/removeIcon2.png'
+
+import ReactCircleModal from 'react-circle-modal'
 
 function Home() {
 
@@ -24,9 +29,15 @@ function Home() {
     const [displayMobileSearch, setDisplayMobileSearch] = useState('none')
     const [heightPageWhenOpenModal, setHeightPageWhenOpenModal] = useState(0)
     const [displayButtonFinishOrder, setDisplayButtonFinishOrder] = useState('none')
+    const [totalValue, setTotalValue] = useState(0)
 
     const [displayModal, setDisplayModal] = useState("none");
     const [modalData, setModalData] = useState({});
+    // const [amount, setAmount] = useState([]);
+
+
+    const [selectedItens, setSelectedItens] = useState([]);
+
 
     useEffect(() => {
 
@@ -40,8 +51,15 @@ function Home() {
 
                 var data = snapshot.val()
                 var temp = Object.keys(data).map((key) => data[key])
+
+                var totalamount = []
+                temp.map(item => totalamount.push(0) )
+                // setAmount(totalamount)
+
                 setData(temp)
                 setDataBackup(temp)
+                setSelectedItens(temp)
+
             }
             else {
                 console.log("No data available");
@@ -52,13 +70,7 @@ function Home() {
 
     useEffect(() => {
 
-        window.scrollTo(0, 0);
-
-    }, []);
-
-    useEffect(() => {
-
-        const products = JSON.parse(localStorage.getItem('products'))
+        // window.scrollTo(0, 0);
 
     }, []);
 
@@ -81,10 +93,12 @@ function Home() {
         }
 
         const products = JSON.parse(localStorage.getItem('products'))
+        const total = JSON.parse(localStorage.getItem('totalValue'))
 
         if (products != null) {
             if (!(products.id))
                 setDisplayButtonFinishOrder('block')
+                setTotalValue(total)
         }
 
     }
@@ -163,6 +177,64 @@ function Home() {
 
     }
 
+
+
+    function add(index) {
+
+        var dataTemp = data
+        dataTemp[index].amount = dataTemp[index].amount + 1
+
+        setData(dataTemp)
+        setDisplayButtonFinishOrder('block')
+        
+    }
+
+    function remove(index) {
+
+        var dataTemp = data
+        dataTemp[index].amount = dataTemp[index].amount - 1
+
+        setData(dataTemp)
+        
+    }
+
+    function addToCart() {
+
+        const listOfItems = JSON.parse(localStorage.getItem('products'))
+
+        const newItems = []
+
+        var newListOfItems = {}
+
+        data.map((item)=> {
+
+            if(item.amount > 0)
+                newItems.push(item)
+
+        })
+
+        if (listOfItems != null) {
+
+            newListOfItems = {
+                ...listOfItems,
+                ...newItems
+            }
+
+            localStorage.setItem('products', JSON.stringify({...newListOfItems}))
+
+        }
+        else {
+
+            newListOfItems = {
+                ...newItems
+            }
+
+            localStorage.setItem('products', JSON.stringify({...newListOfItems}))
+
+        }
+        
+    }
+
     return (
 
         <div className="App" >
@@ -172,7 +244,8 @@ function Home() {
             <div style={{ display: displayModal }} role="dialog" className='divModal' >
 
                 <span onClick={closeModal}>X</span>
-                <Modal displayProperty={displayModal} modalData={modalData} />
+                {/* <Modal displayProperty={displayModal} modalData={modalData} /> */}
+                {/* <Modall displayProperty={displayModal} modalData={modalData} /> */}
 
             </div>
 
@@ -251,7 +324,7 @@ function Home() {
 
             </section>
 
-            <p className="tipHome" >Clique no item para selecionar a quantidade</p>
+            <p className="tipHome" >Selecione a quantidade e depois clique para finalizar o pedido</p>
             
             <div className='containerHome' >
 
@@ -268,26 +341,38 @@ function Home() {
 
                                         <div className='boxHome'
         
-                                            onClick={() => { handleModalInfos(item) }}>
+                                            // onClick={() => { handleModalInfos(item) }}
+                                        >
+
+                                            <div className='infoDivHome' >
         
-                                            <img src={item.imageSrc} alt='teste' />
-        
-                                            <div className="itemInfo">
-        
-                                            <h3>{item.title}</h3>
-        
-                                            <div className='lineBoxProduct'>
-        
-                                                <h4>R$ {item.price}</h4>
-        
+                                                <img src={item.imageSrc} alt='imagem do produto' />
+            
+                                                <div className="itemInfo">
+            
+                                                    <h3>{item.title}</h3>
+                                
+                                                        <h4>R$ {item.price}</h4>
+
+                                                    <p>{item.desc}</p>
+
+                                                </div>
+                                        
                                             </div>
-        
-                                            <p>{item.desc}</p>
+
+                                            <div className='amountDiv' >
+
+                                                <div>
+
+                                                    <img src={removeIcon} onClick={()=>{remove(index)}} />
+                                                        quantidade: {item.amount}
+                                                    <img src={addIcon} onClick={()=>{add(index)}} />
+
+                                                </div>
         
                                             </div>
         
                                         </div>
-        
         
                                     )
                                     
@@ -352,7 +437,6 @@ function Home() {
 
                         </div>
 
-
                     </div>
 
                 </div>
@@ -360,7 +444,9 @@ function Home() {
             </div>
 
             <div className="buttonFinishOrder" style={{display: displayButtonFinishOrder }}>
-                <Link to='Carrinho'>FINALIZAR PEDIDO</Link>
+
+                {/* <Link onClick={()=>addToCart()} to='Carrinho'>FINALIZAR PEDIDO - R$ {totalValue}</Link> */}
+                <a onClick={()=>addToCart()}>FINALIZAR PEDIDO - R$ {totalValue}</a>
             </div>
 
             <Footer />

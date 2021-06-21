@@ -1,4 +1,4 @@
-import React, { useState} from "react";
+import React, {useEffect, useState} from "react";
 import "./style.css";
 
 import addIcon from '../../img/addIcon.png'
@@ -8,6 +8,7 @@ function Modal (props) {
 
     const { displayProperty, modalData } = props;
     const [amount, setAmount] = useState(1);
+    const [hasChanged, setHasChanged] = useState(false);
 
     function add() {
 
@@ -46,6 +47,26 @@ function Modal (props) {
 
         console.log(listOfItems)
 
+        const verify = JSON.parse(localStorage.getItem('products'))
+    
+        if (verify != null){
+        // if (verify != null && verify.length >= 1){
+            
+            var total = 0
+
+            verify.map((item)=>{
+
+                if(item.data != undefined){
+
+                    var value = ( Number(item.data.price) * Number(item.amount) )
+                    total = value + total
+                    localStorage.setItem('totalValue', total.toFixed(2))
+                    
+                }
+                
+            })
+
+        }
         
     }
 
@@ -82,7 +103,7 @@ function Modal (props) {
                         Quantidade selecionada: {amount}
                     </div>
 
-                    <a onClick={()=>{addToCart()}} >ADICIONAR AO CARRINHO</a>
+                    <a onClick={()=>{addToCart(); setHasChanged(true)}} >ADICIONAR AO CARRINHO</a>
 
                 <p className='itemDescModal' >{modalData.desc}</p>
 

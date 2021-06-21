@@ -1,4 +1,4 @@
-.Provider {
+.ProviderProducts {
 
     display: flex;
     flex-direction: column;
@@ -6,7 +6,7 @@
 
 }
 
-#mainProvider {
+#mainProviderProducts {
 
     width: 100vw;
     display: flex;
@@ -18,24 +18,7 @@
 
 }
 
-.divHistory span{
-
-    width: 20px;
-    height: 20px;
-    padding: 8px;
-    color: white;
-    position: absolute;
-    top: 160px;
-    right: 12%;
-    z-index: 400;
-    cursor: pointer;
-    border-radius: 50%;
-    text-align: center;
-    background-color: #662210;
-
-}
-
-.titleProvider {
+.titleProviderProducts {
 
     width: 95%;
     text-align: center;
@@ -43,11 +26,11 @@
 
 }
 
-.titleProvider  h1 {
+.titleProviderProducts  h1 {
     margin-bottom: 45px;
 }
 
-.optionProvider {
+.optionProviderProducts {
 
     width: 100%;
     display: flex;
@@ -57,17 +40,7 @@
 
 }
 
-.optionProvider ul{
-
-    display: flex;
-    flex-direction: column;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-
-}
-
-.optionProvider span {
+.optionProviderProducts a {
 
     color: white;
     padding: 15px;
@@ -83,23 +56,7 @@
 
 }
 
-.optionProvider a {
-
-    color: white;
-    padding: 15px;
-    margin-top: 15px;
-    cursor: pointer;
-    background-color: #662210;
-    text-decoration: none;
-    border-radius: 10px;
-    box-shadow: 0px 0px 8px rgba(160, 160, 160, 0.35);
-    font-weight: 700;
-    text-decoration: none;
-    text-align: center;
-
-}
-
-.providerOptions {
+.providerProductsOptions {
 
     width: 80%;
     display: flex;
@@ -107,14 +64,14 @@
 
 }
 
-.providerOptions h2 {
+.providerProductsOptions h2 {
 
     margin: 0 auto;
     padding: none;
 
 }
 
-.providerOptions fieldset  {
+.providerProductsOptions fieldset  {
 
     width: 100%;
     padding: 3vh 0;
@@ -122,7 +79,7 @@
     
 }
 
-.providerOptions fieldset legend {
+.providerProductsOptions fieldset legend {
 /* 
     width: 100%;
     text-align: center; */
@@ -130,7 +87,7 @@
     
 }
 
-.providerOptions fieldset a { 
+.providerProductsOptions fieldset a { 
 
     color: white;
     padding: 15px;
@@ -143,7 +100,7 @@
 
  }
 
-.providerOptions input {
+.providerProductsOptions input {
 
     width: 60%;
     border: none;
@@ -155,7 +112,7 @@
 
 }
 
-.providerOptions fieldset select {
+.providerProductsOptions fieldset select {
 
     width: 63%;
     border: none;
@@ -167,13 +124,13 @@
 
 }
 
-.providerOptions fieldset option {
+.providerProductsOptions fieldset option {
 
     padding: 10px;
 
 }
 
-.providerOptions ::placeholder {
+.providerProductsOptions ::placeholder {
 
     color: white;
 
@@ -181,27 +138,21 @@
 
 @media only screen and (max-width: 940px) {
 
-    .titleProvider {
+    .titleProviderProducts {
         font-size: 75%;
         width: 90%;
         margin-top: 3vh;
     }
 
-    .providerOptions {
+    .providerProductsOptions {
         width: 80%;
-    }
-
-    .divHistory span{ 
-
-        margin-top: 1rem;
-
     }
 
 }
 
 @media screen and (max-width: 768px) {
      
-    .providerOptions fieldset select {
+    .providerProductsOptions fieldset select {
         width: 70%;
     }
 

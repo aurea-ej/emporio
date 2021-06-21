@@ -1,0 +1,92 @@
+.modalMotoboyInfo{
+
+    width: 30%;
+    min-height: 75vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border-radius: 10px;
+    position: absolute;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    top: 20%;
+    z-index: 300;
+    color: black;
+    background-color: white;
+    box-shadow: 0px 0px 8px rgba(160, 160, 160, 0.35);
+
+}
+
+.modalMotoboyInfo main {
+
+    width: 86%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+}
+
+.modalMotoboyInfo {
+
+    text-align: center;
+    text-transform: uppercase;
+
+}
+
+.motoboyInfo h2 {
+
+    top: 0;
+    text-align: center;
+
+}
+
+.motoboyList {
+
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.motoboyList {
+
+    display: flex;
+    margin: 0;
+    justify-content: center;
+    flex-direction: column;
+    align-items: baseline;
+    margin-left: 3rem;
+
+}
+
+.motoboyList label {
+
+    font-weight: 500;
+
+}
+
+.motoboyInfo a {
+
+    display: flex;
+    color: white;
+    padding: 15px;
+    cursor: pointer;
+    background-color: #662210;
+    text-decoration: none;
+    border-radius: 10px;
+    box-shadow: 0px 0px 8px rgba(160, 160, 160, 0.35);
+    justify-content: center;
+    font-weight: 700;
+    margin: 2rem 0 2rem 0;
+
+}
+
+@media screen and (max-width: 768px) {
+
+
+
+}

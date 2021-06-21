@@ -15,15 +15,18 @@ function Admin() {
     const [wasChanged, setWasChanged] = useState(false)
     const [imageUrl, setImageUrl] = useState('')
     const [dataAlterItem, setDataAlterItem] = useState({
-        
+
         imageSrc: '',
         title: '',
         desc: '',
         price: 0,
-        itemAvailability: 0
+        itemAvailability: 0,
+        unityPrice: 0,
+        category: '',
+        unity: ''
         
     })
-    
+
     const [selectItem, setSelectItem] = useState('')
     const [selectItemToDelete, setSelectItemToDelete] = useState('')
 
@@ -34,41 +37,45 @@ function Admin() {
         imageSrc: '',
         title: '',
         desc: '',
-        price: 0
+        price: 0,
+        itemAvailability: 0,
+        unityPrice: 0,
+        category: '',
+        unity: ''
 
     })
 
-    useEffect(()=>{
+    useEffect(() => {
 
-        if(!firebase.apps.length)
+        if (!firebase.apps.length)
             firebase.initializeApp(firebaseConfig);
 
         firebase.database().ref('items').get('/items')
-        .then(function(snapshot) {
+            .then(function (snapshot) {
 
-            if (snapshot.exists()){
+                if (snapshot.exists()) {
 
-                var data = snapshot.val()
-                var temp = Object.keys(data).map((key) => data[key])
-                setDataAdmin(temp)
-            }
-            else {
-                console.log("No data available");
-            }
-        })
+                    var data = snapshot.val()
+                    var temp = Object.keys(data).map((key) => data[key])
+                    setDataAdmin(temp)
+                }
+                else {
+                    console.log("No data available");
+                }
+            })
 
-    },[])
+    }, [])
 
     useEffect(() => {
 
-        if(!firebase.apps.length)
+        if (!firebase.apps.length)
             firebase.initializeApp(firebaseConfig);
 
         var ref = firebase.database().ref("items");
 
         var keys = []
 
-        ref.orderByKey().on("child_added", function(snapshot) {
+        ref.orderByKey().on("child_added", function (snapshot) {
             keys.push(snapshot.key);
         });
 
@@ -78,35 +85,35 @@ function Admin() {
 
     function handleInputAdminChange(event) {
 
-        const {name, value} = event.target
+        const { name, value } = event.target
 
-        setNewDataAdmin ({
+        setNewDataAdmin({
 
             ...newDataAdmin, [name]: value
 
         })
-        
+
     }
 
     function handleInputAdminChangeAlter(event) {
 
-        const {name, value} = event.target
+        const { name, value } = event.target
 
-        setDataAlterItem ({
+        setDataAlterItem({
 
             ...dataAlterItem, [name]: value
 
         })
-        
+
     }
 
-    function handleSelectItem (event) {
+    function handleSelectItem(event) {
 
         setSelectItem(event.target.value)
 
     }
 
-    function handleSelectItemToDelete (event) {
+    function handleSelectItemToDelete(event) {
 
         setSelectItemToDelete(event.target.value)
 
@@ -123,42 +130,49 @@ function Admin() {
             desc: newDataAdmin.desc,
             price: newDataAdmin.price,
             id: id,
-            itemAvailability: newDataAdmin.itemAvailability
+            itemAvailability: newDataAdmin.itemAvailability,
+            unityPrice: newDataAdmin.unityPrice,
+            category: newDataAdmin.category,
+            unity: newDataAdmin.itemUnity
 
         }
 
-        firebase.database().ref('items/' + id)
-        .set(data)
-        .then(err => console.log(err))
-        alert("Item inserido com sucesso!.")
+        console.log(data)
+
+        // firebase.database().ref('items/' + id)
+        // .set(data)
+        // .then(err => console.log(err))
+        // alert("Item inserido com sucesso!.")
         
     }
 
     function updateItem() {
 
         if (wasChanged) {
-            
+
             firebase.database().ref('items/' + dataKeysAdm[selectItem]).update({
 
                 imageSrc: dataAlterItem.imageSrc != '' ? dataAlterItem.imageSrc : dataAdmin[selectItem].imageSrc,
                 title: dataAlterItem.title != '' ? dataAlterItem.title : dataAdmin[selectItem].title,
-                desc:  dataAlterItem.desc != '' ? dataAlterItem.desc : dataAdmin[selectItem].desc,
+                desc: dataAlterItem.desc != '' ? dataAlterItem.desc : dataAdmin[selectItem].desc,
                 price: dataAlterItem.price != 0 ? dataAlterItem.price : dataAdmin[selectItem].price,
-                itemAvailability: dataAlterItem.itemAvailability != 0 ? dataAlterItem.itemAvailability : dataAdmin[selectItem].itemAvailability
+                itemAvailability: dataAlterItem.itemAvailability != 0 ? dataAlterItem.itemAvailability : dataAdmin[selectItem].itemAvailability,
+                itemUnity: dataAlterItem.itemUnity != 0 ? dataAlterItem.itemUnity : dataAdmin[selectItem].itemUnity
+
             })
-            .then(()=>alert("Item atualizado com sucesso!"))
+                .then(() => alert("Item atualizado com sucesso!"))
 
         }
-        
+
     }
 
     function deleteItem() {
 
         firebase.database()
-        .ref('items/' + dataKeysAdm[selectItemToDelete])
-        .remove()
-        .then(()=>alert("Item removido com sucesso!"))
-        
+            .ref('items/' + dataKeysAdm[selectItemToDelete])
+            .remove()
+            .then(() => alert("Item removido com sucesso!"))
+
     }
 
     function uploadImage(event) {
@@ -168,11 +182,11 @@ function Admin() {
         var storageRef = firebase.storage().ref();
 
         storageRef.child('images/' + file.name.trim())
-        .put(file)
-        .then(snapshot => {
-            snapshot.ref.getDownloadURL()
-            .then(url => setImageUrl(url))
-        });
+            .put(file)
+            .then(snapshot => {
+                snapshot.ref.getDownloadURL()
+                    .then(url => setImageUrl(url))
+            });
 
     }
 
@@ -196,15 +210,47 @@ function Admin() {
 
                         <input name='desc' onChange={handleInputAdminChange} placeholder='Descrição' />
 
-                        <input name='price' onChange={handleInputAdminChange} placeholder='Preço' type='number' />
+                        <input name='price' onChange={handleInputAdminChange} placeholder='Preço por Kg' type='number' />
+
+                        <input name='unityPrice' onChange={handleInputAdminChange} placeholder='Preço unitário' type='number' />
                         
                         <input type='file' onChange={uploadImage} accept="image/png, image/jpeg" placeholder='Imagem'/>
+
+                        <select onChange={handleInputAdminChange} name='itemUnity' >
+
+                            <option value='unity' >Unidade</option>
+                            <option value='kg' >Kg</option>
+
+                        </select>
 
                         <select onChange={handleInputAdminChange} name='itemAvailability' >
 
                             <option value={0} >Disponibilidade</option>
                             <option value={true} >Disponível</option>
                             <option value={false} >Indisponível</option>
+
+                        </select>
+
+                        <select onChange={handleInputAdminChange} name='category' >
+
+                            <option value={0} >Categoria</option>
+                            <option value="Diversos" >Diversos</option>
+                            <option value="Panificação" >Panificação</option>
+                            <option value="Processados" >Processados orgânicos</option>
+                            <option value="Hortaliças orgânicas" >Hortaliças orgânicas</option>
+                            <option value="Palmito pupunha congelado" >Palmito pupunha congelado</option>
+                            <option value="Laticínios e tofu" >Laticínios e tofu</option>
+                            <option value="Brotos e germinados" >Brotos e germinados</option>
+                            <option value="Geleias sem edição de açúcar" >Geleias sem edição de açúcar</option>
+                            <option value="Kombucha" >Kombucha</option>
+                            <option value="Cogumelos orgânicos" >Cogumelos orgânicos</option>
+                            <option value="Frutas congeladas" >Frutas congeladas</option>
+                            <option value="Frutas orgânicas" >Frutas orgânicas</option>
+                            <option value="Temperos desidratados orgânicos" >Temperos desidratados orgânicos</option>
+                            <option value="Temperos orgânicos in natura" >Temperos orgânicos in natura</option>
+                            <option value="Farinhas e cereais orgânicos" >Farinhas e cereais orgânicos</option>
+                            <option value="Alimentos prontos congelados" >Alimentos prontos congelados</option>
+                            <option value="Artesanato" >Artesanato</option>
 
                         </select>
 
@@ -222,15 +268,15 @@ function Admin() {
 
                             <option>Selecione o item</option>
 
-                                {dataAdmin.map((item, index) => {
+                            {dataAdmin.map((item, index) => {
 
-                                    return (
+                                return (
 
-                                        <option value={index} key={index}>{item.title}</option>
+                                    <option value={index} key={index}>{item.title}</option>
 
-                                    )
+                                )
 
-                                })}
+                            })}
 
                         </select>
 
@@ -241,7 +287,7 @@ function Admin() {
                         <input name='desc' onChange={handleInputAdminChangeAlter} placeholder='Descrição' />
 
                         <input name='price' onChange={handleInputAdminChangeAlter} placeholder='Preço' type='number' />
-                        
+
                         <input name='imageSrc' onChange={handleInputAdminChangeAlter} placeholder='URL da imagem' />
 
                         <select onChange={handleInputAdminChangeAlter} name='itemAvailability' >
@@ -252,7 +298,15 @@ function Admin() {
 
                         </select>
 
-                        <a onClick={()=>{setWasChanged(true);updateItem();}} >Alterar</a>
+                        <select onChange={handleInputAdminChangeAlter} name='itemUnity' >
+
+                            <option value='' > Selecione a unidade</option>
+                            <option value='Quilograma' >Quilograma</option>
+                            <option value='Unidade' >Unidade</option>
+
+                        </select>
+
+                        <a onClick={() => { setWasChanged(true); updateItem(); }} >Alterar</a>
 
                     </fieldset>
 
@@ -278,7 +332,7 @@ function Admin() {
 
                         </select>
 
-                        <a onClick={()=>{deleteItem()}} >Apagar</a>
+                        <a onClick={() => { deleteItem() }} >Apagar</a>
 
                     </fieldset>
 
@@ -290,7 +344,7 @@ function Admin() {
         </div>
 
     )
-    
+
 }
 
 export default Admin

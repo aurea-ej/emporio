@@ -10,7 +10,6 @@ import firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/database'
 import firebaseConfig from '../../../FIREBASECONFIG.js'
-import { isCompositeComponent } from 'react-dom/test-utils'
 
 function Provider() {
 
@@ -18,10 +17,14 @@ function Provider() {
     const [data, setData] = useState([]);
     const [dataAlterProvider, setDataAlterProvider] = useState({
 
-        company: '',
-        name: '',
+        corporateName: '',
+        tradeName: '',
+        ownerName: '',
         email: '',
-        phone: 0,
+        street: '',
+        district: '',
+        city: '',
+        phone: '',
         products: data
 
     })
@@ -29,51 +32,20 @@ function Provider() {
     const [selectProvider, setSelectProvider] = useState('')
     const [selectProviderToDelete, setSelectProviderToDelete] = useState('')
 
-    const [imageUrl, setImageUrl] = useState('')
-    const [dataAlterProduct, setDataAlterProduct] = useState({
-
-        product: '',
-        qntd: 0,
-        unity: '',
-        imageSrc: '',
-        buyPrice: 0,
-        sellPrice: 0,
-
-    })
-
-    const [selectProduct, setSelectProduct] = useState('')
-    const [selectProductToDelete, setSelectProductToDelete] = useState('')
-
     const [dataKeysAdm, setDataKeysAdm] = useState([])
     const [dataProvider, setDataProvider] = useState([])
-    
+
     const [newDataProvider, setNewDataProvider] = useState({
 
-        company: '',
-        name: '',
+        corporateName: '',
+        tradeName: '',
+        ownerName: '',
         email: '',
-        phone: 0,
+        street: '',
+        district: '',
+        city: '',
+        phone: '',
         products: data
-
-    })
-
-    const [dataProduct, setDataProduct] = useState([])
-    const [newDataProduct, setNewDataProduct] = useState({
-
-        product: '',
-        unity: '',
-        imageSrc: '',
-        sellPrice: 0,
-        buyPrice: 0
-
-    })
-
-    const [dataRequest, setDataRequest] = useState([])
-    const [newDataRequest, setNewDataRequest] = useState({
-
-        company: '',
-        product: '',
-        qntd: 0,
 
     })
 
@@ -87,30 +59,6 @@ function Provider() {
 
         })
 
-    }
-
-    function handleInputProductChange(event) {
-
-        const { name, value } = event.target
-
-        setNewDataProduct({
-
-            ...newDataProduct, [name]: value
-
-        })
-
-    }
-
-    function handleInputRequestChange(event) {
-
-        const {name, value} = event.target
-
-        setNewDataRequest ({
-
-            ...newDataRequest, [name]: value,
-
-        })
-        
     }
 
     function handleInputProviderChangeAlter(event) {
@@ -163,46 +111,9 @@ function Provider() {
 
     }, []);
 
-    useEffect(() => {
-
-        if (!firebase.apps.length)
-            firebase.initializeApp(firebaseConfig);
-
-        firebase.database().ref('providers').get('/products')
-            .then(function (snapshot) {
-
-                if (snapshot.exists()) {
-
-                    var data = snapshot.val()
-                    var temp = Object.keys(data).map((key) => data[key])
-
-                    var dataProductTemp = []
-
-                    temp.map(item => {
-
-                        if (item.products != undefined) 
-                            dataProductTemp.push(item.products)
-                            
-                    })
-                    console.log(dataProductTemp)
-                    setDataProduct(dataProductTemp)
-
-                } else {
-                    console.log("No data available");
-                }
-            })
-
-    }, [])
-
     function handleSelectProvider(event) {
 
         setSelectProvider(event.target.value)
-
-    }
-
-    function handleSelectProduct(event) {
-
-        setSelectProduct(event.target.value)
 
     }
 
@@ -216,56 +127,23 @@ function Provider() {
 
         const id = firebase.database().ref().child('posts').push().key
 
-            firebase.database().ref('providers/' + id).set({
+        firebase.database().ref('providers/' + id).set({
 
-                company: newDataProvider.company,
-                name: newDataProvider.name,
-                email: newDataProvider.email,
-                phone: newDataProvider.phone,
-                id: id,
-                products: [{}]
-
-            })
-
-        alert("Fornecedor cadastrado com sucesso!");
-
-    }
-
-    function insertNewProduct() {
-
-        const id = firebase.database().ref().child('posts').push().key
-        
-        const data = {
-            
+            corporateName: newDataProvider.corporateName,
+            tradeName: newDataProvider.tradeName,
+            ownerName: newDataProvider.ownerName,
+            email: newDataProvider.email,
+            street: newDataProvider.street,
+            district: newDataProvider.district,
+            city: newDataProvider.city,
+            phone: newDataProvider.phone,
             id: id,
-            product: newDataProduct.product,
-            imageSrc: imageUrl,
-            unity: selectedUnity,
-            sellPrice: newDataProduct.sellPrice,
-            buyPrice: newDataProduct.buyPrice
-        }
-
-        firebase.database().ref('providers/' + dataKeysAdm[selectProvider])
-        .child('products/' + id)
-        .set(data)
-        .then(err => console.log(err))
-        alert("Produto cadastrado com sucesso!")
-
-    }
-
-    function insertNewRequest() {
-
-        const id = firebase.database().ref().child('posts').push().key
-
-        firebase.database().ref('providers-requests/' + id).set({
-
-            id: id,
-            qntd: newDataRequest.qntd,
+            products: [{}]
 
         })
 
-        alert("Produto cadastrado com sucesso!")
-    
+        alert("Fornecedor cadastrado com sucesso!");
+
     }
 
     function updateProvider() {
@@ -274,9 +152,13 @@ function Provider() {
 
             firebase.database().ref('providers/' + dataKeysAdm[selectProvider]).update({
 
-                company: dataAlterProvider.company != '' ? dataAlterProvider.company : dataProvider[selectProvider].company,
-                name: dataAlterProvider.name != '' ? dataAlterProvider.name : dataProvider[selectProvider].name,
+                corporateName: dataAlterProvider.corporateName != '' ? dataAlterProvider.corporateName : dataProvider[selectProvider].corporateName,
+                tradeName: dataAlterProvider.tradeName != '' ? dataAlterProvider.tradeName : dataProvider[selectProvider].tradeName,
+                ownerName: dataAlterProvider.ownerName != '' ? dataAlterProvider.ownerName : dataProvider[selectProvider].ownerName,
                 email: dataAlterProvider.email != '' ? dataAlterProvider.email : dataProvider[selectProvider].email,
+                street: dataAlterProvider.street != '' ? dataAlterProvider.street : dataProvider[selectProvider].street,
+                district: dataAlterProvider.district != '' ? dataAlterProvider.district : dataProvider[selectProvider].district,
+                city: dataAlterProvider.city != '' ? dataAlterProvider.city : dataProvider[selectProvider].city,
                 phone: dataAlterProvider.phone != '' ? dataAlterProvider.phone : dataProvider[selectProvider].phone,
 
             })
@@ -292,14 +174,6 @@ function Provider() {
             .remove()
             .then(() => alert("Item removido com sucesso!"))
 
-    }
-
-    const [selectedUnity, setSelectedUnity] = useState('')
-
-    function handleSelectedUnity(event) {
-
-        setSelectedUnity(event.target.value)
-        
     }
 
     const [displayHistory, setDisplayHistory] = useState("none");
@@ -327,52 +201,6 @@ function Provider() {
 
     }
 
-
-    const [itemsOfProvider, setItemsOfProvider] = useState([])
-
-    function handleSelectProviderProducts(event) {
-
-        var position = event.target.value
-        console.log(position)
-
-        setSelectProvider(position)
-
-        var data = dataProvider[position].products
-
-        if (data != undefined && data != null) {
-
-            var items = Object.keys(data).map((key) => data[key])
-            var temp = []
-
-            items.map((products) => {
-
-                console.log(products)
-                temp.push(products)
-
-            })
-
-            setItemsOfProvider(temp)
-
-        } else
-            setItemsOfProvider([])
-
-    }
-
-    function uploadImage(event) {
-
-        const file = event.target.files[0]
-
-        var storageRef = firebase.storage().ref();
-
-        storageRef.child('images/' + file.name.trim())
-        .put(file)
-        .then(snapshot => {
-            snapshot.ref.getDownloadURL()
-            .then(url => setImageUrl(url))
-        });
-
-    }
-
     return (
 
         <div className='Provider'>
@@ -388,12 +216,18 @@ function Provider() {
 
                 <div className='titleProvider' >
 
-                    <h1>O que deseja fazer?</h1>
+                    <h1>Painel de cadastrado de fornecedores</h1>
 
-                    <div className="btn-style">
+                    <div className="optionProvider">
 
-                        <span onClick={() => { handleHistoryInfos() }}>Informação dos fornecedores</span>
-                        <Link to='/AdminHistorico' >Histórico de pedidos</Link>
+                        <ul>
+
+                            <span onClick={() => { handleHistoryInfos() }}>Informação dos fornecedores</span>
+                            <Link to='/AdminProdutoFornecedor' >Cadastrar produtos dos fornecedores</Link>
+                            <Link to='/PedidoFornecedor' >Realizar pedido do fornecedor</Link>
+                            <Link to='/AdminHistorico' >Histórico de pedidos</Link>
+
+                        </ul>
 
                     </div>
 
@@ -401,16 +235,24 @@ function Provider() {
 
                 <div className='providerOptions' >
 
-                    <fieldset className='brownBackGround' >
+                    <fieldset className='registerSection' >
 
-                        <legend className='brownBackGround'>
+                        <legend className='registerTitle'>
                             <h2>Cadastrar fornecedor</h2>
                             <h5>Preencha os dados do fornecedor abaixo.</h5>
                         </legend>
 
-                        <input name='company' onChange={handleInputProviderChange} placeholder='Nome da empresa' />
+                        <input name='corporateName' onChange={handleInputProviderChange} placeholder='Razão social da empresa' />
 
-                        <input name='name' onChange={handleInputProviderChange} placeholder='Nome de contato' />
+                        <input name='tradeName' onChange={handleInputProviderChange} placeholder='Nome fantasia da empresa' />
+
+                        <input name='ownerName' onChange={handleInputProviderChange} placeholder='Pessoa responsável' />
+
+                        <input name='city' onChange={handleInputProviderChange} placeholder='Município' />
+
+                        <input name='district' onChange={handleInputProviderChange} placeholder='Bairro' />
+
+                        <input name='street' onChange={handleInputProviderChange} placeholder='Rua' />
 
                         <input name='email' onChange={handleInputProviderChange} placeholder='E-mail' />
 
@@ -420,102 +262,10 @@ function Provider() {
 
                     </fieldset>
 
-                    <fieldset className='greenBackGround' >
-
-                        <legend>
-                            <h2>Cadastrar produto</h2>
-                            <h5>Selecione o fornecedor e preencha os dados do produto abaixo.</h5>
-                        </legend>
-
-                        <select onChange={handleSelectProvider} >
-
-                            <option>Selecione o fornecedor</option>
-
-                            {dataProvider.map((providers, index) => {
-
-                                return (
-
-                                    <option value={index} key={index}>{providers.company}</option>
-
-                                )
-
-                            })}
-
-                        </select>
-
-                        <legend>
-                            <h3>Insira os dados do produto.</h3>
-                        </legend>
-
-                        <input name='product' onChange={handleInputProductChange} placeholder='Produto' />
-
-                        <select name='unity' onChange={handleSelectedUnity} >
-                            <option value='Não especificado' >Unidade de medida</option>
-                            <option value='Quilograma' >Quilograma</option>
-                            <option value='Unidade' >Unidade</option>
-                        </select> 
-
-                        <input type='file' onChange={uploadImage} accept="image/png, image/jpeg" placeholder='Imagem'/>
-
-                        <input name='buyPrice' onChange={handleInputProductChange} placeholder='Preço de compra' />
-
-                        <input name='sellPrice' onChange={handleInputProductChange} placeholder='Preço de venda' />
-
-                        <a onClick={() => { insertNewProduct() }} >Inserir</a>
-
-                    </fieldset>
-
-
-                    <fieldset className='orderRegister' >
-
-                        <legend>
-                            <h2>Realizar pedido</h2>
-                            <h5>Selecione o fornecedor e o item que deseja inserir no pedido. Em seguida, insira a quantidade desejada.</h5>
-                        </legend>
-
-                        <select onChange={handleSelectProviderProducts} >
-
-                            <option>Selecione o fornecedor</option>
-
-                            {dataProvider.map((providers, index) => {
-
-                                return (
-
-                                    <option value={index} key={index}>{providers.company}</option>
-
-                                )
-                                
-
-                            })}
-
-                        </select>
-
-                        <select onChange={handleSelectProduct} >
-
-                            <option>Selecione o produto</option>
-
-                            {itemsOfProvider.map((products, index) => (
-
-                                <option value={index} key={index}>{products.product} - R${products.buyPrice}</option>
-
-                            ))}
-
-                        </select>
-
-                        <legend>
-                            <h3>Insira a quantidade desejada</h3>
-                        </legend>
-
-                        <input name='qntd' onChange={handleInputRequestChange} placeholder='Quantidade' /> 
-
-                        <a onClick={() => { insertNewRequest() }} >Adicionar</a>
-
-                    </fieldset>
-
                     <fieldset>
 
                         <legend>
-                            <h2>Alterar dados</h2>
+                            <h2>Alterar dados de fornecedor</h2>
                         </legend>
 
                         <select onChange={handleSelectProvider} >
@@ -526,7 +276,7 @@ function Provider() {
 
                                 return (
 
-                                    <option value={index} key={index}>{providers.company}</option>
+                                    <option value={index} key={index}>{providers.tradeName}</option>
 
                                 )
 
@@ -536,13 +286,21 @@ function Provider() {
 
                         <h6>Preencha o que deseja alterar</h6>
 
-                        <input name='company' onChange={handleInputProviderChangeAlter} placeholder='Fornecedor' />
+                        <input name='corporateName' onChange={handleInputProviderChangeAlter} placeholder='Razão social da empresa' />
 
-                        <input name='name' onChange={handleInputProviderChangeAlter} placeholder='Nome de contato' />
+                        <input name='tradeName' onChange={handleInputProviderChangeAlter} placeholder='Nome fantasia da empresa' />
+
+                        <input name='ownerName' onChange={handleInputProviderChangeAlter} placeholder='Pessoa responsável' />
+
+                        <input name='city' onChange={handleInputProviderChangeAlter} placeholder='Município' />
+
+                        <input name='district' onChange={handleInputProviderChangeAlter} placeholder='Bairro' />
+
+                        <input name='street' onChange={handleInputProviderChangeAlter} placeholder='Rua' />
 
                         <input name='email' onChange={handleInputProviderChangeAlter} placeholder='E-mail' />
 
-                        <input name='phone' onChange={handleInputProviderChangeAlter} placeholder='Telefone' />
+                        <input name='phone' onChange={handleInputProviderChangeAlter} placeholder='Telefone com DDD' />
 
                         <a onClick={() => { setWasChanged(true); updateProvider(); }} >Alterar</a>
 
@@ -562,7 +320,7 @@ function Provider() {
 
                                 return (
 
-                                    <option key={index} value={index} >{providers.company}</option>
+                                    <option key={index} value={index} >{providers.tradeName}</option>
 
                                 )
 

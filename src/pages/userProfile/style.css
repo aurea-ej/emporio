@@ -45,7 +45,7 @@
 
 }
 
-.dataClient a {
+.singnOutButton a {
 
     color: white;
     width: 50px;
@@ -56,7 +56,7 @@
 
 }
 
-.dataClient a{
+.singnOutButton a{
 
     display: flex;
     align-items: center;

@@ -14,7 +14,7 @@ import logoEmporio2 from '../../img/logoEmporio2.png'
 
 function Register() {
 
-    const [registerData,setRegisterData] = useState({
+    const [registerData, setRegisterData] = useState({
 
         name: '',
         phoneNumber: '',
@@ -33,85 +33,126 @@ function Register() {
     const [userIsLogged, setUserIsLogged] = useState(false);
     const [registerDone, setRegisterDone] = useState(false);
 
-    function makeRegister () {
+    function makeRegister() {
 
         firebase.auth()
-        .createUserWithEmailAndPassword(registerData.email, registerData.password)
-        .then((user) => {
+            .createUserWithEmailAndPassword(registerData.email, registerData.password)
+            .then((user) => {
 
-            const id = firebase.database().ref().child('posts').push().key
+                const id = firebase.database().ref().child('posts').push().key
 
-            firebase.database().ref('users/' + id).set({
-    
-                name: registerData.name,
-                phoneNumber: registerData.phoneNumber,
-                birthDate: registerData.birthDate,
-                personWhoIndicated: registerData.personWhoIndicated,
-                whoIndicated: selectedOption,
-                street: registerData.street,
-                houseNumber: registerData.houseNumber,
-                complement: registerData.complement,
-                district: registerData.district,
-                cepNumber: registerData.cepNumber,
-                email: registerData.email,
-                id: id
-    
+                firebase.database().ref('users/' + id).set({
+
+                    name: registerData.name,
+                    phoneNumber: registerData.phoneNumber,
+                    birthDate: registerData.birthDate,
+                    personWhoIndicated: registerData.personWhoIndicated,
+                    whoIndicated: selectedOption,
+                    street: registerData.street,
+                    houseNumber: registerData.houseNumber,
+                    complement: registerData.complement,
+                    district: registerData.district,
+                    cepNumber: registerData.cepNumber,
+                    email: registerData.email,
+                    id: id
+
+                })
+
+                localStorage.setItem('id', id)
+
+
+                alert('Cadastro realizado com sucesso!')
+
+                setRegisterDone(true)
+
             })
+            .catch((error) => {
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                alert(errorMessage)
+            });
 
-            localStorage.setItem('id',id)
-
-            
-            alert('Cadastro realizado com sucesso!')
-
-            setRegisterDone(true)
-
-        })
-        .catch((error) => {
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            alert(errorMessage)
-        }); 
-        
     }
 
     function handleInputRegisterChange(event) {
 
-        const {name, value} = event.target
+        const { name, value } = event.target
 
-        setRegisterData ({
+        setRegisterData({
 
             ...registerData, [name]: value
 
         })
-        
+
     }
 
     function handleSelect(event) {
 
-        const {name, value} = event.target
+        const { name, value } = event.target
 
         setSelectedOption(value)
-        
+
     }
 
     function onAuthStateChanged(user) {
 
         firebase.auth().onAuthStateChanged((user) => {
-            if (user) 
-              setUserIsLogged(true)
-          });
+            if (user)
+                setUserIsLogged(true)
+        });
 
-        
+
     }
-    
+
     useEffect(() => {
-        
+
         window.scrollTo(0, 0);
-        if(!firebase.apps.length)
+        if (!firebase.apps.length)
             firebase.initializeApp(firebaseConfig)
         onAuthStateChanged();
 
     }, []);
+
+    function searchCepData(event) {
+
+        const inputValue = event.target.value
+
+        const validCep = inputValue?.replace(/[^0-9]/g, '')
+
+        if (validCep.length !== 8) {
+
+            window.alert('CEP inválido')
+
+        } else {
+
+            fetch(`https://viacep.com.br/ws/${validCep}/json/`)
+                .then((item) => item.json())
+                .then((data) => {
+
+                    if (!("erro" in data)) {
+
+                        document.getElementById('street').value = (data.logradouro);
+                        document.getElementById('district').value = (data.bairro)
+
+                    } else {
+
+                        window.alert('CEP inválido')
+                        cleanForm()
+
+                    }
+
+
+                })
+
+        }
+    }
+
+    function cleanForm() {
+
+        document.getElementById('street').value = ('');
+        document.getElementById('district').value = ('');
+
+    }
 
 
     // FALTA FAZER A VALIDAÇÃO. TIPO: VERIFICAR SE OS CAMPOS OBRIGATÓRIOS FORAM PREENCHIDOS E ETC
@@ -123,18 +164,18 @@ function Register() {
             <Redirect to='/Perfil' />
 
         )
-        
-    }else {
+
+    } else {
 
         if (registerDone) {
 
             return (
 
                 <Redirect to='/Entrar' />
-                
+
             )
-            
-        }else {
+
+        } else {
 
             return (
 
@@ -142,7 +183,7 @@ function Register() {
 
                     <Header />
 
-                    <main id='mainSignIn'> 
+                    <main id='mainSignIn'>
 
                         <div className='formsSignIn'>
 
@@ -188,15 +229,15 @@ function Register() {
                                     <h2>Endereço</h2>
                                 </legend>
 
-                                <input name='street' onChange={handleInputRegisterChange} placeholder='Nome da rua' />
+                                <input id='cep' name='cepNumber' type='text' onBlur={searchCepData} onChange={handleInputRegisterChange} placeholder='CEP' />
+
+                                <input id='street' name='street' type='text' onChange={handleInputRegisterChange} placeholder='Nome da rua' />
+
+                                <input id='district' name='district' type='text' onChange={handleInputRegisterChange} placeholder='Bairro' />
 
                                 <input name='houseNumber' type='number' onChange={handleInputRegisterChange} placeholder='Número' />
 
                                 <input name='complement' onChange={handleInputRegisterChange} placeholder='Complemento' />
-
-                                <input name='district' onChange={handleInputRegisterChange} placeholder='Bairro' />
-
-                                <input name='cepNumber' onChange={handleInputRegisterChange} placeholder='CEP' />
 
                             </fieldset>
 
@@ -214,7 +255,7 @@ function Register() {
 
                             <div className='buttonsFormSignIn' >
 
-                                <Link onClick={()=> {makeRegister()}}>Cadastrar</Link>
+                                <Link onClick={() => { makeRegister() }}>Cadastrar</Link>
 
                             </div>
 

@@ -28,6 +28,8 @@ function Admin() {
                         <Link to="/AdminItems" >Cadastro/alteração de itens</Link>
                         <Link to="/AdminVendedor" >Cadastro/alteração de vendedores</Link>
                         <Link to="/AdminFornecedor" >Cadastro/alteração de fornecedores </Link>
+                        <Link to='/AdminProdutoFornecedor' >Cadastro/alteração de produtos dos fornecedores</Link>
+                        <Link to='/PedidoFornecedor' >Realizar pedido do fornecedor</Link>
                         <Link to="/Pedidos" >Pedidos em andamento</Link>
                         <Link to="/ListaDeClientes" >Listagem de clientes</Link>
                         <Link to="/" >Relatórios</Link>

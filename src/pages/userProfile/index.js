@@ -8,7 +8,7 @@ import firebase from 'firebase/app'
 import 'firebase/auth'
 import firebaseConfig from '../../FIREBASECONFIG.js'
 
-// import ReactCircleModal from 'react-circle-modal'
+import ReactCircleModal from 'react-circle-modal'
 
 import { Link, useHistory } from "react-router-dom";
 
@@ -19,7 +19,7 @@ function UserProfile() {
     const [displayDivAlterInfos, setDisplayDivAlterInfos] = useState("none");
     const [displayDivPedidos, setDisplayDivPedidos] = useState("none");
     const [requestData, setRequestData] = useState([{}]);
-    const [registerData,setRegisterData] = useState({
+    const [registerData, setRegisterData] = useState({
 
         name: '',
         phoneNumber: '',
@@ -32,68 +32,68 @@ function UserProfile() {
     })
 
     let history = useHistory()
-    
+
     useEffect(() => {
-        
+
         window.scrollTo(0, 0);
 
         const userEmail = localStorage.getItem('userEmail')
 
-        if(!firebase.apps.length)
+        if (!firebase.apps.length)
             firebase.initializeApp(firebaseConfig)
 
         firebase.database().ref('users/').get('/users')
-        .then(function (snapshot) {
+            .then(function (snapshot) {
 
-            if (snapshot.exists()){
+                if (snapshot.exists()) {
 
-                var data = snapshot.val()
-                var temp = Object.keys(data).map((key) => data[key])
+                    var data = snapshot.val()
+                    var temp = Object.keys(data).map((key) => data[key])
 
-                temp.map((item)=>{ 
+                    temp.map((item) => {
 
-                    if(item.email == userEmail)
-                        setDataAccount(item)
+                        if (item.email == userEmail)
+                            setDataAccount(item)
 
-                })
+                    })
 
-            }else {
-                console.log("No data available");
-            }
-        })
+                } else {
+                    console.log("No data available");
+                }
+            })
 
     }, []);
-    
+
     useEffect(() => {
-        
+
         window.scrollTo(0, 0);
 
         const userEmail = localStorage.getItem('userEmail')
 
-        if(!firebase.apps.length)
+        if (!firebase.apps.length)
             firebase.initializeApp(firebaseConfig)
 
         firebase.database().ref('requests/').get('/requests')
-        .then(function (snapshot) {
+            .then(function (snapshot) {
 
-            if (snapshot.exists()){
+                if (snapshot.exists()) {
 
-                var data = snapshot.val()
-                var temp = Object.keys(data).map((key) => data[key])
-                var requestDataTemp = []
+                    var data = snapshot.val()
+                    var temp = Object.keys(data).map((key) => data[key])
+                    var requestDataTemp = []
 
-                temp.map((item)=>{ 
+                    temp.map((item) => {
 
-                    if(item.userEmail == userEmail)
-                        requestDataTemp.push(item)
-                        
+                        if (item.userEmail == userEmail)
+                            requestDataTemp.push(item)
+
                     })
                     setRequestData(requestDataTemp)
 
-            }else {
-                console.log("No data available");
-            }
-        })
+                } else {
+                    console.log("No data available");
+                }
+            })
 
     }, []);
 
@@ -101,40 +101,40 @@ function UserProfile() {
 
         firebase.auth().signOut()
         history.goBack()
-        
+
     }
 
     function handleDisplayDivAlterInfos() {
 
-        if(displayDivAlterInfos == "none")
+        if (displayDivAlterInfos == "none")
             setDisplayDivAlterInfos("flex")
         else
             setDisplayDivAlterInfos("none")
-        
+
     }
 
     function handleDisplayDivPedidos() {
 
-        if(displayDivPedidos == "none")
+        if (displayDivPedidos == "none")
             setDisplayDivPedidos("flex")
         else
             setDisplayDivPedidos("none")
-        
+
     }
 
     function handleInputRegisterChange(event) {
 
-        const {name, value} = event.target
+        const { name, value } = event.target
 
-        setRegisterData ({
+        setRegisterData({
 
             ...registerData, [name]: value
 
         })
-        
+
     }
 
-    function updateRegister () {
+    function updateRegister() {
 
         firebase.database().ref('users/' + dataAccount.id).update({
 
@@ -151,17 +151,17 @@ function UserProfile() {
             id: dataAccount.id
 
         })
-        .then(()=>alert("Cadastro atualizado com sucesso!"))
-        .catch((error) => {
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            console.log(errorMessage)
-        }); 
-        
+            .then(() => alert("Cadastro atualizado com sucesso!"))
+            .catch((error) => {
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                console.log(errorMessage)
+            });
+
     }
 
     // useEffect(() => {
-        
+
     //     firebase.database().ref('requests').get('/requests')
     //     .then(function (snapshot) {
 
@@ -217,48 +217,13 @@ function UserProfile() {
                     </li>
                 </ul>
 
-                <div className="singnOutButton" >
-                    <a onClick={()=>signOut()} className="defaultButtonUserProfile" >SAIR</a>
-                </div>
-                
             </div>
 
             <div>
-                <h4 className="textAlterInfosProfile" onClick={()=>handleDisplayDivPedidos()} >Quer acompanhar seus pedidos? <span>clique aqui</span></h4>
+                <h4 className="textAlterInfosProfile" onClick={() => handleDisplayDivAlterInfos()} >Deseja alterar alguma informação? <span>clique aqui</span></h4>
 
-                <div style={{display: displayDivPedidos}} className="divPedidos" >
-                    
-                    <div className='dataPedidos'>
-                        <ul>
-                            <h2>Pedidos</h2>
-                            <div className='backgroundPedidos'>
+                <div style={{ display: displayDivAlterInfos }} className="divAlterInfos" >
 
-                                {requestData.map((item)=> {
-
-                                    if(item.listItem != undefined){
-
-                                        item.listItem.map(item=>{
-                                            
-                                            console.log(item.data.title)
-
-                                        })
-                                    }
-
-                                })}
-
-                            </div>
-                        </ul>
-                    </div>
-
-                </div>
-
-            </div>
-
-            <div>
-                <h4 className="textAlterInfosProfile" onClick={()=>handleDisplayDivAlterInfos()} >Deseja alterar alguma informação? <span>clique aqui</span></h4>
-
-                <div style={{display: displayDivAlterInfos}} className="divAlterInfos" >
-                    
                     <h2 className="arrowToDownUserProfile"> ⇣ </h2>
 
                     <p>Preencha apenas o que deseja atualizar</p>
@@ -293,21 +258,56 @@ function UserProfile() {
 
                     </fieldset>
 
-                    <a className="defaultButtonUserProfile" style={{marginBottom: "5vh"}} onClick={()=>updateRegister()}>Atualizar Informações</a>
+                    <a className="defaultButtonUserProfile" style={{ marginBottom: "5vh" }} onClick={() => updateRegister()}>Atualizar Informações</a>
 
+                </div>
+
+                <div className="singnOutButton" >
+                    <a onClick={() => signOut()} className="defaultButtonUserProfile" >SAIR</a>
                 </div>
 
             </div>
 
 
-            {/* <ReactCircleModal
+            <div>
+                <h4 className="textAlterInfosProfile" onClick={() => handleDisplayDivPedidos()} >Quer acompanhar seus pedidos? <span>clique aqui</span></h4>
+
+                <div style={{ display: displayDivPedidos }} className="divPedidos" >
+
+                    <div className='dataPedidos'>
+                        <ul>
+                            <h2>Pedidos</h2>
+                            <div className='backgroundPedidos'>
+
+                                {requestData.map((item) => {
+
+                                    if (item.listItem != undefined) {
+
+                                        item.listItem.map(item => {
+
+                                            console.log(item.data.title)
+
+                                        })
+                                    }
+
+                                })}
+
+                            </div>
+                        </ul>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <ReactCircleModal
                 backgroundColor="#434f38"
                 toogleComponent={onClick => (<button className="finishButton" onClick={onClick}> Gostou do seu pedido? Responda esta pesquisa de satisfação! </button>
                 )}
                 // Optional fields and their default values
                 offsetX={0}
                 offsetY={0}
-                >
+            >
                 {(onClick) => (
                     <div className="popUpSatisf" style={{ backgroundColor: '#fff', padding: '1em' }}>
                         <p>
@@ -336,7 +336,7 @@ function UserProfile() {
                         </button>
                     </div>
                 )}
-            </ReactCircleModal> */}
+            </ReactCircleModal>
 
             <Footer />
         </div>

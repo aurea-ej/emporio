@@ -8,6 +8,8 @@ import 'firebase/auth'
 import 'firebase/database'
 import firebaseConfig from '../../../FIREBASECONFIG.js'
 
+import DeliveryModal from '../../../components/modalDelivery'
+
 import closeIcon from '../../../img/removeIconWhite.png'
 
 
@@ -15,28 +17,31 @@ function Request() {
 
     const [dataAdmin, setDataAdmin] = useState([])
     const [selectItem, setSelectItem] = useState('')
-  
-    useEffect(()=>{
+    const [displayModal, setDisplayModal] = useState("none");
+    const [heightPageWhenOpenModal, setHeightPageWhenOpenModal] = useState(0)
+    const [modalData, setModalData] = useState({});
 
-        if(!firebase.apps.length)
+    useEffect(() => {
+
+        if (!firebase.apps.length)
             firebase.initializeApp(firebaseConfig);
 
         firebase.database().ref('requests').get('/requests')
-        .then(function(snapshot) {
+            .then(function (snapshot) {
 
-            if (snapshot.exists()){
+                if (snapshot.exists()) {
 
-                var data = snapshot.val()
-                var temp = Object.keys(data).map((key) => data[key])
-                setDataAdmin(temp)
+                    var data = snapshot.val()
+                    var temp = Object.keys(data).map((key) => data[key])
+                    setDataAdmin(temp)
 
-            }
-            
-        })
+                }
 
-    },[])
+            })
 
-    function handleIdSelected (event) {
+    }, [])
+
+    function handleIdSelected(event) {
 
         setSelectItem(event.target.value)
 
@@ -45,16 +50,35 @@ function Request() {
     function finishOrder() {
 
         firebase.database()
-        .ref('requests/' + selectItem)
-        .remove()
-        .then(()=>alert("Pedido finalizado com sucesso!"))
-        
+            .ref('requests/' + selectItem)
+            .remove()
+            .then(() => alert("Pedido finalizado com sucesso!"))
+
     }
 
     function removeItemOfClient(params) {
 
         alert('ainda nao implementado')
-        
+
+    }
+
+    function handleModalInfos(item) {
+
+        setModalData(item)
+        setHeightPageWhenOpenModal(document.body.getBoundingClientRect().top)
+        window.scrollTo(0, 0);
+        displayModal == "none" ? setDisplayModal("flex") : setDisplayModal("none")
+
+    }
+
+    function closeModal() {
+
+        if (displayModal == "none")
+            setDisplayModal("flex")
+        else {
+            window.scrollTo(-heightPageWhenOpenModal, - heightPageWhenOpenModal)
+            setDisplayModal("none");
+        }
     }
 
     return (
@@ -63,49 +87,54 @@ function Request() {
 
             <Header />
 
-            <main id='mainRequest' >
-    
-                {dataAdmin.map((item)=> (
+            <div style={{ display: displayModal }} tabindex="-1" role="dialog" className='modalDelivery' >
+                <span onClick={closeModal}>X</span>
+                <DeliveryModal displayProperty={displayModal} modalData={modalData} />
+            </div>
 
-                    <div className="boxOrder">
+            <main id='mainRequest' >
+
+                {dataAdmin.map((item) => (
+
+                    <div className="boxOrder" onClick={() => { handleModalInfos(item) }}>
 
                         <div className="leftSizeBoxOrder" >
 
                             <p>Nome:</p>
-                                <b>{item.userName}</b>
-                                
+                            <b>{item.userName}</b>
+
                             <p>Telefone: </p>
-                                <b>{item.phoneNumber}</b>
-                                
+                            <b>{item.phoneNumber}</b>
+
                             <p>Rua:</p>
-                                <b>{item.street}</b>
-                                
+                            <b>{item.street}</b>
+
                             <p>Bairro:</p>
-                                <b>{item.district}</b>
-                                
+                            <b>{item.district}</b>
+
                             <p>Número da casa:</p>
-                                <b>{item.houseNumber}</b>
+                            <b>{item.houseNumber}</b>
 
                             <p>CEP:</p>
-                                <b>{item.cepNumber}</b>
+                            <b>{item.cepNumber}</b>
 
                         </div>
 
                         <div className="rightSizeBoxOrder" >
 
-                            {item.seller != undefined ? <p>Vendedor: {item.seller}</p> : '' }
+                            {item.seller != undefined ? <p>Vendedor: {item.seller}</p> : ''}
 
                             <p>Itens:</p>
 
                             <ul>
 
-                                {item.listItem.map((item, index)=>(
+                                {item.listItem.map((item, index) => (
                                     <div className='flexDisplayRequestPage' >
                                         <li><b>{item.data.title}</b> ({item.amount})</li>
                                         <img src={closeIcon}
                                             className="imgRemoveIconCart"
                                             alt='opção de remover item'
-                                            onClick={()=>{
+                                            onClick={() => {
                                                 removeItemOfClient(index)
                                             }}
                                         />
@@ -120,12 +149,19 @@ function Request() {
 
                                 item.clientNote != undefined ?
                                     <p>Observações: <b>{item.clientNote}</b></p>
-                                : ''
+                                    : ''
 
                             }
 
                             <p>ID do pedido: <b>{item.id}</b></p>
-                            <p>Valor Total do pedido: <b>{item.totalValue}</b></p>
+                            <p>Valor Total do pedido: <b>R$ {item.totalValue}</b></p>
+                            
+                            {
+                                item.deliveryman != undefined ?
+                                <p>Entregador: <b>{item.deliveryman}</b></p>
+                                : ''
+
+                            }
 
                         </div>
 
@@ -139,13 +175,13 @@ function Request() {
 
                     <option className="optionSelectOrder" >Selecionar</option>
 
-                    {dataAdmin.map((item)=> (
+                    {dataAdmin.map((item) => (
                         <option className="optionSelectOrder" value={item.id} key={item.id}>{item.userName.split(' ')[0]}: {item.id}</option>
                     ))}
 
                 </select>
 
-                <a className="finishButton" onClick={()=>finishOrder()} >Finalizar</a>
+                <a className="finishButton" onClick={() => finishOrder()} >Finalizar</a>
 
             </main>
 
@@ -153,7 +189,7 @@ function Request() {
         </div>
 
     )
-    
+
 }
 
 export default Request

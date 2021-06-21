@@ -1,0 +1,99 @@
+.Deliveryrequest {
+
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+}
+
+.flexDisplayRequestPage {
+
+    display: flex;
+    align-items: center;
+
+}
+
+#mainDeliveryRequest {
+
+    width: 100%;
+    margin: 5vh 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+}
+
+#mainDeliveryRequest h1, h4 {
+
+    align-items: center;
+    line-height: 0;
+
+}
+
+#mainDeliveryRequest h4 {
+
+    color: rgba(70, 70, 70, 0.8)
+
+}
+
+.listPosition li {
+
+    list-style: none;
+    width: 100%;
+    align-items: center;
+
+}
+
+.boxDeliveryInfo {
+
+    width: 30vw;
+    color: white;
+    margin: 15px 0;
+    padding: 10px 15px;
+    border-radius: 20px;
+    background-color: #434f38;
+    cursor:pointer;
+    
+}
+
+.boxOrder b {
+
+    margin-left: 1em;
+
+}
+
+.textFinishOrder {
+
+    font-size: 15pt;
+    color: #662210;
+
+}
+
+.selectFinishDeliveryOrder {
+
+    width: 50%;
+    height: 50px;
+    color: white;
+    background-color: #434f38;
+
+} 
+
+.finishButton {
+
+    color: white;
+    cursor: pointer;
+    padding: 15px;
+    margin: 20px 0;
+    border-radius: 10px;
+    background-color: #434f38;
+
+}
+
+@media screen and (max-width: 768px) {
+
+
+
+}

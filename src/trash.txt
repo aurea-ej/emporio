@@ -1,0 +1,63 @@
+ {/* <main>
+
+                <div className='imageAndTitleModal' >
+
+                    <img src={modalData.imageSrc} alt='imagem do produto' />
+                    <h1>{modalData.title}</h1>
+
+                </div>
+
+                <div className='lineBoxProductModal'>
+
+                    <h3>R$ {(modalData.price * amount).toFixed(2)}</h3>
+
+                    <div className="quantityOfProduct" >
+
+                        <img src={removeIcon} onClick={()=>{remove()}} alt="Item de remover" />
+
+                        <p>Quantidade</p>
+
+                        <img src={addIcon} onClick={()=>{add()}} alt="Item de adicionar" />
+
+                    </div>
+
+                </div>
+
+                    <div className='amountItensModal' >
+                        Quantidade selecionada: {amount}
+                    </div>
+
+                    <a onClick={()=>{addToCart()}} >ADICIONAR AO CARRINHO</a>
+
+                <p className='itemDescModal' >{modalData.desc}</p>
+
+            </main> */}
+
+        // </div>
+
+
+
+
+
+
+
+        <ReactCircleModal
+                                                backgroundColor="#97349a"
+                                                toogleComponent={onClick => (
+                                                    <button onClick={onClick}>
+                                                    Adicionar
+                                                    </button>
+                                                )}
+                                                // Optional fields and their default values
+                                                offsetX={0}
+                                                offsetY={0}
+                                                >
+                                                {(onClick) => (
+                                                    <div style={{ backgroundColor: '#fff', padding: '1em' }}>
+                                                    <Modal displayProperty={displayModal} modalData={modalData} />
+                                                    <button onClick={onClick}>
+                                                        Click here to close modal
+                                                    </button>
+                                                    </div>
+                                                )}
+                                                </ReactCircleModal>

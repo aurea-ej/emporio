@@ -11,8 +11,11 @@ import BuyInfo from '../../../components/buyInfo'
 
 function OrderHistory() {
 
-    const [dataAdmin, setDataAdmin] = useState([])
+    const [dataProduct, setDataProduct] = useState([])
     const [dataExists, setDataExists] = useState(false);
+    const [displayModal, setDisplayModal] = useState("none");
+    const [heightPageWhenOpenModal, setHeightPageWhenOpenModal] = useState(0)
+    const [modalData, setModalData] = useState({});
 
     useEffect(() => {
 
@@ -26,116 +29,113 @@ function OrderHistory() {
 
                     var data = snapshot.val()
                     var temp = Object.keys(data).map((key) => data[key])
-                    setDataAdmin(temp)
+                    setDataProduct(temp)
                     setDataExists(true)
 
                 }
-
-                else setDataExists(false)
 
             })
 
     }, [])
 
-    const [displayHistory, setDisplayHistory] = useState("none");
-    const [HistoryData, setHistoryData] = useState({});
-    const [pageHeight, setPageHeight] = useState(0);
+    function handleModalInfos(item) {
 
-    useEffect(() => {
-
+        setModalData(item)
+        setHeightPageWhenOpenModal(document.body.getBoundingClientRect().top)
         window.scrollTo(0, 0);
-        setPageHeight(window.screen.height)
-
-    }, []);
-
-    function handleHistoryInfos() {
-
-        setHistoryData();
-
-        displayHistory == "none" ? setDisplayHistory("flex") : setDisplayHistory("none")
+        displayModal == "none" ? setDisplayModal("flex") : setDisplayModal("none")
 
     }
 
-    function closeHistory() {
+    function closeModal() {
 
-        displayHistory == "none" ? setDisplayHistory("flex") : setDisplayHistory("none")
-
+        if (displayModal == "none")
+            setDisplayModal("flex")
+        else {
+            window.scrollTo(-heightPageWhenOpenModal, - heightPageWhenOpenModal)
+            setDisplayModal("none");
+        }
     }
 
-    if (dataExists) {
+        if (dataExists) {
 
-        return (
+            return (
 
-            <div className="historyPage">
+                <div className="historyPage">
 
-                <Header />
+                    <Header />
 
-                <div style={{ display: displayHistory }} tabindex="-1" role="dialog" className='divBuyInfo' >
-                    <span onClick={closeHistory}>X</span>
-                    <BuyInfo displayProperty={displayHistory} HistoryData={HistoryData} />
-                </div>
-
-                <section id='sectionHistory'>
-
-                    <div className='textHistory' >
-                        <h2>Seu histórico de compras com fornecedores: </h2>
-                        <p>Selecione um pedido para ver seus detalhes</p>
+                    <div style={{ display: displayModal }} tabindex="-1" role="dialog" className='divBuyInfo' >
+                        <span onClick={closeModal}>X</span>
+                        <BuyInfo displayProperty={displayModal} modalData={modalData} />
                     </div>
 
-                    {
-                        dataAdmin.map((requests) => {
+                    <section id='sectionHistory'>
 
-                            return (
+                        <div className='textHistory' >
+                            <h2>Seu histórico de compras com fornecedores: </h2>
+                            <h4>Selecione um pedido para ver seus detalhes</h4>
+                        </div>
 
-                                <div className='boxHistory' onClick={() => { handleHistoryInfos() }}>
+                        {
+                            dataProduct.map((item) => {
 
-                                    <div className='lineBoxCardHistory' >
+                                return (
 
-                                        <h3>{requests.id}</h3>
+                                    <div className='boxHistory' onClick={() => { handleModalInfos(item) }}>
 
-                                        <p>Data do pedido: </p>
+                                        <div className='cardHistory' >
 
-                                        <p>
+                                            <div className="historyInfos">
 
+                                                <h2>{item.listTitle}</h2>
 
-                                        </p>
+                                                <div className="listSchedule">
+
+                                                    <h3>{item.orderDate}</h3>
+                                                    <h4>{item.orderTime}</h4>
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
 
                                     </div>
+                                )
 
-                                </div>
-                            )
+                            })
+                        }
 
-                        })
-                    }
+                    </section>
 
-                </section>
+                    <Footer />
 
-                <Footer />
+                </div>
+            )
+        }
 
-            </div>
-        )
-    }
+        else {
 
-    else {
+            return (
 
-        return (
+                <div className="HistoryPage">
 
-            <div className="HistoryPage">
+                    <Header />
 
-                <Header />
+                    <div className="emptyHistory" style={{ height: "60vh", display: "flex", alignItems: "center", justifyContent: "center" }} >
+                        <h2>Seu histórico de pedidos está vazio </h2>
+                    </div>
 
-                <div className="emptyHistory" style={{ height: "60vh", display: "flex", alignItems: "center", justifyContent: "center" }} >
-                    <h2>Seu histórico de pedidos está vazio </h2>
+                    <Footer />
+
                 </div>
 
-                <Footer />
+            )
 
-            </div>
-
-        )
+        }
 
     }
 
-}
 
 export default OrderHistory

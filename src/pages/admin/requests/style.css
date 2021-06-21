@@ -33,6 +33,7 @@
     justify-content: space-between;
     margin: 20px 0;
     color: white;
+    cursor: pointer;
 
 }
 
@@ -143,6 +144,23 @@
 .pesquisaSatisf ::placeholder {
     
     color: white;
+
+}
+
+.modalDelivery span {
+
+    width: 20px;
+    height: 20px;
+    padding: 8px;
+    color: white;
+    position: absolute;
+    top: 155px;
+    left: 61%;
+    z-index: 400;
+    cursor: pointer;
+    border-radius: 50%;
+    text-align: center;
+    background-color: #662210;
 
 }
 

@@ -1,4 +1,4 @@
-.buyModal{
+.modalBuyInfo{
 
     width: 50%;
     min-height: 75vh;
@@ -19,7 +19,7 @@
 
 }
 
-.buyModal main {
+.modalBuyInfo main {
 
     width: 86%;
     display: flex;
@@ -48,14 +48,16 @@
 
 }
 
+.productList {
 
-.buyInfo {
-    
-    background-color: #ffc05c;
-    padding: 1rem 3rem;
-    margin-bottom: 2rem;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 
 }
+
 
 @media screen and (max-width: 768px) {
 

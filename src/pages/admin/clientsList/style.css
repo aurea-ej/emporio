@@ -14,6 +14,69 @@
 
 }
 
+.ClientListPage main h4 {
+
+    margin: 0 auto;
+    color:rgba(70, 70, 70, 0.6)
+
+}
+
+.divModalUser {
+
+    width: 100vw;
+    position: relative;
+
+}
+
+.divModalUser span{
+
+    width: 20px;
+    height: 20px;
+    padding: 8px;
+    color: white;
+    position: absolute;
+    top: 30px;
+    left: 65%;
+    z-index: 400;
+    cursor: pointer;
+    border-radius: 50%;
+    text-align: center;
+    background-color: #662210;
+
+}
+
+.filterName h3 {
+    
+    margin-top: 6vh;
+    text-align: center
+
+}
+
+.searchName input {
+
+    width: 25vw;
+    height: 3vw;
+    background-color: #ffc05c;
+    border: none;
+
+}
+
+.divSearchNameResult a {
+
+    display: flex;
+    color: white;
+    padding: 15px;
+    margin-top: 2rem;
+    cursor: pointer;
+    background-color: #662210;
+    text-decoration: none;
+    border-radius: 10px;
+    box-shadow: 0px 0px 8px rgba(160, 160, 160, 0.35);
+    justify-content: center;
+    font-weight: 700;
+
+}
+
 .boxClientList {
 
     width: 80%;
@@ -22,6 +85,7 @@
     padding: 10px 15px;
     border-radius: 20px;
     background-color: #434f38;
+    cursor:pointer
 
 }
 
@@ -34,5 +98,24 @@
 .boxClientList p {
 
     text-align: left;
+
+}
+
+@media screen and (max-width: 768px) {
+
+    .searchName input {
+
+        width: 65vw;
+        height: 5vh;
+
+    }
+
+    .divModalUser span {
+
+        top: 10px;
+        left: 78%;
+
+    }
+
 
 }
