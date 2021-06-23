@@ -88,6 +88,8 @@
     top: 2rem;
     font-family: 'Gilroy-Light', sans-serif;
     padding: 0 2rem;
+    cursor: default;
+    user-select: none;
 
 }
 
@@ -210,6 +212,12 @@
     box-shadow: -2px 5px 8px #92929255;
 }
 
+.boxHome:nth-child(1) {
+
+    margin-top: 0;
+
+}
+
 .boxHome img {
 
     max-width: 40%;
@@ -278,6 +286,23 @@
 .amountDiv > div img {
 
     cursor: pointer;
+
+}
+
+.amountDiv > div span {
+
+    /* padding: 15px; */
+    width: 25px;
+    height: 25px;
+    display: flex;
+    cursor: pointer;
+    color: white;
+    text-align: center;
+    border-radius: 5px;
+    align-items: center;
+    justify-content: center;
+    background-color: #662210;
+    /* box-shadow: 0px 0px 1px #662210; */
 
 }
 
@@ -453,7 +478,7 @@
     position: fixed;
     z-index: 9;
     bottom: 20px;
-    left: 25px;
+    /* left: 25px; */
 
 }
 

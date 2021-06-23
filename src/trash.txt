@@ -61,3 +61,33 @@
                                                     </div>
                                                 )}
                                                 </ReactCircleModal>
+
+
+
+
+
+
+
+
+
+
+// firebase.database().ref('items').get('/items')
+        //     .then(function (snapshot) {
+
+        //         if (snapshot.exists()) {
+
+        //             var data = snapshot.val()
+        //             var temp = Object.keys(data).map((key) => data[key])
+
+        //             var totalamount = []
+        //             temp.map(item => totalamount.push(0))
+        //             // setAmount(totalamount)
+
+        //             setData(temp)
+        //             setDataBackup(temp)
+
+        //         }
+        //         else {
+        //             console.log("No data available");
+        //         }
+        //     })

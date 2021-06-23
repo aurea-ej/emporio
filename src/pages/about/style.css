@@ -38,6 +38,8 @@ video {
     left: 50%;
     transform: translate(-50%, -50%);
     cursor: default;
+    width: 100%;
+    user-select: none;
 }
 
 .bar {
@@ -57,6 +59,9 @@ video {
 .about-text p {
     font-size: 1.2rem;
     padding: 0rem 5rem;
+    text-align: justify;
+    line-height: 140%;
+    text-indent: 4rem;
 }
 
 .logo-2 {
@@ -80,22 +85,28 @@ video {
 .cards {
     margin: auto;
     display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
     cursor: default;
     align-items: center;
     justify-content: center;
     padding: 2rem 6rem;
+    width: 80%;
  }
- 
 
  .card-item {
      position: relative;
-     width: 290px;
+     width: 250px;
+     height: 200px;
      background: rgb(175, 175, 175);
      padding: 100px 40px 60px;
      box-shadow: 0 15px 45px rgba(0, 0, 0, 0.1);
      margin-bottom: 2rem;
+ }
+
+ .card-item:nth-child(2),
+ .card-item:nth-child(3) {
+
+    margin-left: 1rem
+
  }
  
  .card-item:before {
@@ -174,13 +185,15 @@ video {
 
  .process-text {
     justify-content: center;
-    margin-left: 3rem; 
-    width: 30%;
+    margin-left: 6rem; 
+    width: 29%;
+    text-align: justify;
  }
 
  .process-text p{
      margin-top: 1rem;
      font-size: 1.2rem;
+     line-height: 140%;
  }
 
  .card-process {
@@ -192,8 +205,14 @@ video {
      margin-bottom: 2rem;
      box-shadow: 3px 2px 4px 0px rgba(0,0,0,0.40);
      color: #fff;
-     border-radius: 0px;
+     border-radius: 5px;
      padding: 10px;
+ }
+
+ .card-process h2 {
+
+    font-weight: 500;
+
  }
 
   @media only screen and (max-width: 940px) {
@@ -208,11 +227,20 @@ video {
     .card-item {
 
         width: 80%;
-        padding: 100px 30px 60px
+        padding: 100px 30px 60px;
+        margin-left: 0;
+
+    }
+
+    .card-item:nth-child(2),
+    .card-item:nth-child(3) {
+
+        margin-left: 0;
 
     }
 
     .about-container h1 {
+        font-size: 3rem;
         margin-top: 8rem;
         font-size: 5rem;
     }
@@ -236,13 +264,14 @@ video {
     }
 
     .process-text {
-        width: 90vw;
-        margin-left: 1rem;
+        width: 80vw;
+        margin-left: 2.2rem;
     }
 
     .process-text p{
         max-width: 90vw;
         margin-bottom: 4rem;
+        font-size: 1.2rem;
     }
 
     .process-section {
@@ -265,12 +294,19 @@ video {
       }
 
       .about-container h1 {
-        font-size: 4rem;
+        font-size: 3rem;
     }
 
     .process-text h1 {
 
         text-align: center;
+
+    }
+
+    .card-process {
+
+        height: 250px;
+        padding: 0 1rem;
 
     }
   }

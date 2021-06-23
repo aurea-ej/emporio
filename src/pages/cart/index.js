@@ -152,7 +152,7 @@ function Cart() {
 
 
             }).then(()=>{
-                localStorage.setItem('products', '[{}]')
+                localStorage.setItem('products', '{}')
                 alert("Pedido finalizado com sucesso!.")
             })
 

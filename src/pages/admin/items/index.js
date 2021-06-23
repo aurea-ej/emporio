@@ -139,10 +139,10 @@ function Admin() {
 
         console.log(data)
 
-        // firebase.database().ref('items/' + id)
-        // .set(data)
-        // .then(err => console.log(err))
-        // alert("Item inserido com sucesso!.")
+        firebase.database().ref('items/' + id)
+        .set(data)
+        .then(err => console.log(err))
+        alert("Item inserido com sucesso!.")
         
     }
 

@@ -1,10 +1,8 @@
 import React from 'react'
-import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useEffect, useState, memo } from 'react'
+import { Link, Redirect, useHistory } from 'react-router-dom'
 import Header from '../../components/header'
 import Footer from '../../components/footer'
-// import Modal from '../../components/modal'
-// import Modall from '../../components/modal2'
 import './style.css'
 
 import firebase from 'firebase/app'
@@ -31,10 +29,6 @@ function Home() {
 
     const [displayModal, setDisplayModal] = useState("none");
     const [modalData, setModalData] = useState({});
-    // const [amount, setAmount] = useState([]);
-
-
-    const [selectedItens, setSelectedItens] = useState([]);
 
 
     useEffect(() => {
@@ -42,8 +36,9 @@ function Home() {
         if (!firebase.apps.length)
             firebase.initializeApp(firebaseConfig);
 
-        firebase.database().ref('items').get('/items')
-        .then(function (snapshot) {
+        var firebaseRef = firebase.database().ref('items/');
+
+        firebaseRef.on('value', (snapshot) => {
 
             if (snapshot.exists()) {
 
@@ -51,18 +46,18 @@ function Home() {
                 var temp = Object.keys(data).map((key) => data[key])
 
                 var totalamount = []
-                temp.map(item => totalamount.push(0) )
+                temp.map(item => totalamount.push(0))
                 // setAmount(totalamount)
 
                 setData(temp)
                 setDataBackup(temp)
-                setSelectedItens(temp)
 
             }
             else {
                 console.log("No data available");
             }
-        })
+
+        });
 
     }, [])
 
@@ -86,7 +81,7 @@ function Home() {
         if (displayModal == "none")
             setDisplayModal("flex")
         else {
-            window.scrollTo( -heightPageWhenOpenModal, - heightPageWhenOpenModal)
+            window.scrollTo(-heightPageWhenOpenModal, - heightPageWhenOpenModal)
             setDisplayModal("none");
         }
 
@@ -96,7 +91,7 @@ function Home() {
         if (products != null) {
             if (!(products.id))
                 setDisplayButtonFinishOrder('block')
-                setTotalValue(total)
+            setTotalValue(total)
         }
 
     }
@@ -129,11 +124,11 @@ function Home() {
 
     function handleDisplaySearchMobile() {
 
-        if( displayMobileSearch == 'none')
+        if (displayMobileSearch == 'none')
             setDisplayMobileSearch('flex')
         else
             setDisplayMobileSearch('none')
-        
+
     }
 
     function searchItem() {
@@ -177,24 +172,37 @@ function Home() {
 
 
 
+
+
     function add(index) {
 
         var dataTemp = data
         dataTemp[index].amount = dataTemp[index].amount + 1
 
+        var totalValueTemp = Number(dataTemp[index].price) + totalValue
+
         setData(dataTemp)
+        setTotalValue(totalValueTemp)
         setDisplayButtonFinishOrder('block')
-        
+
     }
 
     function remove(index) {
 
         var dataTemp = data
-        dataTemp[index].amount = dataTemp[index].amount - 1
 
-        setData(dataTemp)
+        if (dataTemp[index].amount > 0){
+
+            dataTemp[index].amount = dataTemp[index].amount - 1
+            var totalValueTemp = totalValue - Number(dataTemp[index].price)
+
+            setData(dataTemp)
+            setTotalValue(totalValueTemp)
+        }
         
     }
+
+    let history = useHistory();
 
     function addToCart() {
 
@@ -204,9 +212,9 @@ function Home() {
 
         var newListOfItems = {}
 
-        data.map((item)=> {
+        data.map((item) => {
 
-            if(item.amount > 0)
+            if (item.amount > 0)
                 newItems.push(item)
 
         })
@@ -218,7 +226,7 @@ function Home() {
                 ...newItems
             }
 
-            localStorage.setItem('products', JSON.stringify({...newListOfItems}))
+            localStorage.setItem('products', JSON.stringify({ ...newListOfItems }))
 
         }
         else {
@@ -227,10 +235,12 @@ function Home() {
                 ...newItems
             }
 
-            localStorage.setItem('products', JSON.stringify({...newListOfItems}))
+            localStorage.setItem('products', JSON.stringify({ ...newListOfItems }))
 
         }
-        
+
+        history.push('/Carrinho')
+
     }
 
     return (
@@ -255,23 +265,24 @@ function Home() {
 
                     <div className="heroText">
 
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                        </p>
+                        <h2>
+                            Alimentos orgânicos: mais saúde na sua mesa!
+                            <br/>Produtos selecionados.
+                        </h2>
 
                     </div>
-                    
+
                 </div>
 
                 <div className="borderImg" />
 
             </section>
 
-            <div className="filterProductsOptions" onClick={()=>handleDisplaySearchMobile()} >
+            <div className="filterProductsOptions" onClick={() => handleDisplaySearchMobile()} >
                 <h3>Filtrar produtos</h3>
             </div>
 
-            <section className='sectionMobileSearch' style={{display: displayMobileSearch}} >
+            <section className='sectionMobileSearch' style={{ display: displayMobileSearch }} >
 
                 <div className='menuProductsHomeMobile' >
 
@@ -335,47 +346,50 @@ function Home() {
 
                                 if (item.itemAvailability == 'true') {
 
-                                    return (
+                                    return(
 
                                         <div className='boxHome'
-        
-                                            // onClick={() => { handleModalInfos(item) }}
+
+                                        // onClick={() => { handleModalInfos(item) }}
+                                        key={index}
                                         >
 
                                             <div className='infoDivHome' >
-        
+
                                                 <img src={item.imageSrc} alt='imagem do produto' />
-            
+
                                                 <div className="itemInfo">
-            
+
                                                     <h3>{item.title}</h3>
-                                
-                                                        <h4>R$ {item.price}</h4>
+
+                                                    <h4>R$ {item.price}</h4>
 
                                                     <p>{item.desc}</p>
 
                                                 </div>
-                                        
+
                                             </div>
 
                                             <div className='amountDiv' >
 
                                                 <div>
 
-                                                    <img src={removeIcon} onClick={()=>{remove(index)}} />
-                                                        quantidade: {item.amount}
-                                                    <img src={addIcon} onClick={()=>{add(index)}} />
+                                                    {/* <img src={removeIcon} onClick={() => { remove(index) }} /> */}
+                                                    <span onClick={() => { remove(index) }}>-</span>
+                                                    quantidade: <b>{item.amount}</b>
+                                                    <span onClick={() => { add(index) }}>+</span>
+                                                    {/* <img src={addIcon} onClick={() => { add(index) }} /> */}
 
                                                 </div>
-        
+
                                             </div>
-        
+
                                         </div>
-        
+
                                     )
-                                    
+
                                 }
-                            
+
                             })
                         }
 
@@ -399,7 +413,7 @@ function Home() {
 
                         </div>
 
-                        <div className='filterProducts' style={{borderBottom: '10px solid #ffc05c', paddingBottom: '15px'}}>
+                        <div className='filterProducts' style={{ borderBottom: '10px solid #ffc05c', paddingBottom: '15px' }}>
 
                             <h4>Preço</h4>
 
@@ -410,7 +424,7 @@ function Home() {
                                     onChange={(event) => setMinProductPrice(Number(event.target.value))}
                                     onKeyDown={handleMinProductPrice} />
                                 -
-                            <input
+                                <input
                                     placeholder='max'
                                     type='number'
                                     onChange={(event) => setMaxProductPrice(Number(event.target.value))}
@@ -441,10 +455,11 @@ function Home() {
 
             </div>
 
-            <div className="buttonFinishOrder" style={{display: displayButtonFinishOrder }}>
+            <div className="buttonFinishOrder" style={{ display: 'flex' }}>
+            {/* <div className="buttonFinishOrder" style={{ display: displayButtonFinishOrder }}> */}
 
                 {/* <Link onClick={()=>addToCart()} to='Carrinho'>FINALIZAR PEDIDO - R$ {totalValue}</Link> */}
-                <a onClick={()=>addToCart()}>FINALIZAR PEDIDO - R$ {totalValue}</a>
+                <a onClick={() => addToCart()}>FINALIZAR PEDIDO - R$ {totalValue.toFixed(2)}</a>
             </div>
 
             <Footer />
@@ -453,5 +468,6 @@ function Home() {
 
     );
 }
+
 
 export default Home;

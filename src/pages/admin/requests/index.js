@@ -33,6 +33,7 @@ function Request() {
 
                     var data = snapshot.val()
                     var temp = Object.keys(data).map((key) => data[key])
+                    console.log(temp)
                     setDataAdmin(temp)
 
                 }
@@ -130,7 +131,7 @@ function Request() {
 
                                 {item.listItem.map((item, index) => (
                                     <div className='flexDisplayRequestPage' >
-                                        <li><b>{item.data.title}</b> ({item.amount})</li>
+                                        <li><b>{item.title}</b> ({item.amount})</li>
                                         <img src={closeIcon}
                                             className="imgRemoveIconCart"
                                             alt='opção de remover item'

@@ -279,7 +279,7 @@ function UserProfile() {
                             <h2>Pedidos</h2>
                             <div className='backgroundPedidos'>
 
-                                {requestData.map((item) => {
+                                {/* {requestData.map((item) => {
 
                                     if (item.listItem != undefined) {
 
@@ -290,7 +290,7 @@ function UserProfile() {
                                         })
                                     }
 
-                                })}
+                                })} */}
 
                             </div>
                         </ul>
