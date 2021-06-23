@@ -317,11 +317,24 @@
 
 .itemInfo h4 {
 
+    display: flex;
     margin: 0;
     color: #434f38;
     font-size: 14pt;
     font-weight: normal;
     font-family: 'Roboto', sans-serif;
+
+}
+
+.itemInfo > div {
+
+    width: 100%;
+
+}
+
+.itemInfo > div p{
+
+    text-indent: 0em;
 
 }
 

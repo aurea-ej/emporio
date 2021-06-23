@@ -26,19 +26,35 @@ function Request() {
         if (!firebase.apps.length)
             firebase.initializeApp(firebaseConfig);
 
-        firebase.database().ref('requests').get('/requests')
-            .then(function (snapshot) {
+        // firebase.database().ref('requests').get('/requests')
+        //     .then(function (snapshot) {
 
-                if (snapshot.exists()) {
+        //         if (snapshot.exists()) {
 
-                    var data = snapshot.val()
-                    var temp = Object.keys(data).map((key) => data[key])
-                    console.log(temp)
-                    setDataAdmin(temp)
+        //             var data = snapshot.val()
+        //             var temp = Object.keys(data).map((key) => data[key])
+        //             console.log(temp)
+        //             setDataAdmin(temp)
 
-                }
+        //         }
 
-            })
+        //     })
+        
+
+        var firebaseRef = firebase.database().ref('requests/');
+
+        firebaseRef.on('value', (snapshot) => {
+
+            if (snapshot.exists()) {
+
+                var data = snapshot.val()
+                var temp = Object.keys(data).map((key) => data[key])
+                console.log(temp)
+                setDataAdmin(temp)
+
+            }
+
+        });
 
     }, [])
 

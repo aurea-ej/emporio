@@ -91,3 +91,55 @@
         //             console.log("No data available");
         //         }
         //     })
+
+
+
+
+
+
+
+            function handleModalInfos(item) {
+
+        setModalData(item)
+        setHeightPageWhenOpenModal(document.body.getBoundingClientRect().top)
+        window.scrollTo(0, 0);
+        displayModal == "none" ? setDisplayModal("flex") : setDisplayModal("none")
+
+    }
+
+
+
+
+
+              <div style={{ display: displayModal }} role="dialog" className='divModal' >
+
+                <span onClick={closeModal}>X</span>
+                {/* <Modal displayProperty={displayModal} modalData={modalData} /> */}
+                {/* <Modall displayProperty={displayModal} modalData={modalData} /> */}
+
+            </div>
+
+
+
+
+
+
+                function closeModal() {
+
+        if (displayModal == "none")
+            setDisplayModal("flex")
+        else {
+            window.scrollTo(-heightPageWhenOpenModal, - heightPageWhenOpenModal)
+            setDisplayModal("none");
+        }
+
+        const products = JSON.parse(localStorage.getItem('products'))
+        const total = JSON.parse(localStorage.getItem('totalValue'))
+
+        if (products != null) {
+            if (!(products.id))
+                setDisplayButtonFinishOrder('block')
+            setTotalValue(total)
+        }
+
+    }

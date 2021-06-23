@@ -60,7 +60,6 @@ function Register() {
 
                 localStorage.setItem('id', id)
 
-
                 alert('Cadastro realizado com sucesso!')
 
                 setRegisterDone(true)
@@ -154,8 +153,30 @@ function Register() {
 
     }
 
+    function makeVerifications() {
 
-    // FALTA FAZER A VALIDAÇÃO. TIPO: VERIFICAR SE OS CAMPOS OBRIGATÓRIOS FORAM PREENCHIDOS E ETC
+        var counter = 0
+        
+        registerData.name != '' ? counter = counter + 1 : counter = counter
+        registerData.birthDate != '' ? counter ++ : counter = counter
+        registerData.cepNumber != '' ? counter ++ : counter = counter
+        registerData.complement != '' ? counter ++ : counter = counter
+        registerData.district != '' ? counter ++ : counter = counter
+        registerData.email != '' ? counter ++ : counter = counter
+        registerData.houseNumber != '' ? counter ++ : counter = counter
+        registerData.password != '' ? counter ++ : counter = counter
+        registerData.phoneNumber != '' ? counter ++ : counter = counter
+        registerData.street != '' ? counter ++ : counter = counter
+
+
+        if(counter == 10)
+            makeRegister()
+        else
+            alert('Você precisa preencher todos os campos!')
+
+        
+    }
+
 
     if (userIsLogged) {
 
@@ -255,7 +276,7 @@ function Register() {
 
                             <div className='buttonsFormSignIn' >
 
-                                <Link onClick={() => { makeRegister() }}>Cadastrar</Link>
+                                <Link onClick={() => { makeVerifications() }}>Cadastrar</Link>
 
                             </div>
 

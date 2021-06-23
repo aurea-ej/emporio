@@ -97,10 +97,13 @@
     width: 52vw;
     border: none;
     padding: 25px;
+    color: white;
+    font-size: 11pt;
     margin: 15px 0px;
     border-radius: 10px;
-    box-shadow: -2px 5px 8px #92929255;
+    background-color: #ffc05c;
     justify-content: space-between;
+    /* box-shadow: -2px 5px 8px #92929255; */
 
 }
 
@@ -108,11 +111,21 @@
 
     width: 50vw;
     border: none;
-    padding: 25px 15px;
+    color: white;
+    font-size: 11pt;
     margin: 15px 0px;
+    padding: 25px 15px;
     border-radius: 10px;
-    box-shadow: -2px 5px 8px #92929255;
+    background-color: #ffc05c;
+    /* box-shadow: -2px 5px 8px #92929255; */
     justify-content: space-between;
+
+}
+
+::placeholder {
+
+    color: white;
+    font-size: 11pt;
 
 }
 

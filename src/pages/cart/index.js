@@ -132,29 +132,33 @@ function Cart() {
 
         if(userIsLogged){
 
-            const id = firebase.database().ref().child('posts').push().key
+            if (selectedPayment != '') {
 
-            firebase.database().ref('requests/' + id).set({
+                const id = firebase.database().ref().child('posts').push().key
 
-                id: id,
-                listItem: data,
-                totalValue: totalValue.toFixed(2),
-                userName: dataAccount.name,
-                phoneNumber: dataAccount.phoneNumber,
-                street: dataAccount.street,
-                houseNumber: dataAccount.houseNumber,
-                district: dataAccount.district,
-                cepNumber: dataAccount.cepNumber,
-                complement: dataAccount.complement,
-                paymentType: selectedPayment,
-                clientNote: clientNote,
-                userEmail: dataAccount.email
+                firebase.database().ref('requests/' + id).set({
+
+                    id: id,
+                    listItem: data,
+                    totalValue: totalValue.toFixed(2),
+                    userName: dataAccount.name,
+                    phoneNumber: dataAccount.phoneNumber,
+                    street: dataAccount.street,
+                    houseNumber: dataAccount.houseNumber,
+                    district: dataAccount.district,
+                    cepNumber: dataAccount.cepNumber,
+                    complement: dataAccount.complement,
+                    paymentType: selectedPayment,
+                    clientNote: clientNote,
+                    userEmail: dataAccount.email
 
 
-            }).then(()=>{
-                localStorage.setItem('products', '{}')
-                alert("Pedido finalizado com sucesso!.")
-            })
+                }).then(()=>{
+                    localStorage.setItem('products', '{}')
+                    alert("Pedido finalizado com sucesso!.")
+                })
+
+            }else alert('Você precisa selecionar o tipo de pagamento!')
 
         }
         else {
@@ -284,11 +288,9 @@ function Cart() {
 
                     <h3>Valor total: R$ {totalValue.toFixed(2)}</h3>
 
-                    <input className="clientNoteInput" onChange={handleClientNote} placeholder='Escreva aqui alguma observação sobre seu pedido' />
-
                     <select className="paymentSelect" onChange={handleSelectPayment} >
 
-                        <option>Selecione o tipo de pagamento</option>
+                        <option value=''>Selecione o tipo de pagamento (obrigatório)</option>
                         <option value="Cartão" >Cartão de débito</option>
                         <option value="Dinheiro" >Dinheiro</option>
                         <option value="Pix" >PicPay</option>
@@ -296,6 +298,8 @@ function Cart() {
                         <option value="Pix" >TED</option>
 
                     </select>
+
+                    <input className="clientNoteInput" onChange={handleClientNote} placeholder='Escreva aqui alguma observação sobre seu pedido (opcional)' />
 
                 </section>
 
