@@ -23,7 +23,8 @@ function Admin() {
         itemAvailability: 0,
         unityPrice: 0,
         category: '',
-        unity: ''
+        unity: '',
+        amount: 0
         
     })
 
@@ -133,7 +134,8 @@ function Admin() {
             itemAvailability: newDataAdmin.itemAvailability,
             unityPrice: newDataAdmin.unityPrice,
             category: newDataAdmin.category,
-            unity: newDataAdmin.itemUnity
+            unity: newDataAdmin.itemUnity,
+            amount: 0
 
         }
 
@@ -150,17 +152,19 @@ function Admin() {
 
         if (wasChanged) {
 
-            firebase.database().ref('items/' + dataKeysAdm[selectItem]).update({
+            firebase.database()
+            .ref('items/' + dataKeysAdm[selectItem])
+            .update({
 
                 imageSrc: dataAlterItem.imageSrc != '' ? dataAlterItem.imageSrc : dataAdmin[selectItem].imageSrc,
                 title: dataAlterItem.title != '' ? dataAlterItem.title : dataAdmin[selectItem].title,
                 desc: dataAlterItem.desc != '' ? dataAlterItem.desc : dataAdmin[selectItem].desc,
                 price: dataAlterItem.price != 0 ? dataAlterItem.price : dataAdmin[selectItem].price,
                 itemAvailability: dataAlterItem.itemAvailability != 0 ? dataAlterItem.itemAvailability : dataAdmin[selectItem].itemAvailability,
-                itemUnity: dataAlterItem.itemUnity != 0 ? dataAlterItem.itemUnity : dataAdmin[selectItem].itemUnity
+                unity: dataAlterItem.unity != 0 ? dataAlterItem.unity : dataAdmin[selectItem].unity,
 
             })
-                .then(() => alert("Item atualizado com sucesso!"))
+            .then(() => alert("Item atualizado com sucesso!"))
 
         }
 
@@ -298,10 +302,10 @@ function Admin() {
 
                         </select>
 
-                        <select onChange={handleInputAdminChangeAlter} name='itemUnity' >
+                        <select onChange={handleInputAdminChangeAlter} name='unity' >
 
                             <option value='' > Selecione a unidade</option>
-                            <option value='Quilograma' >Quilograma</option>
+                            <option value='kg' >Quilograma</option>
                             <option value='Unidade' >Unidade</option>
 
                         </select>

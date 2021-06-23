@@ -97,7 +97,13 @@ function Home() {
 
         data.map((item) => {
 
-            if (item.title.includes(searchInput) || item.desc.includes(searchInput))
+            var title = item.title.toLowerCase()
+            var desc = item.desc.toLowerCase()
+            var search = searchInput.toLowerCase()
+
+
+            // if (title.includes(searchInput) || desc.includes(searchInput))
+            if (title.includes(search) )
                 itens.push(item)
 
         })
@@ -134,6 +140,8 @@ function Home() {
 
         var dataTemp = data
         dataTemp[index].amount = dataTemp[index].amount + 1
+
+        console.log(dataTemp[index].amount)
 
         var totalValueTemp = Number(dataTemp[index].price) + totalValue
 
@@ -321,7 +329,7 @@ function Home() {
                                                     <div>
 
                                                         <p><b>Categoria: </b>{item.category}</p>
-                                                        
+
                                                         {
                                                             (item.unityPrice) != undefined ?
                                                             (<p>
@@ -341,7 +349,7 @@ function Home() {
                                                 <div>
 
                                                     <span onClick={() => { remove(index) }}>-</span>
-                                                    quantidade: <b>{item.amount}</b>
+                                                    Quantidade: <b>{item.amount}</b>
                                                     <span onClick={() => { add(index) }}>+</span>
 
                                                 </div>
