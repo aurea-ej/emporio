@@ -51,6 +51,8 @@ function Cart() {
             setData(temp)
             setDataExists(true)
 
+            console.log(verify)
+
             var total = 0
 
             temp.map((item)=>{
@@ -150,7 +152,8 @@ function Cart() {
                     complement: dataAccount.complement,
                     paymentType: selectedPayment,
                     clientNote: clientNote,
-                    userEmail: dataAccount.email
+                    userEmail: dataAccount.email,
+                    adminNote: ''
 
 
                 }).then(()=>{
@@ -251,37 +254,36 @@ function Cart() {
                     {
                         data.map((item,index) => {
                             
-                            if (item.amount) {
-                                
-                                return (
+                            return (
 
-                                    <div className='boxCart flexDisplayCart'>
+                                <div className='boxCart flexDisplayCart'>
 
-                                        <div className='lineBoxCardProduct nameProductInCart' >
+                                    <div className='lineBoxCardProduct nameProductInCart' >
 
-                                            <img src={item.imageSrc} alt='imagem do produto' className="imgProductCart" />
-                                            <h3>{item.title}</h3>
-
-                                        </div>
-
-                                        <div className='lineBoxCardProduct flexDisplayCart infoProductInCart'>
-
-                                            <h4>R$ {((item.price) * item.amount).toFixed(2)}</h4>
-                                            <h5>qnt.:{item.amount}</h5>
-
-                                        </div>
-
-                                        <img src={closeIcon}
-                                            className="imgRemoveIconCart"
-                                            alt='opção de remover item'
-                                            onClick={()=>{
-                                                removeItemInCart(index)
-                                            }}
-                                        />
+                                        <img src={item.imageSrc} alt='imagem do produto' className="imgProductCart" />
+                                        <h3>{item.title}</h3>
+                                        {/* {console.log(item)} */}
 
                                     </div>
-                                )
-                            }
+
+                                    <div className='lineBoxCardProduct flexDisplayCart infoProductInCart'>
+
+                                        <h4>R$ {((item.price) * item.amount).toFixed(2)}</h4>
+                                        <h5>qnt.:{item.amount}</h5>
+                                        <h5>({item.unity})</h5>
+
+                                    </div>
+
+                                    <img src={closeIcon}
+                                        className="imgRemoveIconCart"
+                                        alt='opção de remover item'
+                                        onClick={()=>{
+                                            removeItemInCart(index)
+                                        }}
+                                    />
+
+                                </div>
+                            )
 
                         })
                     }

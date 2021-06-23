@@ -41,6 +41,25 @@
 
 }
 
+.lineBoxCardProduct h3 {
+
+    color: #434f38;
+
+}
+
+.lineBoxCardProduct h4 {
+
+    color: #434f38;
+
+}
+
+.lineBoxCardProduct h5 {
+
+    color: rgb(175, 175, 175);
+
+}
+
+
 .nameProductInCart {
 
     width: 23vw;
@@ -49,7 +68,7 @@
 
 .infoProductInCart {
 
-    width: 10vw;
+    width: 20vw;
 
 }
 

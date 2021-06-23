@@ -37,7 +37,6 @@ function Home() {
 
                 var data = snapshot.val()
                 var temp = Object.keys(data).map((key) => data[key])
-                console.log(temp)
                 setData(temp)
                 setDataBackup(temp)
 
@@ -141,8 +140,6 @@ function Home() {
         var dataTemp = data
         dataTemp[index].amount = dataTemp[index].amount + 1
 
-        console.log(dataTemp[index].amount)
-
         var totalValueTemp = Number(dataTemp[index].price) + totalValue
 
         setData(dataTemp)
@@ -183,15 +180,17 @@ function Home() {
                 newItems.push(item)
 
         })
-
+        
         if (listOfItems != null) {
-
+            
             newListOfItems = {
                 ...listOfItems,
                 ...newItems
             }
-
+            
             localStorage.setItem('products', JSON.stringify({ ...newListOfItems }))
+            
+            console.log({ ...newListOfItems })
 
         }
         else {
@@ -201,6 +200,7 @@ function Home() {
             }
 
             localStorage.setItem('products', JSON.stringify({ ...newListOfItems }))
+            console.log({ ...newListOfItems })
 
         }
 

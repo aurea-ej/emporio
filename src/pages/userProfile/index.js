@@ -100,7 +100,8 @@ function UserProfile() {
     function signOut() {
 
         firebase.auth().signOut()
-        history.goBack()
+        localStorage.setItem('userEmail','')
+        history.push('/')
 
     }
 

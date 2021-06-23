@@ -17,6 +17,7 @@ function Request() {
 
     const [dataAdmin, setDataAdmin] = useState([])
     const [selectItem, setSelectItem] = useState('')
+    const [noteAdmin, setNoteAdmin] = useState('')
     const [displayModal, setDisplayModal] = useState("none");
     const [heightPageWhenOpenModal, setHeightPageWhenOpenModal] = useState(0)
     const [modalData, setModalData] = useState({});
@@ -25,21 +26,6 @@ function Request() {
 
         if (!firebase.apps.length)
             firebase.initializeApp(firebaseConfig);
-
-        // firebase.database().ref('requests').get('/requests')
-        //     .then(function (snapshot) {
-
-        //         if (snapshot.exists()) {
-
-        //             var data = snapshot.val()
-        //             var temp = Object.keys(data).map((key) => data[key])
-        //             console.log(temp)
-        //             setDataAdmin(temp)
-
-        //         }
-
-        //     })
-        
 
         var firebaseRef = firebase.database().ref('requests/');
 
@@ -73,9 +59,39 @@ function Request() {
 
     }
 
-    function removeItemOfClient(params) {
+    function removeItemOfClient(indexItem,indexListItem) {
 
-        alert('ainda nao implementado')
+        var dataTemp = dataAdmin
+
+        var confirm = window.confirm("Tem certeza que deseja remover este item?")
+
+        if(confirm){
+
+            dataTemp[indexItem].listItem.splice(indexListItem,1)
+
+            firebase.database()
+            .ref('requests/' + dataTemp[indexItem].id)
+            .update({
+
+                id: dataTemp[indexItem].id,
+                listItem: dataTemp[indexItem].listItem,
+                totalValue: dataTemp[indexItem].totalValue,
+                userName: dataTemp[indexItem].userName,
+                phoneNumber: dataTemp[indexItem].phoneNumber,
+                street: dataTemp[indexItem].street,
+                houseNumber: dataTemp[indexItem].houseNumber,
+                district: dataTemp[indexItem].district,
+                cepNumber: dataTemp[indexItem].cepNumber,
+                complement: dataTemp[indexItem].complement,
+                paymentType: dataTemp[indexItem].paymentType,
+                clientNote: dataTemp[indexItem].clientNote,
+                userEmail: dataTemp[indexItem].userEmail,
+                adminNote: dataTemp[indexItem].adminNote
+
+            }).then(()=>{
+                alert('Item removido com sucesso')
+            })
+        }
 
     }
 
@@ -88,6 +104,12 @@ function Request() {
 
     }
 
+    function handleInputNote(event) {
+
+        setNoteAdmin(event.target.value)
+
+    }
+
     function closeModal() {
 
         if (displayModal == "none")
@@ -96,6 +118,37 @@ function Request() {
             window.scrollTo(-heightPageWhenOpenModal, - heightPageWhenOpenModal)
             setDisplayModal("none");
         }
+    }
+
+    function sendNoteAdmin(indexItem) {
+
+        var dataTemp = dataAdmin
+
+        firebase.database()
+        .ref('requests/' + dataTemp[indexItem].id)
+        .update({
+
+            id: dataTemp[indexItem].id,
+            listItem: dataTemp[indexItem].listItem,
+            totalValue: dataTemp[indexItem].totalValue,
+            userName: dataTemp[indexItem].userName,
+            phoneNumber: dataTemp[indexItem].phoneNumber,
+            street: dataTemp[indexItem].street,
+            houseNumber: dataTemp[indexItem].houseNumber,
+            district: dataTemp[indexItem].district,
+            cepNumber: dataTemp[indexItem].cepNumber,
+            complement: dataTemp[indexItem].complement,
+            paymentType: dataTemp[indexItem].paymentType,
+            clientNote: dataTemp[indexItem].clientNote,
+            userEmail: dataTemp[indexItem].userEmail,
+            adminNote: noteAdmin
+
+
+        }).then(()=>{
+            alert("Recado enviado!")
+        })
+        setNoteAdmin('')
+
     }
 
     return (
@@ -111,9 +164,9 @@ function Request() {
 
             <main id='mainRequest' >
 
-                {dataAdmin.map((item) => (
+                {dataAdmin.map((item, indexItem) => (
 
-                    <div className="boxOrder" onClick={() => { handleModalInfos(item) }}>
+                    <div className="boxOrder">
 
                         <div className="leftSizeBoxOrder" >
 
@@ -145,18 +198,25 @@ function Request() {
 
                             <ul>
 
-                                {item.listItem.map((item, index) => (
-                                    <div className='flexDisplayRequestPage' >
-                                        <li><b>{item.title}</b> ({item.amount})</li>
-                                        <img src={closeIcon}
-                                            className="imgRemoveIconCart"
-                                            alt='opção de remover item'
-                                            onClick={() => {
-                                                removeItemOfClient(index)
-                                            }}
-                                        />
-                                    </div>
-                                ))}
+                                {
+                                    item.listItem.map((item, indexListItem) => (
+
+                                        <div className='flexDisplayRequestPage' >
+
+                                            <li><b>{item.title}</b> ({item.amount})</li>
+
+                                            <img src={closeIcon}
+                                                className="imgRemoveIconCart"
+                                                alt='opção de remover item'
+                                                onClick={() => {
+                                                    removeItemOfClient(indexItem,indexListItem)
+                                                }}
+                                            />
+
+                                        </div>
+
+                                    ))
+                                }
 
                             </ul>
 
@@ -164,8 +224,8 @@ function Request() {
 
                             {
 
-                                item.clientNote != undefined ?
-                                    <p>Observações: <b>{item.clientNote}</b></p>
+                                item.clientNote != '' ?
+                                    <p>Observações do cliente: <b>{item.clientNote}</b></p>
                                     : ''
 
                             }
@@ -179,6 +239,27 @@ function Request() {
                                 : ''
 
                             }
+
+                            {
+
+                            item.adminNote != '' ?
+                                <p>Observações da Empório: <b>{item.adminNote}</b></p>
+                                : ''
+
+                            }
+
+                            <div>
+                                <input 
+                                    placeholder='Recado para cliente'
+                                    onChange={handleInputNote} />
+                                    
+                                    <div > 
+                                        <a onClick={()=>{sendNoteAdmin(indexItem)}} >Enviar Recado</a>
+                                        <a onClick={() => { handleModalInfos(item) }}>Designar Entregador</a>
+                                    </div>
+                            </div>
+
+                            
 
                         </div>
 
