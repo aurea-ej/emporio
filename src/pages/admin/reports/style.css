@@ -1,0 +1,241 @@
+.Request {
+
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+}
+
+.flexDisplayRequestPage {
+
+    display: flex;
+    align-items: center;
+
+}
+
+#mainRequest {
+
+    width: 100%;
+    margin: 5vh 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+}
+
+.boxOrder {
+
+    width: 70%;
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+    color: white;
+
+}
+
+.boxOrder b {
+
+    margin-left: 1em;
+
+}
+
+.leftSizeBoxOrder {
+
+    width: 50%;
+    padding: 15px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    background-color: #434f38;
+
+}
+
+.rightSizeBoxOrder {
+
+    width: 50%;
+    padding: 15px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    background-color: #727f26;
+
+}
+
+.rightSizeBoxOrder ul {
+
+    list-style: none;
+
+}
+
+.rightSizeBoxOrder li::before {
+
+    content: "↠";
+
+}
+
+.rightSizeBoxOrder li {
+
+    margin-right: 10px;
+
+}
+
+.rightSizeBoxOrder > div {
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.rightSizeBoxOrder > div input {
+
+    width: 90%;
+    border: none;
+    padding: 15px;
+    margin-top: 20px;
+    border-radius: 5px;
+    color: white;
+    background-color: #434f38;
+
+}
+
+.rightSizeBoxOrder > div a {
+
+    padding: 15px;
+    margin-top: 20px;
+    border-radius: 5px;
+    background-color: #434f38;
+    cursor: pointer
+
+}
+
+.rightSizeBoxOrder > div > div{
+
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+}
+
+.texTripRequest {
+
+    font-size: 15pt;
+    color: #662210;
+
+}
+
+.selectFinishOrder {
+
+    width: 50%;
+    height: 50px;
+    color: white;
+    cursor: pointer;
+    background-color: #434f38;
+
+} 
+
+.optionSelectOrder {
+
+    height: 50px;
+    cursor: pointer;
+    /* background-color: #434f38; */
+
+}
+
+.finishButton {
+
+    color: white;
+    cursor: pointer;
+    padding: 15px;
+    margin: 20px 0;
+    border-radius: 10px;
+    background-color: #434f38;
+
+}
+
+.popUpSatisf {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.titlePesquisa {
+
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center;
+
+}
+
+.pesquisaSatisf input {
+
+    border: none;
+    padding: 15px;
+    margin: 10px 0;
+    color: white;
+    background-color: #662210;
+    border-radius: 5px;
+}
+
+.pesquisaSatisf ::placeholder {
+    
+    color: white;
+
+}
+
+.modalDelivery span {
+
+    width: 20px;
+    height: 20px;
+    padding: 8px;
+    color: white;
+    position: absolute;
+    top: 155px;
+    left: 61%;
+    z-index: 400;
+    cursor: pointer;
+    border-radius: 50%;
+    text-align: center;
+    background-color: #662210;
+
+}
+
+@media screen and (max-width: 768px) {
+
+    .boxOrder {
+
+        width: 85%;
+        flex-direction: column;
+
+    }
+
+    .leftSizeBoxOrder {
+
+        width: 95%;
+        padding: 10px;
+        font-size: 10pt;
+        border-top-right-radius: 10px;
+        border-bottom-left-radius: 0px;
+
+    }
+
+    .rightSizeBoxOrder {
+
+        width: 95%;
+        padding: 10px;
+        font-size: 10pt;
+        border-top-right-radius: 0px;
+        border-bottom-left-radius: 10px;
+
+    }
+
+    .selectOrder {
+
+        width: 85%;
+
+    }
+
+}

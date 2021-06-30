@@ -11,7 +11,7 @@ import BuyInfo from '../../../components/buyInfo'
 
 function OrderHistory() {
 
-    const [dataProduct, setDataProduct] = useState([])
+    const [dataAdmin, setDataAdmin] = useState([])
     const [dataExists, setDataExists] = useState(false);
     const [displayModal, setDisplayModal] = useState("none");
     const [heightPageWhenOpenModal, setHeightPageWhenOpenModal] = useState(0)
@@ -22,19 +22,21 @@ function OrderHistory() {
         if (!firebase.apps.length)
             firebase.initializeApp(firebaseConfig);
 
-        firebase.database().ref('providers-requests').get('/providers-requests')
-            .then(function (snapshot) {
+        var firebaseRef = firebase.database().ref('providers-requests/');
 
-                if (snapshot.exists()) {
+        firebaseRef.on('value', (snapshot) => {
 
-                    var data = snapshot.val()
-                    var temp = Object.keys(data).map((key) => data[key])
-                    setDataProduct(temp)
-                    setDataExists(true)
+            if (snapshot.exists()) {
 
-                }
+                var data = snapshot.val()
+                var temp = Object.keys(data).map((key) => data[key])
+                console.log(temp)
+                setDataAdmin(temp)
+                setDataExists(true)
 
-            })
+            }
+
+        });
 
     }, [])
 
@@ -57,85 +59,86 @@ function OrderHistory() {
         }
     }
 
-        if (dataExists) {
+    if (dataExists) {
 
-            return (
+        return (
 
-                <div className="historyPage">
+            <div className="historyPage">
 
-                    <Header />
+                <Header />
 
-                    <div style={{ display: displayModal }} tabindex="-1" role="dialog" className='divBuyInfo' >
-                        <span onClick={closeModal}>X</span>
-                        <BuyInfo displayProperty={displayModal} modalData={modalData} />
-                    </div>
+                <div style={{ display: displayModal }} tabIndex="-1" role="dialog" className='divBuyInfo' >
+                    <span onClick={closeModal}>X</span>
+                    <BuyInfo displayProperty={displayModal} modalData={modalData} />
+                </div>
 
-                    <section id='sectionHistory'>
+                <section id='sectionHistory'>
 
-                        <div className='textHistory' >
-                            <h2>Seu histórico de compras com fornecedores: </h2>
-                            <h4>Selecione um pedido para ver seus detalhes</h4>
-                        </div>
+                    <fieldset className='textHistory' >
 
-                        {
-                            dataProduct.map((item) => {
+                        <h1>Seu histórico de compras com fornecedores: </h1>
+                        <h4>Selecione um pedido para ver seus detalhes</h4>
 
-                                return (
+                    </fieldset>
 
-                                    <div className='boxHistory' onClick={() => { handleModalInfos(item) }}>
+                    {dataAdmin.map((item) => {
 
-                                        <div className='cardHistory' >
+                        return (
 
-                                            <div className="historyInfos">
+                            <div className='boxHistory' onClick={() => { handleModalInfos(item) }}>
 
-                                                <h2>{item.listTitle}</h2>
+                                <div className='cardHistory' >
 
-                                                <div className="listSchedule">
+                                    <div className="historyInfos">
 
-                                                    <h3>{item.orderDate}</h3>
-                                                    <h4>{item.orderTime}</h4>
+                                        <h2>{item.provider}</h2>
+                                        <h4>{item.listTitle}</h4>
 
-                                                </div>
-
-                                            </div>
+                                        <div className="listSchedule">
+                                            
+                                            <p>{item.orderDate} - {item.orderTime}</p>
 
                                         </div>
 
                                     </div>
-                                )
 
-                            })
-                        }
+                                </div>
 
-                    </section>
+                            </div>
+                        )
 
-                    <Footer />
+                    })
 
+                    }
+                </section>
+
+                <Footer />
+
+            </div>
+        )
+    }
+
+    else {
+
+        return (
+
+            <div className="HistoryPage">
+
+                <Header />
+
+                <div className="emptyHistory" style={{ height: "60vh", display: "flex", alignItems: "center", justifyContent: "center" }} >
+                    <h2>Seu histórico de pedidos está vazio </h2>
                 </div>
-            )
-        }
 
-        else {
+                <Footer />
 
-            return (
+            </div>
 
-                <div className="HistoryPage">
-
-                    <Header />
-
-                    <div className="emptyHistory" style={{ height: "60vh", display: "flex", alignItems: "center", justifyContent: "center" }} >
-                        <h2>Seu histórico de pedidos está vazio </h2>
-                    </div>
-
-                    <Footer />
-
-                </div>
-
-            )
-
-        }
+        )
 
     }
+
+}
 
 
 export default OrderHistory

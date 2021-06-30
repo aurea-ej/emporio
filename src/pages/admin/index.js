@@ -134,7 +134,7 @@ function Admin() {
                         <Link to='/AdminProdutoFornecedor' >Cadastro/alteração de produtos dos fornecedores</Link>
                         <Link to='/PedidoFornecedor' >Realizar pedido do fornecedor</Link>
                         <Link to="/ListaDeClientes" >Listagem de clientes</Link>
-                        <Link to="/" >Relatórios</Link>
+                        <Link to="/relatorios" >Relatórios</Link>
                         
                     </ul>
 

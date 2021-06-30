@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useHistory } from 'react-router-dom'
 
 import Header from '../../../components/header'
 import Footer from '../../../components/footer'
@@ -12,8 +13,10 @@ import firebaseConfig from '../../../FIREBASECONFIG.js'
 function ProviderRequests() {
 
     const [dataProvider, setDataProvider] = useState([]);
-    const [totalValue, setTotalValue] = useState(0);
     const [data, setData] = useState([]);
+    const [totalValue, setTotalValue] = useState(0);
+    const [selectProvider, setSelectProvider] = useState('');
+    const [displayButtonFinishOrder, setDisplayButtonFinishOrder] = useState('none')
 
     useEffect(() => {
 
@@ -28,6 +31,7 @@ function ProviderRequests() {
                     var data = snapshot.val()
                     var temp = Object.keys(data).map((key) => data[key])
                     setDataProvider(temp)
+                    setData(temp)
 
                 } else {
                     console.log("No data available");
@@ -36,210 +40,211 @@ function ProviderRequests() {
 
     }, [])
 
-    useEffect(async () => {
-
-        const verify = await JSON.parse(localStorage.getItem('provider-products'))
-
-        if (verify != null) {
-
-            console.log(verify)
-            setData(verify)
-
-            var total = 0
-
-            verify.map((item) => {
-
-                if (item.data != undefined) {
-
-                    var value = (Number(item.data.buyPrice))
-                    total = value + total
-
-                }
-
-                setTotalValue(total)
-
-            })
-
-        }
-
-    }, [])
-
-    function insertNewRequest() {
-
-        var confirm = window.confirm('Tem certeza que deseja finalizar o cadastro do pedido?')
-
-        if (confirm) {
-
-            var title = window.prompt('Insira um título para a lista')
-
-            var today = new Date();
-            var date = today.getDate()+'/'+(today.getMonth()+1)+'/'+today.getFullYear();
-            var hour = today.getHours()+':'+today.getMinutes();
-
-            const selectedProducts = JSON.parse(localStorage.getItem('provider-products'))
-
-            const id = firebase.database().ref().child('posts').push().key
-
-            firebase.database().ref('providers-requests/' + id).set({
-
-                id: id,
-                listItem: selectedProducts,
-                totalValue: totalValue.toFixed(2),
-                orderDate: date,
-                orderTime: hour,
-                listTitle: title
-
-            }).then(() => {
-                localStorage.setItem('provider-products', '[{}]')
-                alert("Pedido finalizado com sucesso!")
-            })
-
-        }
-
-    }
-
-    function addToCart(products) {
-
-
-        var productAmount = window.prompt('Insira a quantidade desejada')
-
-        if (productAmount) {
-
-            const listOfItems = JSON.parse(localStorage.getItem('provider-products'))
-
-            if (listOfItems != null) {
-
-                if (listOfItems === [{}]) {
-
-                    localStorage.removeItem('provider-products')
-                    const newItem = []
-                    newItem.push({ data: products, amount: productAmount})
-                    localStorage.setItem('provider-products', JSON.stringify(newItem))
-                    alert("Produto adicionado à lista de pedidos!")
-
-                } else {
-
-                    const newItem = JSON.parse(localStorage.getItem('provider-products'))
-                    newItem.push({ data: products, amount: productAmount})
-                    localStorage.setItem('provider-products', JSON.stringify(newItem))
-                    alert("Produto adicionado à lista de pedidos!")
-
-                }
-
-            } else {
-
-                const newItem = [{ data: products, amount: productAmount}]
-                localStorage.setItem('provider-products', JSON.stringify(newItem))
-                alert("Produto adicionado à lista de pedidos!")
-
-            }
-
-        }
-
-    }
-
     const [itemsOfProvider, setItemsOfProvider] = useState([])
 
     function handleSelectProviderProducts(event) {
-        
-        var position = event.target.value
-        var data = dataProvider[position].products
-        var selectedProvider = dataProvider[position].tradeName
-        console.log(selectedProvider)
 
-        if (data != undefined && data != null) {
+        var verify = totalValue
 
-            var items = Object.keys(data).map((key) => data[key])
-            var temp = []
+        if (verify === 0) {
 
-            items.map((products) => {
+            var position = event.target.value
+            var data = dataProvider[position].products
 
-                console.log(products)
-                temp.push(products)
+            if (data != undefined && data != null) {
 
-            })
+                var items = Object.keys(data).map((key) => data[key])
+                var temp = []
 
-            setItemsOfProvider(temp)
+                setSelectProvider(dataProvider[position].tradeName)
 
-        } else
+                items.map((products) => {
 
-            setItemsOfProvider([])
+                    console.log(products)
+                    temp.push(products)
+
+                })
+
+                setItemsOfProvider(temp)
+
+            } else
+
+                setItemsOfProvider([])
+
+        } else window.alert('Finalize o pedido antes de trocar de fornecedor!')
+
+    }
+
+    function add(index) {
+
+        var dataTemp = itemsOfProvider
+        dataTemp[index].amount = dataTemp[index].amount + 1
+
+        var totalValueTemp = Number(dataTemp[index].buyPrice) + totalValue
+
+        setData(dataTemp)
+        setTotalValue(totalValueTemp)
+        setDisplayButtonFinishOrder('block')
+
+    }
+
+    function remove(index) {
+
+        var dataTemp = itemsOfProvider
+
+        if (dataTemp[index].amount > 0) {
+
+            dataTemp[index].amount = dataTemp[index].amount - 1
+            var totalValueTemp = totalValue - Number(dataTemp[index].buyPrice)
+
+            setData(dataTemp)
+            setTotalValue(totalValueTemp)
+
+        }
+
+    }
+
+    let history = useHistory();
+
+    function addToCart() {
+
+        const listOfItems = JSON.parse(localStorage.getItem('providers-products'))
+        const provider = selectProvider
+
+        const newItems = []
+
+        var newListOfItems = {}
+
+        itemsOfProvider.map((item) => {
+
+            if (item.amount > 0)
+                newItems.push(item)
+
+        })
+
+        if (listOfItems != null) {
+
+            newListOfItems = {
+                ...listOfItems,
+                ...newItems
+            }
+
+            localStorage.setItem('provider-products', JSON.stringify({ ...newListOfItems }))
+            localStorage.setItem('provider', provider)
+
+        }
+
+        else {
+
+            newListOfItems = {
+                ...newItems
+            }
+
+            localStorage.setItem('provider-products', JSON.stringify({ ...newListOfItems }))
+            localStorage.setItem('provider', provider)
+
+        }
+
+        history.push('/CarrinhoFornecedor')
 
     }
 
     return (
 
-        <div className='providerRequests'>
+        <div className="App" >
 
-            <Header />
+            <div className='providerRequests'>
 
-            <main id='mainProviderRequest' >
+                <Header />
 
-                <div className='requestOption' >
+                <main id='mainProviderRequest' >
 
-                    <fieldset>
+                    <div className='requestOption' >
 
-                        <legend>
-                            <h2>Realizar pedido</h2>
-                            <h5>Selecione o fornecedor e clique nos produtos para ver suas informações e adicionar à lista de compras.</h5>
-                        </legend>
+                        <fieldset>
 
-                        <select onChange={handleSelectProviderProducts} >
+                            <legend>
 
-                            <option>Selecione o fornecedor</option>
+                                <h1>Realizar pedido de fornecedor</h1>
+                                <h5>Selecione o fornecedor e insira a quantidade para adicionar à lista de compras.</h5>
 
-                            {dataProvider.map((item, index) => {
+                            </legend>
 
-                                return (
+                            <select onChange={handleSelectProviderProducts} >
 
-                                    <option value={index} key={index}>{item.tradeName}</option>
+                                <option>Selecione o fornecedor</option>
 
-                                )
+                                {dataProvider.map((item, index) => {
 
-                            })}
+                                    return (
 
-                        </select>
+                                        <option value={index} key={index}>{item.tradeName}</option>
 
+                                    )
 
-                        <a onClick={() => { insertNewRequest() }}>Finalizar pedido</a>
+                                })}
 
-                        <div className="containerProviderRequest">
+                            </select>
 
-                            <section id="sectionProvider">
+                            <div className="containerProviderRequest">
 
-                                {itemsOfProvider.map((item) => (
+                                <div className="productsProvider">
 
-                                    <div className="boxProducts" onClick={() => { addToCart(item) }}>
+                                    <section id="sectionProvider">
 
-                                        <div className="productTitle">
+                                        {itemsOfProvider.map((item, index) => (
 
-                                            <img src={item.imageSrc} alt='Imagem do produto' />
-                                            <h2>{item.product}</h2>
+                                            <div className="boxProducts">
 
-                                        </div>
+                                                    <div className="productTitle">
 
-                                        <div className="productInfo">
+                                                        <img src={item.imageSrc} alt='Imagem do produto' />
+                                                        <h2>{item.product}</h2>
 
-                                            <p>Preço de compra: R$ <b>{item.buyPrice}</b> </p>
-                                            <p>Preço de venda: R$ <b>{item.sellPrice}</b></p>
+                                                    </div>
 
-                                        </div>
+                                                    <div className="productInfo">
 
-                                    </div>
+                                                        <p>Preço de compra: R$ <b>{item.buyPrice}</b> </p>
+                                                        <p>Preço de venda: R$ <b>{item.sellPrice}</b></p>
 
-                                ))}
+                                                    </div>
 
-                            </section>
+                                                    <div className='providerAmountDiv' >
 
-                        </div>
+                                                        <div>
 
-                    </fieldset>
+                                                            <span onClick={() => { remove(index) }}>-</span>
+                                                            Quantidade: <b>{item.amount}</b>
+                                                            <span onClick={() => { add(index) }}>+</span>
 
-                </div>
+                                                        </div>
 
-            </main>
+                                                    </div>
 
-            <Footer />
+                                                </div>
+                                                
+                                        ))}
+
+                                    </section>
+
+                                </div>
+
+                            </div>
+
+                        </fieldset>
+
+                    </div>
+
+                    <div className="buttonFinishOrder" style={{ display: displayButtonFinishOrder }}>
+                        <a onClick={() => addToCart()}>FINALIZAR PEDIDO - R$ {totalValue.toFixed(2)}</a>
+                    </div>
+
+                </main>
+
+                <Footer />
+
+            </div>
 
         </div>
 

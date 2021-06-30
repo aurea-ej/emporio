@@ -18,22 +18,21 @@ function BuyInfo(props) {
         if (!firebase.apps.length)
             firebase.initializeApp(firebaseConfig);
 
-        firebase.database().ref('providers-requests').get('/providers-requests')
-            .then(function (snapshot) {
+        var firebaseRef = firebase.database().ref('providers-requests/');
 
-                if (snapshot.exists()) {
+        firebaseRef.on('value', (snapshot) => {
 
-                    var data = snapshot.val()
-                    var temp = Object.keys(data).map((key) => data[key])
-                    setDataAdmin(temp)
+            if (snapshot.exists()) {
 
-                }
+                var data = snapshot.val()
+                var temp = Object.keys(data).map((key) => data[key])
+                setDataAdmin(temp)
 
-            })
+            }
+
+        })
 
     }, [])
-
-    console.log(modalData)
 
     return (
 
@@ -42,28 +41,12 @@ function BuyInfo(props) {
             <main id='mainBuyInfo' >
 
                 <div className="buyInfoTitle">
-                    <h2>Sua lista de produtos adquiridos</h2>
-                    <h4>{modalData.orderDate}</h4>
+                    <h2>Sua lista de produtos adquiridos: {modalData.provider}</h2>
+                    
+                    <h4>{modalData.listTitle}</h4>
+                    <h4>{modalData.orderDate} - {modalData.orderTime}</h4>
 
-                    {dataAdmin.map((item) => (
-
-                        <div className="test">
-
-                            <ul>
-
-                                {item.listItem.map((item) => (
-                                    <div className='aaa' >
-
-                                        <li><b>{item.data.product}</b> ({item.amount})</li>
-
-                                    </div>
-                                ))}
-
-                            </ul>
-
-                        </div>
- 
-                    ))} 
+                    {console.log(modalData.listItem)}
 
                 </div>
 

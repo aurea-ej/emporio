@@ -44,7 +44,10 @@ function ProviderInfo() {
                         <div className="providerCard" >
 
                             <div className="providerTitle">
-                                <h2>{provider.company}</h2>
+
+                                <h2>{provider.tradeName}</h2>
+                                <h4>{provider.corporateName}</h4>
+                                
                             </div>
                                 
                             <p>Nome do contato: </p>

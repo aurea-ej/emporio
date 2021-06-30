@@ -137,8 +137,9 @@ function Cart() {
             if (selectedPayment != '') {
 
                 const id = firebase.database().ref().child('posts').push().key
+                const now = new Date()
 
-                firebase.database().ref('requests/' + id).set({
+                const dataToSend = {
 
                     id: id,
                     listItem: data,
@@ -153,10 +154,19 @@ function Cart() {
                     paymentType: selectedPayment,
                     clientNote: clientNote,
                     userEmail: dataAccount.email,
-                    adminNote: ''
+                    adminNote: '',
+                    dateToCompare: new Date().toDateString(),
+                    date: `${now.getUTCDate()}/${now.getMonth()}/${now.getFullYear()}-${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`
 
+                }
 
-                }).then(()=>{
+                firebase.database().ref('requests/' + id).set(dataToSend)
+                .then(()=>{
+                    localStorage.setItem('products', '{}')
+                })
+
+                firebase.database().ref('reportsSales/' + id).set(dataToSend)
+                .then(()=>{
                     localStorage.setItem('products', '{}')
                     alert("Pedido finalizado com sucesso!.")
                 })

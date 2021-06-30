@@ -9,7 +9,6 @@ import firebaseConfig from '../../FIREBASECONFIG.js'
 function ModalUser(props) {
 
     const { displayProperty, modalDataUsers } = props;
-    const [wasChanged, setWasChanged] = useState(false)
 
     const [customerRegisterData, setCustomerRegisterData] = useState({
 

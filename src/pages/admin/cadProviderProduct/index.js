@@ -30,8 +30,10 @@ function ProviderProducts() {
 
     })
 
-    const [selectProduct, setSelectProduct] = useState('')
+    const [selectProduct, setSelectProduct] = useState([])
+
     const [selectProductToDelete, setSelectProductToDelete] = useState('')
+    const [selectProviderToDelete, setSelectProviderToDelete] = useState('')
 
     const [dataKeysAdm, setDataKeysAdm] = useState([])
     const [dataKeysAdmProduct, setDataKeysAdmProduct] = useState([])
@@ -115,7 +117,7 @@ function ProviderProducts() {
         if (!firebase.apps.length)
             firebase.initializeApp(firebaseConfig);
 
-        var ref = firebase.database().ref('providers/').child('products')
+        var ref = firebase.database().ref('providers/').child('products/')
 
         var productKeys = []
 
@@ -124,7 +126,6 @@ function ProviderProducts() {
         });
 
         setDataKeysAdmProduct(productKeys)
-        console.log(productKeys)
 
     }, []);
 
@@ -149,7 +150,7 @@ function ProviderProducts() {
                             dataProductTemp.push(item.products)
 
                     })
-                    console.log(dataProductTemp)
+
                     setDataProduct(dataProductTemp)
 
                 } else {
@@ -159,9 +160,9 @@ function ProviderProducts() {
 
     }, [])
 
-    function handleSelectProvider(event) {
+    function handleSelectProviderToDelete(event) {
 
-        setSelectProvider(event.target.value)
+        setSelectProviderToDelete(event.target.value)
 
     }
 
@@ -171,15 +172,15 @@ function ProviderProducts() {
 
     }
 
-    function handleSelectProduct(event) {
-
-        setSelectProduct(event.target.value)
-
-    }
-
     function handleSelectProductToDelete(event) {
 
         setSelectProductToDelete(event.target.value)
+
+    }
+
+    function handleSelectProvider(event) {
+
+        setSelectProvider(event.target.value)
 
     }
 
@@ -201,7 +202,7 @@ function ProviderProducts() {
         firebase.database().ref('providers/' + dataKeysAdm[selectProvider])
             .child('products/' + id)
             .set(data)
-            .then(err => console.log(err))
+            // .then(err => console.log(err))
         alert("Produto cadastrado com sucesso!")
 
     }
@@ -223,8 +224,8 @@ function ProviderProducts() {
 
             items.map((products) => {
 
-                console.log(products)
                 temp.push(products)
+                console.log(products)
 
             })
 
@@ -236,11 +237,19 @@ function ProviderProducts() {
 
     }
 
+    function handleSelectProduct(event) {
+
+        var position = event.target.value
+
+        setSelectProduct( itemsOfProvider[position])
+
+    }
+
     function updateProduct() {
 
         if (wasChangedProduct) {
 
-            firebase.database().ref('providers/' + dataKeysAdm[selectProvider]).child('/products' + dataKeysAdmProduct[selectProduct]).update({
+            firebase.database().ref('providers/' + dataKeysAdm[selectProvider]).child('products/' + dataKeysAdmProduct[selectProduct]).update({
 
                 product: dataAlterProduct.product != '' ? dataAlterProduct.product : dataProduct[selectProduct].product,
                 imageSrc: dataAlterProduct.imageSrc != '' ? dataAlterProduct.imageSrc : dataProduct[selectProduct].imageSrc,
@@ -258,12 +267,11 @@ function ProviderProducts() {
 
         firebase.database()
             .ref('providers/' + dataKeysAdm[selectProvider])
-            .child('products/') //products/ + ?????
+            .child('products/' + dataKeysAdmProduct[selectProductToDelete])
             .remove()
             .then(() => alert("Item removido com sucesso!"))
 
-        console.log(dataKeysAdm[selectProvider])
-        console.log(dataKeysAdmProduct[selectProductToDelete])
+            console.log(selectProductToDelete + 'aaaa')
 
     }
 
@@ -419,7 +427,7 @@ function ProviderProducts() {
                             <h2>Apagar produto</h2>
                         </legend>
 
-                        <select onChange={handleSelectProviderProducts} >
+                        <select onChange={handleSelectProviderToDelete} >
 
                             <option>Selecione o fornecedor</option>
 

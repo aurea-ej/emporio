@@ -1,8 +1,49 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap');
 
+#sectionHistory {
 
+    width: 100%;
+    margin-top: 8vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
 
-.divModalDelivery span{
+}
+
+.textHistory {
+
+    margin: 0 auto;
+
+}
+
+.textHistory h1 {
+
+    font-size: 2rem;
+
+}
+
+.boxHistory {
+
+    width: 25%;
+    color: white;
+    margin: 15px 0;
+    padding: 10px 15px;
+    border-radius: 20px;
+    background-color: #434f38;
+    cursor:pointer;
+    text-align: center;
+
+}
+
+.boxHistory h3 {
+
+    text-align: center;
+
+}
+
+.divBuyInfo span{
 
     width: 20px;
     height: 20px;
