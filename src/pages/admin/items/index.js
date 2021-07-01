@@ -38,9 +38,9 @@ function Admin() {
         imageSrc: '',
         title: '',
         desc: '',
-        price: 0,
+        price: '',
         itemAvailability: 0,
-        unityPrice: 0,
+        unityPrice: '',
         category: '',
         unity: ''
 
@@ -139,12 +139,22 @@ function Admin() {
 
         }
 
-        console.log(data)
+        // firebase.database().ref('items/' + id)
+        // .set(data)
+        // .then(err => console.log(err))
+        setNewDataAdmin({
 
-        firebase.database().ref('items/' + id)
-        .set(data)
-        .then(err => console.log(err))
-        alert("Item inserido com sucesso!.")
+            imageSrc: '',
+            title: '',
+            desc: '',
+            price: '',
+            itemAvailability: 0,
+            unityPrice: '',
+            category: '',
+            unity: ''
+    
+        })
+        prompt("Item inserido com sucesso!.")
         
     }
 
@@ -210,13 +220,13 @@ function Admin() {
                             <h2>Inserir novo item</h2>
                         </legend>
 
-                        <input name='title' onChange={handleInputAdminChange} placeholder='Nome' />
+                        <input name='title' onChange={handleInputAdminChange} placeholder='Nome' value={newDataAdmin.title}/>
 
-                        <input name='desc' onChange={handleInputAdminChange} placeholder='Descrição' />
+                        <input name='desc' onChange={handleInputAdminChange} placeholder='Descrição' value={newDataAdmin.desc} />
 
-                        <input name='price' onChange={handleInputAdminChange} placeholder='Preço por Kg' type='number' />
+                        <input name='price' onChange={handleInputAdminChange} placeholder='Preço por Kg' type='number' value={newDataAdmin.price} />
 
-                        <input name='unityPrice' onChange={handleInputAdminChange} placeholder='Preço unitário' type='number' />
+                        <input name='unityPrice' onChange={handleInputAdminChange} placeholder='Preço unitário' type='number' value={newDataAdmin.unityPrice} />
                         
                         <input type='file' onChange={uploadImage} accept="image/png, image/jpeg" placeholder='Imagem'/>
 
@@ -235,7 +245,7 @@ function Admin() {
 
                         </select>
 
-                        <select onChange={handleInputAdminChange} name='category' >
+                        <select onChange={handleInputAdminChange} name='category' value={newDataAdmin.category} >
 
                             <option value={0} >Categoria</option>
                             <option value="Diversos" >Diversos</option>

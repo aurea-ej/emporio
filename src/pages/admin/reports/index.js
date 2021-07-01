@@ -178,11 +178,13 @@ function Request() {
 
                                     {
                                         item.listItem.length > 1 ?
+
                                             item.listItem.map(product => (
-                                                <p>{product.title} ({`${product.amount} ${product.unity}`});</p>
+                                                <p>{product.title} ({`${product.amount} ${product.unity} por: R$ ${product.price}`});</p>
                                             ))
+
                                         :
-                                            <p>{item.listItem[0].title} ({`${item.listItem[0].amount} ${item.listItem[0].unity}`});</p>
+                                            <p>{item.listItem[0].title} ({`${item.listItem[0].amount} ${item.listItem[0].unity} por: R$ ${item.listItem[0].price}`});</p>
                                             
                                     }
 
