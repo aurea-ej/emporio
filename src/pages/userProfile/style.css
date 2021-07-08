@@ -149,6 +149,36 @@
 
 }
 
+.acompanhaPedidos {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    margin: 2px;
+    padding: 10px;
+    background-color: #f7ddb5;
+    border-radius: 5px;
+    box-shadow: black;
+}
+
+.acompanhaPedidos h3 {
+    font-size: medium;
+}
+
+.acompanhaPedidos h2 {
+    font-size: x-large;
+}
+
+.acompanhaPedidos h4 {
+    font-size: small;
+}
+
+.acomPedidosTitle {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .divAlterInfos {
 
     width: 100%;
@@ -246,7 +276,7 @@
 
     .textAlterInfosProfile {
 
-        width: 80%;
+        width: 100%;
         text-align: center;
 
     }
@@ -261,6 +291,10 @@
 
         width: 85%;
 
+    }
+
+    .acompanhaPedidos {
+        flex-direction: column;
     }
     
 }

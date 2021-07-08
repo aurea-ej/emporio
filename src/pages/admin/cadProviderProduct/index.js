@@ -22,31 +22,29 @@ function ProviderProducts() {
     const [dataAlterProduct, setDataAlterProduct] = useState({
 
         product: '',
-        qntd: 0,
+        qntd: '',
         unity: '',
         imageSrc: '',
-        buyPrice: 0,
-        sellPrice: 0,
+        buyPrice: '',
+        sellPrice: '',
 
     })
 
-    const [selectProduct, setSelectProduct] = useState([])
+    const [selectProductToAlter, setSelectProductToAlter] = useState([])
 
     const [selectProductToDelete, setSelectProductToDelete] = useState('')
-    const [selectProviderToDelete, setSelectProviderToDelete] = useState('')
 
     const [dataKeysAdm, setDataKeysAdm] = useState([])
-    const [dataKeysAdmProduct, setDataKeysAdmProduct] = useState([])
     const [dataProvider, setDataProvider] = useState([])
 
-    const [dataProduct, setDataProduct] = useState([])
     const [newDataProduct, setNewDataProduct] = useState({
 
         product: '',
         unity: '',
         imageSrc: '',
-        sellPrice: 0,
-        buyPrice: 0
+        sellPrice: '',
+        buyPrice: '',
+        qntd: ''
 
     })
 
@@ -125,7 +123,6 @@ function ProviderProducts() {
             productKeys.push(snapshot.key);
         });
 
-        setDataKeysAdmProduct(productKeys)
 
     }, []);
 
@@ -151,8 +148,6 @@ function ProviderProducts() {
 
                     })
 
-                    setDataProduct(dataProductTemp)
-
                 } else {
                     console.log("No data available");
                 }
@@ -160,11 +155,12 @@ function ProviderProducts() {
 
     }, [])
 
-    function handleSelectProviderToDelete(event) {
+    // function handleSelectProviderToDelete(event) {
 
-        setSelectProviderToDelete(event.target.value)
+    //     setSelectProviderToDelete(event.target.value)
+    //     console.log(event.target.value)
 
-    }
+    // }
 
     function handleSelectedUnity(event) {
 
@@ -175,6 +171,7 @@ function ProviderProducts() {
     function handleSelectProductToDelete(event) {
 
         setSelectProductToDelete(event.target.value)
+        console.log(event.target.value)
 
     }
 
@@ -202,7 +199,18 @@ function ProviderProducts() {
         firebase.database().ref('providers/' + dataKeysAdm[selectProvider])
             .child('products/' + id)
             .set(data)
-            // .then(err => console.log(err))
+            .then(err => console.log(err))
+        setNewDataProduct({
+
+            product: '',
+            unity: '',
+            imageSrc: '',
+            sellPrice: '',
+            buyPrice: '',
+            qntd: ''
+
+        })
+
         alert("Produto cadastrado com sucesso!")
 
     }
@@ -239,25 +247,55 @@ function ProviderProducts() {
 
     function handleSelectProduct(event) {
 
+        // console.log(itemsOfProvider[event.target.value])
+
         var position = event.target.value
 
-        setSelectProduct( itemsOfProvider[position])
+        setSelectProductToAlter(itemsOfProvider[position].id)
+        console.log(itemsOfProvider[position].product)
 
     }
 
     function updateProduct() {
 
+        // return(console.log(dataAlterProduct))
+        // return(console.log(dataProvider[selectProvider].products[selectProductToAlter]))
+
         if (wasChangedProduct) {
 
-            firebase.database().ref('providers/' + dataKeysAdm[selectProvider]).child('products/' + dataKeysAdmProduct[selectProduct]).update({
+            var products = dataProvider[selectProvider].products
 
-                product: dataAlterProduct.product != '' ? dataAlterProduct.product : dataProduct[selectProduct].product,
-                imageSrc: dataAlterProduct.imageSrc != '' ? dataAlterProduct.imageSrc : dataProduct[selectProduct].imageSrc,
-                unity: dataAlterProduct.unity != '' ? dataAlterProduct.unity : dataProduct[selectProduct].unity,
-                sellPrice: dataAlterProduct.sellPrice != '' ? dataAlterProduct.sellPrice : dataProduct[selectProduct].sellPrice,
-                buyPrice: dataAlterProduct.buyPrice != '' ? dataAlterProduct.buyPrice : dataProduct[selectProduct].buyPrice,
+            products[selectProductToAlter] = {
 
-            })
+                buyPrice: dataAlterProduct.buyPrice != '' ? dataAlterProduct.buyPrice : products[selectProductToAlter].buyPrice,
+                imageSrc: dataAlterProduct.imageSrc != '' ? dataAlterProduct.imageSrc : products[selectProductToAlter].imageSrc,
+                product: dataAlterProduct.product != '' ? dataAlterProduct.product : products[selectProductToAlter].product,
+                sellPrice: dataAlterProduct.sellPrice != '' ? dataAlterProduct.sellPrice : products[selectProductToAlter].sellPrice,
+                unity: dataAlterProduct.unity != '' ? dataAlterProduct.unity : products[selectProductToAlter].unity,
+                // qntd: dataAlterProduct.qntd != 0 ? dataAlterProduct.qntd : products[selectProductToAlter].qntd,
+
+            }
+
+            // return(console.log(products))
+
+
+            // .child('products/' + dataKeysAdmProduct[selectProduct])
+            firebase.database()
+                .ref('providers/' + dataKeysAdm[selectProvider])
+                .update({
+
+                    city: dataProvider[selectProvider].city,
+                    corporateName: dataProvider[selectProvider].corporateName,
+                    id: dataProvider[selectProvider].id,
+                    email: dataProvider[selectProvider].email,
+                    district: dataProvider[selectProvider].district,
+                    ownerName: dataProvider[selectProvider].ownerName,
+                    phone: dataProvider[selectProvider].phone,
+                    street: dataProvider[selectProvider].street,
+                    tradeName: dataProvider[selectProvider].tradeName,
+                    products: products
+
+                })
                 .then(() => alert("Item atualizado com sucesso!"))
         }
 
@@ -265,14 +303,14 @@ function ProviderProducts() {
 
     function deleteProduct() {
 
+        var products = dataProvider[selectProvider].products
+        var temp = Object.keys(products).map((key) => products[key])
+
         firebase.database()
-            .ref('providers/' + dataKeysAdm[selectProvider])
-            .child('products/' + dataKeysAdmProduct[selectProductToDelete])
+            .ref('providers/'+ dataProvider[selectProvider].id)
+            .child('products/' + temp[selectProductToDelete].id)
             .remove()
             .then(() => alert("Item removido com sucesso!"))
-
-            console.log(selectProductToDelete + 'aaaa')
-
     }
 
     function uploadImage(event) {
@@ -345,9 +383,9 @@ function ProviderProducts() {
                             <h3>Insira os dados do produto</h3>
                         </legend>
 
-                        <input name='product' onChange={handleInputProductChange} placeholder='Produto' />
+                        <input name='product' onChange={handleInputProductChange} placeholder='Produto' value={newDataProduct.product} />
 
-                        <select name='unity' onChange={handleSelectedUnity} >
+                        <select name='unity' onChange={handleSelectedUnity} value={newDataProduct.unity}>
 
                             <option value='' >Selecione a unidade</option>
                             <option value='Quilograma' >Quilograma</option>
@@ -357,9 +395,9 @@ function ProviderProducts() {
 
                         <input type='file' onChange={uploadImage} accept="image/png, image/jpeg" placeholder='Imagem' />
 
-                        <input name='buyPrice' onChange={handleInputProductChange} placeholder='Preço de compra' />
+                        <input name='buyPrice' onChange={handleInputProductChange} placeholder='Preço de compra' value={newDataProduct.buyPrice} />
 
-                        <input name='sellPrice' onChange={handleInputProductChange} placeholder='Preço de venda' />
+                        <input name='sellPrice' onChange={handleInputProductChange} placeholder='Preço de venda' value={newDataProduct.sellPrice} />
 
                         <a onClick={() => { insertNewProduct() }} >Inserir</a>
 
@@ -427,7 +465,7 @@ function ProviderProducts() {
                             <h2>Apagar produto</h2>
                         </legend>
 
-                        <select onChange={handleSelectProviderToDelete} >
+                        <select onChange={handleSelectProviderProducts} >
 
                             <option>Selecione o fornecedor</option>
 

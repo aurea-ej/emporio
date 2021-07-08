@@ -66,7 +66,7 @@ function UserProfile() {
 
     useEffect(() => {
 
-        window.scrollTo(0, 0);
+        // window.scrollTo(0, 0);
 
         const userEmail = localStorage.getItem('userEmail')
 
@@ -270,36 +270,61 @@ function UserProfile() {
             </div>
 
 
-            <div>
+            <section>
+
                 <h4 className="textAlterInfosProfile" onClick={() => handleDisplayDivPedidos()} >Quer acompanhar seus pedidos? <span>clique aqui</span></h4>
 
                 <div style={{ display: displayDivPedidos }} className="divPedidos" >
 
-                    <div className='dataPedidos'>
-                        <ul>
-                            <h2>Pedidos</h2>
-                            <div className='backgroundPedidos'>
 
-                                {/* {requestData.map((item) => {
+                <div className="divPedidos" >
 
-                                    if (item.listItem != undefined) {
+                    {requestData.map((item) => {
 
-                                        item.listItem.map(item => {
+                        return <>
+                        
+                            {item.listItem != undefined ?
 
-                                            console.log(item.data.title)
+                                item.listItem.map(item => {
 
-                                        })
-                                    }
+                                    return (
+                                        <div className="acompanhaPedidos">
+                                            <div className="acomPedidosTitle">
+                                                <h3>Nome do item:</h3>
+                                                <h2>{item.title}</h2>
+                                            </div>
+                                            <div className="acomPedidosTitle">
+                                                <h3>Unidade:</h3>
+                                                <h2>{item.unity}</h2>
+                                            </div>
+                                            <div className="acomPedidosTitle">
+                                                <h3>Quantidade:</h3>
+                                                <h2>{item.amount}</h2>
+                                            </div>
+                                            <div className="acomPedidosTitle">
+                                                <h3>Preço:</h3>
+                                                <h2>R$ {item.price}</h2>
+                                            </div>
+                                            <div className="acomPedidosTitle">
+                                                <h3>ID do item</h3>
+                                                <h4>{item.id}</h4>
+                                            </div>
+                                        </div>
 
-                                })} */}
+                                    )
 
-                            </div>
-                        </ul>
-                    </div>
+                                })
+                            : <p></p>}
+                        </>
+
+                    })}
+
 
                 </div>
 
-            </div>
+                </div>
+
+            </section>
 
             <ReactCircleModal
                 backgroundColor="#434f38"

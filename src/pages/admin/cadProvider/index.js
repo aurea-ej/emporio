@@ -45,7 +45,7 @@ function Provider() {
         district: '',
         city: '',
         phone: '',
-        products: data
+        products: []
 
     })
 
@@ -139,6 +139,18 @@ function Provider() {
             phone: newDataProvider.phone,
             id: id,
             products: [{}]
+
+        }).then(err => console.log(err))
+        setNewDataProvider({
+
+            corporateName: '',
+            tradeName: '',
+            ownerName: '',
+            email: '',
+            street: '',
+            district: '',
+            city: '',
+            phone: '',
 
         })
 
@@ -242,21 +254,21 @@ function Provider() {
                             <h5>Preencha os dados do fornecedor abaixo.</h5>
                         </legend>
 
-                        <input name='corporateName' onChange={handleInputProviderChange} placeholder='Razão social da empresa' />
+                        <input name='corporateName' onChange={handleInputProviderChange} placeholder='Razão social da empresa' value={newDataProvider.corporateName}/>
 
-                        <input name='tradeName' onChange={handleInputProviderChange} placeholder='Nome fantasia da empresa' />
+                        <input name='tradeName' onChange={handleInputProviderChange} placeholder='Nome fantasia da empresa' value={newDataProvider.tradeName}/>
 
-                        <input name='ownerName' onChange={handleInputProviderChange} placeholder='Pessoa responsável' />
+                        <input name='ownerName' onChange={handleInputProviderChange} placeholder='Pessoa responsável' value={newDataProvider.ownerName} />
 
-                        <input name='city' onChange={handleInputProviderChange} placeholder='Município' />
+                        <input name='city' onChange={handleInputProviderChange} placeholder='Município' value={newDataProvider.city}/>
 
-                        <input name='district' onChange={handleInputProviderChange} placeholder='Bairro' />
+                        <input name='district' onChange={handleInputProviderChange} placeholder='Bairro' value={newDataProvider.district} />
 
-                        <input name='street' onChange={handleInputProviderChange} placeholder='Rua' />
+                        <input name='street' onChange={handleInputProviderChange} placeholder='Rua' value={newDataProvider.street} />
 
-                        <input name='email' onChange={handleInputProviderChange} placeholder='E-mail' />
+                        <input name='email' onChange={handleInputProviderChange} placeholder='E-mail' value={newDataProvider.email} />
 
-                        <input name='phone' onChange={handleInputProviderChange} placeholder='Telefone com DDD' />
+                        <input name='phone' onChange={handleInputProviderChange} placeholder='Telefone com DDD' value={newDataProvider.phone} />
 
                         <a onClick={() => { insertNewProvider() }} >Cadastrar</a>
 

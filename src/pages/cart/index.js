@@ -42,7 +42,7 @@ function Cart() {
 
         const verify = await JSON.parse(localStorage.getItem('products'))
 
-        console.log(verify)
+        // console.log(verify)
     
         if (verify != null ){
 
