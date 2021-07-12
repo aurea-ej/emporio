@@ -62,7 +62,10 @@ function Admin() {
 
         data.map((item) => {
 
-            if (item.name.includes(searchInput))
+            var nameToSearch = item.name.toLowerCase()
+            var search = searchInput.toLowerCase()
+
+            if (nameToSearch.includes(search))
                 name.push(item)
 
         })
@@ -110,10 +113,10 @@ function Admin() {
 
             </div>
 
-            <main id='mainAdmin' >
+            <main id="mainClientList" >
 
                 <h1>Informações dos usuários</h1>
-                <h4>Clique em um cartão para alterar os dados dos usuários</h4>
+                <span>Clique em um cartão para alterar os dados dos usuários</span>
 
                 <div className='filterName' >
 
@@ -144,11 +147,20 @@ function Admin() {
 
                         <h3>{item.name}</h3>
 
-                        <p><b>Telefone</b>: {item.phoneNumber}</p>
-                        <p><b>E-mail</b>: {item.email}</p>
-                        <p><b>Rua</b>: {item.street}</p>
-                        <p><b>Bairro</b>: {item.district}</p>
-                        <p><b>N°</b>: {item.houseNumber}</p>
+                        <div>
+
+                            <div>
+                                <p><b>Telefone</b>: {item.phoneNumber}</p>
+                                <p><b>E-mail</b>: {item.email}</p>
+                            </div>
+
+                            <div>
+                                <p><b>Rua</b>: {item.street}</p>
+                                <p><b>Bairro</b>: {item.district}</p>
+                                <p><b>N°</b>: {item.houseNumber}</p>
+                            </div>
+                            
+                        </div>
 
                     </div>
 

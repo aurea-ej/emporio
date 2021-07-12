@@ -214,7 +214,7 @@ function Request() {
 
                                             <div className='flexDisplayRequestPage' >
 
-                                                <li><b>{item.title}</b> ({item.amount})</li>
+                                                <li><b>{item.title}</b> ({item.amount} {item.unity})</li>
 
                                                 <img src={closeIcon}
                                                     className="imgRemoveIconCart"
@@ -230,7 +230,7 @@ function Request() {
                                     :
                                         <div className='flexDisplayRequestPage' >
 
-                                            <li><b>{item.listItem[0].title}</b> ({item.listItem[0].amount})</li>
+                                            <li><b>{item.listItem[0].title}</b> ({item.listItem[0].amount} {item.listItem[0].unity})</li>
 
                                             <img src={closeIcon}
                                                 className="imgRemoveIconCart"

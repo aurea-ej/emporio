@@ -37,6 +37,13 @@ function Home() {
 
                 var data = snapshot.val()
                 var temp = Object.keys(data).map((key) => data[key])
+
+                temp.sort((a,b)=> {
+
+                    return (a.title > b.title) ? 1 : ((b.title > a.title) ? -1 : 0)
+
+                })
+
                 setData(temp)
                 setDataBackup(temp)
 
@@ -99,7 +106,6 @@ function Home() {
             var title = item.title.toLowerCase()
             var desc = item.desc.toLowerCase()
             var search = searchInput.toLowerCase()
-
 
             // if (title.includes(searchInput) || desc.includes(searchInput))
             if (title.includes(search) )

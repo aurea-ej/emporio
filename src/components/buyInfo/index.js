@@ -19,24 +19,31 @@ function BuyInfo(props) {
             <main id='mainBuyInfo' >
 
                 <div className="buyInfoTitle">
-                    <h2>Sua lista de produtos adquiridos: {modalData.provider}</h2>
+                    <h2>Sua lista de produtos adquiridos: <br/>{modalData.listTitle}</h2>
 
-                    <h4>{modalData.listTitle}</h4>
+                    <h3>{modalData.provider}</h3>
                     <h4>{modalData.orderDate} - {modalData.orderTime}</h4>
-
-
 
                     {modalData.listItem != undefined ?
                         modalData.listItem.map((item) => {
 
-                            return <p>{item.product}</p>
+                            return (
+
+                                <div className="productList">
+
+                                    <p>{item.product} ({item.amount} {item.unity}) : <strong>R$ {item.buyPrice * item.amount}</strong></p>
+
+                                </div>
+
+                            )
 
                         }
+
                         ) : <p></p>
 
                     }
 
-
+                        <h2>Valor total: R$ {modalData.totalValue}</h2>
 
                 </div>
 

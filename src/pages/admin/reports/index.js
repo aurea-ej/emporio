@@ -80,76 +80,91 @@ function Request() {
 
     function salesThisMonth() {
 
-        const today = new Date()
-        const thisMonthTemp = []
-        var totalValueThisMonthTemp = 0
+        if (thisMonth.length == 0 )  {
 
-        data.map((item)=> {
+            const today = new Date()
+            const thisMonthTemp = []
+            var totalValueThisMonthTemp = 0
 
-            const saleDate = new Date(item.dateToCompare)
-            const difference = ((Math.abs(today - saleDate) / 1000.0)/86400)
+            console.log('dasdasdas')
 
-            if( difference > 7 && difference <= 30) {
-                thisMonthTemp.push(item)
-                totalValueThisMonthTemp = totalValueThisMonthTemp + Number(item.totalValue)
-            }
+            data.map((item)=> {
 
-        })
+                const saleDate = new Date(item.dateToCompare)
+                const difference = ((Math.abs(today - saleDate) / 1000.0)/86400)
 
-        setThisMonth(thisMonthTemp)
-        setTotalValueThisMonth(totalValueThisMonthTemp)
+                if( difference > 7 && difference <= 30) {
+                    thisMonthTemp.push(item)
+                    totalValueThisMonthTemp = totalValueThisMonthTemp + Number(item.totalValue)
+                }
+
+            })
+
+            setThisMonth(thisMonthTemp)
+            setTotalValueThisMonth(totalValueThisMonthTemp)
+        
+        } else setThisMonth([])
         
     }
 
     function salesThreeMonths() {
 
-        const today = new Date()
-        const period = []
-        var totalValueTemp = 0
+        if (threeMonths.length == 0 )  {
 
-        data.map((item)=> {
+            const today = new Date()
+            const period = []
+            var totalValueTemp = 0
 
-            const saleDate = new Date(item.dateToCompare)
-            const difference = ((Math.abs(today - saleDate) / 1000.0)/86400)
+            data.map((item)=> {
 
-            if( difference > 30 && difference <= 90) {
-                period.push(item)
-                totalValueTemp = totalValueTemp + Number(item.totalValue)
-            }
+                const saleDate = new Date(item.dateToCompare)
+                const difference = ((Math.abs(today - saleDate) / 1000.0)/86400)
 
-        })
+                if( difference > 30 && difference <= 90) {
+                    period.push(item)
+                    totalValueTemp = totalValueTemp + Number(item.totalValue)
+                }
 
-        setThreeMonths(period)
-        setTotalValueThreeMonths(totalValueTemp)
+            })
+
+            setThreeMonths(period)
+            setTotalValueThreeMonths(totalValueTemp)
+
+        } else setThreeMonths([])
         
     }
 
     function salesSixMonths() {
 
-        const today = new Date()
-        const period = []
-        var totalValueTemp = 0
+        if (sixMonths.length == 0 )  {
 
-        data.map((item)=> {
+            const today = new Date()
+            const period = []
+            var totalValueTemp = 0
 
-            const saleDate = new Date(item.dateToCompare)
-            const difference = ((Math.abs(today - saleDate) / 1000.0)/86400)
+            data.map((item)=> {
 
-            if( difference > 30 && difference <= 180) {
-                period.push(item)
-                totalValueTemp = totalValueTemp + Number(item.totalValue)
-            }
+                const saleDate = new Date(item.dateToCompare)
+                const difference = ((Math.abs(today - saleDate) / 1000.0)/86400)
 
-        })
+                if( difference > 30 && difference <= 180) {
+                    period.push(item)
+                    totalValueTemp = totalValueTemp + Number(item.totalValue)
+                }
 
-        setSixMonths(period)
-        setTotalValuesixMonths(totalValueTemp)
+            })
+
+            setSixMonths(period)
+            setTotalValuesixMonths(totalValueTemp)
+
+        } else setSixMonths([])
         
     }
 
     function salesAllMonths() {
 
-        setAllMonthsIsSelected(true)
+        allMonthsIsSelected ? setAllMonthsIsSelected(false) : setAllMonthsIsSelected(true)
+        // setAllMonthsIsSelected(true)
         
     }
 

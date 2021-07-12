@@ -81,22 +81,26 @@ function OrderHistory() {
 
                     </fieldset>
 
-                    {dataAdmin.map((item) => {
+                    <main>
 
-                        return (
+                        {dataAdmin.map((item) => {
 
-                            <div className='boxHistory' onClick={() => { handleModalInfos(item) }}>
+                            return (
 
-                                <div className='cardHistory' >
+                                <div className='boxHistory' onClick={() => { handleModalInfos(item) }}>
 
-                                    <div className="historyInfos">
+                                    <div className='cardHistory' >
 
-                                        <h2>{item.provider}</h2>
-                                        <h4>{item.listTitle}</h4>
+                                        <div className="cardHistoryInfos">
 
-                                        <div className="listSchedule">
-                                            
-                                            <p>{item.orderDate} - {item.orderTime}</p>
+                                            <h2>{item.listTitle}</h2>
+                                            <h4>{item.provider}</h4>
+
+                                            <div className="listSchedule">
+
+                                                <p>{item.orderDate} - {item.orderTime}</p>
+
+                                            </div>
 
                                         </div>
 
@@ -104,12 +108,13 @@ function OrderHistory() {
 
                                 </div>
 
-                            </div>
-                        )
+                            )
 
-                    })
+                        })
 
-                    }
+                        }
+                    </main>
+
                 </section>
 
                 <Footer />

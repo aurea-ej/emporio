@@ -1,10 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap');
 
-#sectionHistory {
+.historyPage {
 
-    width: 100%;
-    margin-top: 8vh;
+    width: 100vw;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -12,34 +11,43 @@
 
 }
 
-.textHistory {
+.historyPage main {
 
-    margin: 0 auto;
+    column-count: 3;
+    margin: 20px;
+    
+}
+
+.boxHistory {
+
+    padding: 10px;
+    color: white;
+    margin: 10px 0;
+    border-radius: 10px;
+    break-inside: avoid-column;
+    background-color: #434f38;
+    cursor: pointer;
+    text-align: center;
+
+}
+
+.historyPage main > div:nth-child(1) {
+
+    margin-top: 0;
 
 }
 
 .textHistory h1 {
 
+    margin-top: 8vh;
     font-size: 2rem;
+    margin: 0 auto;
 
 }
 
-.boxHistory {
+.listSchedule {
 
-    width: 25%;
-    color: white;
-    margin: 15px 0;
-    padding: 10px 15px;
-    border-radius: 20px;
-    background-color: #434f38;
-    cursor:pointer;
-    text-align: center;
-
-}
-
-.boxHistory h3 {
-
-    text-align: center;
+    margin-top: 3rem;
 
 }
 
@@ -60,14 +68,40 @@
 
 }
 
-@media screen and (max-width: 935px) {
-
-
-
-}
-
 @media screen and (max-width: 768px) {
 
+    .historyPage main {
 
+        column-count: 1;
+
+    }
+
+    .textHistory {
+
+        text-align: center;
+        width: 95vw;
+
+    }
+
+    .textHistory h4 {
+
+        line-height: 1rem;
+
+    }
+
+    .textHistory h1{
+
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+        margin-top: -2rem;
+
+    }
+
+    .divBuyInfo span{
+
+        right: 10%;
+        top: 21%;
+
+    }
 
 }

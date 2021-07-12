@@ -192,7 +192,8 @@ function ProviderProducts() {
             imageSrc: imageUrl,
             unity: selectedUnity,
             sellPrice: newDataProduct.sellPrice,
-            buyPrice: newDataProduct.buyPrice
+            buyPrice: newDataProduct.buyPrice,
+            amount: 0
 
         }
 

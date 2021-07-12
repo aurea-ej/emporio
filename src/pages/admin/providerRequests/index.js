@@ -104,6 +104,35 @@ function ProviderRequests() {
 
     }
 
+    function addMultiply(index) {
+
+        var dataTemp = itemsOfProvider
+        dataTemp[index].amount = dataTemp[index].amount + 10
+
+        var totalValueTemp = Number(dataTemp[index].buyPrice * 10) + totalValue
+
+        setData(dataTemp)
+        setTotalValue(totalValueTemp)
+        setDisplayButtonFinishOrder('block')
+
+    }
+
+    function removeMultiply(index) {
+
+        var dataTemp = itemsOfProvider
+
+        if (dataTemp[index].amount - 9 > 0) {
+
+            dataTemp[index].amount = dataTemp[index].amount - 10
+            var totalValueTemp = totalValue - Number(dataTemp[index].buyPrice * 10)
+
+            setData(dataTemp)
+            setTotalValue(totalValueTemp)
+
+        }
+
+    }
+
     let history = useHistory();
 
     function addToCart() {
@@ -196,34 +225,37 @@ function ProviderRequests() {
 
                                             <div className="boxProducts">
 
-                                                    <div className="productTitle">
+                                                <div className="divInfo">
 
-                                                        <img src={item.imageSrc} alt='Imagem do produto' />
-                                                        <h2>{item.product}</h2>
-
-                                                    </div>
+                                                    <img src={item.imageSrc} alt='Imagem do produto' />
 
                                                     <div className="productInfo">
+
+                                                        <h4>{item.product} ({item.unity})</h4>
 
                                                         <p>Preço de compra: R$ <b>{item.buyPrice}</b> </p>
                                                         <p>Preço de venda: R$ <b>{item.sellPrice}</b></p>
 
                                                     </div>
 
-                                                    <div className='providerAmountDiv' >
+                                                </div>
 
-                                                        <div>
+                                                <div className='providerAmountDiv' >
 
-                                                            <span onClick={() => { remove(index) }}>-</span>
-                                                            Quantidade: <b>{item.amount}</b>
-                                                            <span onClick={() => { add(index) }}>+</span>
+                                                    <div>
 
-                                                        </div>
+                                                        <span onClick={() => { removeMultiply(index) }}>-10</span>
+                                                        <span onClick={() => { remove(index) }}>-</span>
+                                                        Quantidade: <b>{item.amount}</b>
+                                                        <span onClick={() => { add(index) }}>+</span>
+                                                        <span onClick={() => { addMultiply(index) }}>+10</span>
 
                                                     </div>
 
                                                 </div>
-                                                
+
+                                            </div>
+
                                         ))}
 
                                     </section>

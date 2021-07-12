@@ -4,7 +4,6 @@
     min-height: 75vh;
     display: flex;
     align-items: center;
-    /* justify-content: center; */
     flex-direction: column;
     border-radius: 10px;
     position: absolute;
@@ -43,29 +42,43 @@
 
 }
 
+.buyInfoTitle h4 {
+
+    margin-bottom: 3rem;
+
+}
+
 .buyInfoTitle h2 {
 
-    margin-top: 4rem;
+    margin: 4rem 0 2rem 0;
 
 }
 
-.productList li {
+.productList {
 
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    margin-top: 1.5rem;
+    font-size: 1.1rem;
 
 }
-
 
 @media screen and (max-width: 768px) {
+
+    .modalBuyInfo {
+
+        width: 90%;
+
+    }
 
     .buyModal main {
 
         width: 20%;
     
+    }
+
+    .buyInfoTitle h2 {
+
+        font-size: 1.3rem;
+
     }
 
     .buyInfo {
